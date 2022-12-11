@@ -1,23 +1,19 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+
+import Sortable from "./CustomComponents/Tables/SortableTable";
+import Filterable from "./CustomComponents/Tables/FilterableTable";
+import Editable from "./CustomComponents/Tables/Editable";
+import SortFilter from "./CustomComponents/Tables/Sort-Filter";
+import AllTogether from "./CustomComponents/Tables/Sort-Filter-Edit";
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <SortFilter />
+      <Filterable />
+      <Editable />
+      <SortFilter />
+      <AllTogether />
     </div>
   );
 }
