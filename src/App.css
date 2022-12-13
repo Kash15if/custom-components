@@ -1,6 +1,9 @@
 .frame {
   background-color: aqua;
   height: 80vh;
+  overflow-y: auto;
+  margin: 2%;
+  padding: 2%;
 }
 
 .red {

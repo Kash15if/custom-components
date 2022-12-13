@@ -8,11 +8,22 @@ import AllTogether from "./CustomComponents/Tables/Sort-Filter-Edit";
 
 // importing data
 import dummyData from "./data/data1";
+import { useEffect, useState } from "react";
+
 function App() {
+  const [columns, setColumns] = useState();
+
+  useEffect(() => {
+    let tempCols = Object.keys(dummyData[0]);
+    setColumns(tempCols);
+  }, []);
+
   return (
     <div className="App">
       <div className="frame">
-        <Sortable data={dummyData} />
+        {dummyData && columns && (
+          <Sortable data={dummyData} columns={columns} />
+        )}
       </div>
 
       <div className="frame red">

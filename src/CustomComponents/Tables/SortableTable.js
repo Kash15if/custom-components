@@ -1,22 +1,43 @@
-const Sortable = ({ data }) => {
+import { useState } from "react";
+
+const Sortable = ({ data, columns }) => {
+  const [tabData, setTabData] = useState(data);
+
+  const sortColumn = (col, asc) => {
+    let sortedData = asc
+      ? tabData.sort((row1, row2) => row1[col] - row2[col])
+      : tabData.sort((row2, row1) => row1[col] - row2[col]);
+
+    console.log(sortedData);
+
+    setTabData([...sortedData]);
+  };
+
   return (
     <div>
       <table>
         <tr>
-          <th>Company</th>
-          <th>Contact</th>
-          <th>Country</th>
+          {columns.map((col) => (
+            <th>
+              {col}{" "}
+              <span>
+                <button onClick={() => sortColumn(col, false)}>sort</button>
+              </span>
+            </th>
+          ))}
         </tr>
-        <tr>
-          <td>Alfreds Futterkiste</td>
-          <td>Maria Anders</td>
-          <td>Germany</td>
-        </tr>
-        <tr>
-          <td>Centro comercial Moctezuma</td>
-          <td>Francisco Chang</td>
-          <td>Mexico</td>
-        </tr>
+
+        {tabData &&
+          tabData.map((row) => {
+            return (
+              <tr>
+                {" "}
+                {columns.map((col) => (
+                  <td>{row[col]}</td>
+                ))}{" "}
+              </tr>
+            );
+          })}
       </table>
     </div>
   );
