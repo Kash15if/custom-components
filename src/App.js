@@ -22,7 +22,11 @@ function App() {
     <div className="App">
       <div className="frame">
         {dummyData && columns && (
-          <Sortable data={dummyData} columns={columns} />
+          <Sortable
+            data={dummyData}
+            columns={columns}
+            tableHeader="Sortable Table"
+          />
         )}
       </div>
 

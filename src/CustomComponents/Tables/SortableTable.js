@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const Sortable = ({ data, columns }) => {
+const Sortable = ({ data, columns, tableHeader }) => {
   const [tabData, setTabData] = useState(data);
 
   const sortColumn = (col, asc) => {
@@ -15,6 +15,7 @@ const Sortable = ({ data, columns }) => {
 
   return (
     <div>
+      {tableHeader && <h2 className="tableHeader">{tableHeader}</h2>}
       <table>
         <tr>
           {columns.map((col) => (
