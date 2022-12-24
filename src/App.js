@@ -14,8 +14,9 @@ function App() {
   const [columns, setColumns] = useState();
 
   useEffect(() => {
-    let tempCols = Object.keys(dummyData[0]);
+    let tempCols = Object.keys(dummyData[0]).map((colName)=>({column: colName , sortable: true , editable: false , filterable: false}));
     setColumns(tempCols);
+    console.log(tempCols)
   }, []);
 
   return (
@@ -25,6 +26,7 @@ function App() {
           <Sortable
             data={dummyData}
             columns={columns}
+            sortableCols = {columns}
             tableHeader="Sortable Table"
           />
         )}
