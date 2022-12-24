@@ -2,12 +2,19 @@ import { useEffect, useState } from "react";
 
 const Sortable = ({ data, columns,sortableCols, tableHeader }) => {
   const [tabData, setTabData] = useState(data);
-  const [ascedntingIconArray , setAscedntingIconArray] = useState();
+  const [sortedColumn , setSortedColumn] = useState("");
+  const [sortedAsc , setSortedAsc] = useState(false);
+  
 
 
-  useEffect(()=>{
-    // let tempAcendingColArray = columns.map()
-  }, [])
+  // useEffect(()=>{
+  //   let tempAcendingColObj = {};
+  //   column.forEach(col => {
+  //     tempAcendingColObj[col.column] = 0;
+  //   });
+
+  //   setAscedntingIconArray({...tempAcendingColObj})
+  // }, [])
 
   const sortColumn = (col, asc) => {
     let sortedData = asc
@@ -26,11 +33,16 @@ const Sortable = ({ data, columns,sortableCols, tableHeader }) => {
         <tr>
           {columns.map((col , index) => (
             <th>
+
+              
+
               {col.column}{" "}
-              <span>
+              {
+              col.sortable && col.column === sortedColumn && <span>
                 <button onClick={() => sortColumn(col.column, true)}>&#8593;</button>
                 <button onClick={() => sortColumn(col.column, false)}>&#8595;</button>
               </span>
+              }
             </th>
           ))}
         </tr>
