@@ -25,7 +25,8 @@ const Sortable = ({ data, columns,sortableCols, tableHeader }) => {
       setSortedAsc(-1);
     }
 
-    if(sortColumn !== col){
+    if(sortedColumn !== col){
+      
       setSortedAsc(1);
       setSortedColumn(col);
     }
@@ -33,13 +34,13 @@ const Sortable = ({ data, columns,sortableCols, tableHeader }) => {
       ? data.sort((row1, row2) =>(row1[col] > row2[col]) ? 1 : (row1[col] < row2[col]) ? -1 : 0)
       : data.sort((row1, row2) =>(row1[col] > row2[col]) ? -1 : (row1[col] < row2[col]) ? 1 : 0)
 
-    console.log(sortedData , asc , col , sortedColumn , sortedAsc);
 
     setTabData([...sortedData]);
   };
 
   return (
     <div>
+      {sortedAsc}
       {tableHeader && <h2 className="tableHeader">{tableHeader}</h2>}
       <table>
         <tr>
@@ -49,8 +50,8 @@ const Sortable = ({ data, columns,sortableCols, tableHeader }) => {
               {col.column}{" "}
               {
               col.sortable && col.column === sortedColumn && <span>
-                {sortedAsc === 1 && <i>&#8595;</i>}
-                {sortedAsc === -1 && <i >&#8593;</i>}
+                {sortedAsc === -1 && <i>&#8595;</i>}
+                {sortedAsc === 1 && <i >&#8593;</i>}
               </span>
               }
               </button>
