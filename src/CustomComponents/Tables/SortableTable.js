@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 const Sortable = ({ data, columns,sortableCols, tableHeader }) => {
   const [tabData, setTabData] = useState(data);
   const [sortedColumn , setSortedColumn] = useState("");
-  const [sortedAsc , setSortedAsc] = useState(false);
+  const [sortedAsc , setSortedAsc] = useState(0);
   
 
 
@@ -17,11 +17,23 @@ const Sortable = ({ data, columns,sortableCols, tableHeader }) => {
   // }, [])
 
   const sortColumn = (col, asc) => {
-    let sortedData = asc
-      ? tabData.sort((row1, row2) =>(row1[col] > row2[col]) ? 1 : (row1[col] < row2[col]) ? -1 : 0)
-      : tabData.sort((row1, row2) =>(row1[col] > row2[col]) ? -1 : (row1[col] < row2[col]) ? 1 : 0)
 
-    console.log(sortedData);
+    if(asc){
+      setSortedAsc(1);
+    }
+    else{
+      setSortedAsc(-1);
+    }
+
+    if(sortColumn !== col){
+      setSortedAsc(1);
+      setSortedColumn(col);
+    }
+    let sortedData = asc
+      ? data.sort((row1, row2) =>(row1[col] > row2[col]) ? 1 : (row1[col] < row2[col]) ? -1 : 0)
+      : data.sort((row1, row2) =>(row1[col] > row2[col]) ? -1 : (row1[col] < row2[col]) ? 1 : 0)
+
+    console.log(sortedData , asc , col , sortedColumn , sortedAsc);
 
     setTabData([...sortedData]);
   };
@@ -32,17 +44,16 @@ const Sortable = ({ data, columns,sortableCols, tableHeader }) => {
       <table>
         <tr>
           {columns.map((col , index) => (
-            <th>
-
-              
-
+              <th>
+              <button onClick={() => sortColumn(col.column, (sortedColumn === col.column && sortedAsc === 1) ? false : true)}>
               {col.column}{" "}
               {
               col.sortable && col.column === sortedColumn && <span>
-                <button onClick={() => sortColumn(col.column, true)}>&#8593;</button>
-                <button onClick={() => sortColumn(col.column, false)}>&#8595;</button>
+                {sortedAsc === 1 && <i>&#8595;</i>}
+                {sortedAsc === -1 && <i >&#8593;</i>}
               </span>
               }
+              </button>
             </th>
           ))}
         </tr>
