@@ -33,7 +33,12 @@ function App() {
       </div>
 
       <div className="frame red">
-        <Filterable />
+      {dummyData && columns && (
+        <Filterable  data={dummyData}
+        columns={columns}
+        sortableCols = {columns}
+        tableHeader="Sortable Table"
+      />)}
       </div>
 
       <div className="frame gray">
