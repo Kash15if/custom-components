@@ -1,0 +1,13 @@
+.popup{
+    width: 5vw;
+    height: 6vh;
+    z-index: 100;
+}
+
+.showpopup{
+    display: block;
+}
+
+.hidepopup{
+display: none;
+}

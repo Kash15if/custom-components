@@ -21,7 +21,7 @@ function App() {
 
   return (
     <div className="App">
-      <div className="frame">
+      {/* <div className="frame">
         {dummyData && columns && (
           <Sortable
             data={dummyData}
@@ -30,13 +30,13 @@ function App() {
             tableHeader="Sortable Table"
           />
         )}
-      </div>
+      </div> */}
 
       <div className="frame red">
       {dummyData && columns && (
         <Filterable  data={dummyData}
         columns={columns}
-        sortableCols = {columns}
+        filterableCols = {columns}
         tableHeader="Sortable Table"
       />)}
       </div>
