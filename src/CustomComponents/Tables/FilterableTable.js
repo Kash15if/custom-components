@@ -13,6 +13,8 @@ const FilterableTable = ({ data, columns, filterableCols, tableHeader }) => {
   const [sortedAsc, setSortedAsc] = useState(0);
   const [popupVisibility, setPopupVisibility] = useState(false);
   const [valuesToBeFiltered, setValuesToBeFiltered] = useState();
+  // const [filterStrings, setFilterString] = useState();
+
 
 
 
@@ -25,69 +27,81 @@ const FilterableTable = ({ data, columns, filterableCols, tableHeader }) => {
     })
 
     setValuesToBeFiltered(filteredTempObj)
-  })
+  }, [])
 
 
+  const changeFilterableInputs = (e) => {
 
-  const PopUp = ({ filterableColumns }) => {
-    // console.log("popv b", filterableColumns)
-    filterableCols.forEach(element => {
-      console.log(element)
-    });
+    const { name, value } = e.target;
 
-    return <div className={"popup " + true ? "showpopup" : "hidepopup"}>
-      <button onClick={() => closePopup()}>close</button>
-      <div>        {
-        filterableColumns.map((oneCol) =>
-          <div><span>{oneCol.column} : </span><input value={oneCol.column} /></div>
-
-        )
-      }</div>
+    let tempFilteredStringObject = { ...valuesToBeFiltered, [name]: value }
 
 
-    </div>
+    // filterLogic to be implemented here
 
+
+    setValuesToBeFiltered(tempFilteredStringObject)
+    // console.log({ ...valuesToBeFiltered, [name]: value })
+    // console.log(e.target.name, e.target.value)
   }
 
+  // const PopUp = ({ filterableColumns }) => {
+  //   // console.log("popv b", filterableColumns)
+  //   filterableCols.forEach(element => {
+  //     console.log(element)
+  //   });
+
+  //   return <div className={"popup " + true ? "showpopup" : "hidepopup"}>
+  //     <button onClick={() => closePopup()}>close</button>
+  //     <div>        {
+  //       filterableColumns.map((oneCol) =>
+  //         <div><span>{oneCol.column} : </span><input value={oneCol.column} /></div>
+
+  //       )
+  //     }</div>
 
 
-  const closePopup = () => {
-    setPopupVisibility(!popupVisibility);
-  }
+  //   </div>
 
-  const sortColumn = (col, asc) => {
-
-    if (asc) {
-      setSortedAsc(1);
-    }
-    else {
-      setSortedAsc(-1);
-    }
-
-    if (sortedColumn !== col) {
-
-      setSortedAsc(1);
-      setSortedColumn(col);
-    }
-    let sortedData = asc
-      ? data.sort((row1, row2) => (row1[col] > row2[col]) ? 1 : (row1[col] < row2[col]) ? -1 : 0)
-      : data.sort((row1, row2) => (row1[col] > row2[col]) ? -1 : (row1[col] < row2[col]) ? 1 : 0)
+  // }
 
 
-    setTabData([...sortedData]);
-  };
+
+  // const closePopup = () => {
+  //   setPopupVisibility(!popupVisibility);
+  // }
+
+  // const sortColumn = (col, asc) => {
+
+  //   if (asc) {
+  //     setSortedAsc(1);
+  //   }
+  //   else {
+  //     setSortedAsc(-1);
+  //   }
+
+  //   if (sortedColumn !== col) {
+
+  //     setSortedAsc(1);
+  //     setSortedColumn(col);
+  //   }
+  //   let sortedData = asc
+  //     ? data.sort((row1, row2) => (row1[col] > row2[col]) ? 1 : (row1[col] < row2[col]) ? -1 : 0)
+  //     : data.sort((row1, row2) => (row1[col] > row2[col]) ? -1 : (row1[col] < row2[col]) ? 1 : 0)
+
+
+  //   setTabData([...sortedData]);
+  // };
 
   return (
     <div>
 
-      <button onClick={() => closePopup()}>open</button>
-      {popupVisibility && <PopUp filterableColumns={filterableCols} />}
       {tableHeader && <h2 className="tableHeader">{tableHeader}</h2>}
       <table>
         <tr>
           {columns.map((col, index) => (
             <th>
-              {col.sortable ? <button onClick={() => sortColumn(col.column, (sortedColumn === col.column && sortedAsc === 1) ? false : true)}>
+              {/* {col.sortable ? <button onClick={() => sortColumn(col.column, (sortedColumn === col.column && sortedAsc === 1) ? false : true)}>
                 {col.column}{" "}
                 {
                   col.column === sortedColumn && <span>
@@ -97,6 +111,23 @@ const FilterableTable = ({ data, columns, filterableCols, tableHeader }) => {
                 }
               </button>
                 : col.column
+
+
+              } */}
+              {col.column}
+            </th>
+          ))}
+        </tr>
+
+        <tr>
+          {columns && valuesToBeFiltered && columns.map((col, index) => (
+            <th>
+              {col.filterable ?
+                <input placeholder={col.column} value={valuesToBeFiltered[col.column]}
+                  name={col.column}
+                  onChange={(e) => changeFilterableInputs(e)}
+                />
+                : <input disabled />
 
 
               }
