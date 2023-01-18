@@ -14,31 +14,33 @@ function App() {
   const [columns, setColumns] = useState();
 
   useEffect(() => {
-    let tempCols = Object.keys(dummyData[0]).map((colName)=>({column: colName , sortable: true , editable: false , filterable: false}));
+    let tempCols = Object.keys(dummyData[0]).map((colName) => ({ column: colName, sortable: true, editable: false, filterable: false }));
     setColumns(tempCols);
     console.log(tempCols)
   }, []);
 
   return (
     <div className="App">
-      {/* <div className="frame">
+      <div className="frame">
         {dummyData && columns && (
           <Sortable
             data={dummyData}
             columns={columns}
-            sortableCols = {columns}
+            sortableCols={columns}
             tableHeader="Sortable Table"
+            recordsPerPageOption={[5, 10, 20]}
+            defaultRecordPerPage={5}
           />
         )}
-      </div> */}
+      </div>
 
       <div className="frame red">
-      {dummyData && columns && (
+        {/* {dummyData && columns && (
         <Filterable  data={dummyData}
         columns={columns}
         filterableCols = {columns}
         tableHeader="Sortable Table"
-      />)}
+      />)} */}
       </div>
 
       <div className="frame gray">
