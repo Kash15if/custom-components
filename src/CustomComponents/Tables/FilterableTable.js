@@ -38,7 +38,13 @@ const FilterableTable = ({ data, columns, filterableCols, tableHeader }) => {
 
 
     // filterLogic to be implemented here
+    // let filteredData = tabData.filter((itemRow) => {
+    //   return filterableColumn.some((colName, index) =>
+    //     itemRow[colName].toString().includes(filterText.toString())
+    //   );
+    // });
 
+    // setData(filteredData);
 
     setValuesToBeFiltered(tempFilteredStringObject)
     // console.log({ ...valuesToBeFiltered, [name]: value })
