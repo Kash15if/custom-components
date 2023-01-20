@@ -13,6 +13,7 @@ const FilterableTable = ({ data, columns, filterableCols, tableHeader }) => {
   const [sortedAsc, setSortedAsc] = useState(0);
   const [popupVisibility, setPopupVisibility] = useState(false);
   const [valuesToBeFiltered, setValuesToBeFiltered] = useState();
+  const [filterableColumn, setFilterableColumn] = useState(columns.filter(col => col.filterable))
   // const [filterStrings, setFilterString] = useState();
 
 
@@ -29,6 +30,33 @@ const FilterableTable = ({ data, columns, filterableCols, tableHeader }) => {
     setValuesToBeFiltered(filteredTempObj)
   }, [])
 
+  // useEffect(() => {
+
+  //   let filteredData = data.filter((itemRow) => {
+
+  //     let dataPresentInRow = true;
+  //     columns.every((cols, index) => {
+
+  //       let columnName = cols.column;
+  //       console.log(columnName)
+  //       let columnData = itemRow[columnName].toString();
+  //       console.log(columnData);
+
+  //       if (cols.filterable && !columnData.includes(valuesToBeFiltered[columnName])) {
+  //         dataPresentInRow = false
+  //         return false;
+  //       }
+  //     })
+
+  //     return dataPresentInRow;
+
+  //     // return filterableColumn.some((colName, index) =>
+  //     //   itemRow[colName].includes(valuesToBeFiltered[colName])
+  //     // );
+  //   });
+
+  //   setTabData([...filteredData]);
+  // }, [valuesToBeFiltered, filterableColumn, tabData]);
 
   const changeFilterableInputs = (e) => {
 
@@ -38,13 +66,31 @@ const FilterableTable = ({ data, columns, filterableCols, tableHeader }) => {
 
 
     // filterLogic to be implemented here
-    // let filteredData = tabData.filter((itemRow) => {
-    //   return filterableColumn.some((colName, index) =>
-    //     itemRow[colName].toString().includes(filterText.toString())
-    //   );
-    // });
 
-    // setData(filteredData);
+    let filteredData = data.filter((itemRow) => {
+
+      let dataPresentInRow = true;
+      columns.every((cols, index) => {
+
+        let columnName = cols.column;
+        console.log(columnName)
+        let columnData = itemRow[columnName].toString();
+        console.log(columnData);
+
+        if (cols.filterable && !columnData.includes(tempFilteredStringObject[columnName])) {
+          dataPresentInRow = false
+          return false;
+        }
+      })
+
+      return dataPresentInRow;
+
+      // return filterableColumn.some((colName, index) =>
+      //   itemRow[colName].includes(valuesToBeFiltered[colName])
+      // );
+    });
+
+    setTabData([...filteredData]);
 
     setValuesToBeFiltered(tempFilteredStringObject)
     // console.log({ ...valuesToBeFiltered, [name]: value })

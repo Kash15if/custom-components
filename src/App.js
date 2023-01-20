@@ -39,7 +39,7 @@ function App() {
           <Filterable data={dummyData}
             columns={columns}
             filterableCols={columns}
-            tableHeader="Sortable Table"
+            tableHeader="Filter Table"
           />)}
       </div>
 
