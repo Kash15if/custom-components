@@ -64,22 +64,22 @@ const FilterableTable = ({ data, columns, filterableCols, tableHeader }) => {
 
     let tempFilteredStringObject = { ...valuesToBeFiltered, [name]: value }
 
-
+    console.log(tempFilteredStringObject)
     // filterLogic to be implemented here
 
     let filteredData = data.filter((itemRow) => {
 
       let dataPresentInRow = true;
-      columns.every((cols, index) => {
+      columns.forEach((cols, index) => {
 
         let columnName = cols.column;
-        console.log(columnName)
-        let columnData = itemRow[columnName].toString();
-        console.log(columnData);
 
-        if (cols.filterable && !columnData.includes(tempFilteredStringObject[columnName])) {
+        let columnData = itemRow[columnName].toString();
+
+
+        if (cols.filterable && tempFilteredStringObject[columnName] !== "" && !columnData.includes(tempFilteredStringObject[columnName])) {
+          console.log(tempFilteredStringObject[columnName], columnData)
           dataPresentInRow = false
-          return false;
         }
       })
 
