@@ -34,17 +34,25 @@ function App() {
         )}
       </div> */}
 
-      <div className="frame red">
+      {/* <div className="frame red">
         {dummyData && columns && (
           <Filterable data={dummyData}
             columns={columns}
             filterableCols={columns}
             tableHeader="Filter Table"
           />)}
-      </div>
+      </div> */}
 
       <div className="frame gray">
-        <Editable />
+        {dummyData && columns && (
+          <Editable
+            data={dummyData}
+            columns={columns}
+            sortableCols={columns}
+            tableHeader="Editable Table"
+            recordsPerPageOption={[5, 10, 20]}
+            defaultRecordPerPage={15} />
+        )}
       </div>
 
       <div className="frame blue">
