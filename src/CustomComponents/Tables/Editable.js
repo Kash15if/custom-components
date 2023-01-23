@@ -47,6 +47,7 @@ const Editable = ({ data,
     setPageStartIndex(start);
     setPageEndIndex(end);
     setDatainPage(tempDataArray);
+
   };
 
   const sortColumn = (col, asc) => {
@@ -92,6 +93,42 @@ const Editable = ({ data,
     setDatainPage(tempDataArray);
   };
 
+  const editRow = (selectedOneRow) => {
+    // EditOneRowPopUp
+    // call edit popup form here
+    console.log(selectedOneRow)
+  }
+
+
+  const deleteRow = (selectedOneRow) => {
+    // Call confirmation popup here
+    // DeleteOneRowPopUp
+    console.log(selectedOneRow)
+  }
+
+
+  const EditOneRowPopUp = ({ selectedRow }) => {
+    // console.log("popv b", filterableColumns)
+    // filterableCols.forEach(element => {
+    //   console.log(element)
+    // });
+    // return <div className={"popup " + true ? "showpopup" : "hidepopup"}>
+    //   <button onClick={() => closePopup()}>close</button>
+    //   <div>        {
+    //     filterableColumns.map((oneCol) =>
+    //       <div><span>{oneCol.column} : </span><input value={oneCol.column} /></div>
+    //     )
+    //   }</div>
+    // </div>
+
+  }
+
+
+  const DeleteOneRowPopUp = ({ selectedRow }) => {
+
+  }
+
+
   return (
     <div>
       {tableHeader && <h2 className="tableHeader">{tableHeader}</h2>}
@@ -123,6 +160,8 @@ const Editable = ({ data,
               )}
             </th>
           ))}
+          <th>Edit</th>
+          <th>Delete</th>
         </tr>
 
         {datainPage &&
@@ -133,6 +172,9 @@ const Editable = ({ data,
                 {columns.map((col) => (
                   <td>{row[col.column]}</td>
                 ))}{" "}
+                <td><button onClick={() => editRow(row)}>Edit</button></td>
+
+                <td><button onClick={() => deleteRow(row)}>Delete</button></td>
               </tr>
             );
           })}
