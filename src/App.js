@@ -14,7 +14,11 @@ function App() {
   const [columns, setColumns] = useState();
 
   useEffect(() => {
-    let tempCols = Object.keys(dummyData[0]).map((colName) => ({ column: colName, sortable: false, editable: false, filterable: true, formInputType: "text" }));
+    let tempCols = Object.keys(dummyData[0]).map((colName) =>
+    ({
+      column: colName, sortable: false, editable: true, filterable: false,
+      formInputDetails: { inputType: "text", data: [{ label: "xyz", value: "abc" }] }
+    }));
     setColumns(tempCols);
     console.log(tempCols)
   }, []);

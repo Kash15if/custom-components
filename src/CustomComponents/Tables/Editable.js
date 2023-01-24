@@ -19,6 +19,7 @@ const Editable = ({ data,
     data.filter((item, index) => index < recordsPerPage)
   );
   const [selectedOneRow, setSelectedOneRow] = useState();
+  const [selectedOneRowForDelete, setSelectedOneRowForDelete] = useState();
 
   // useEffect(() => {
   //   setTabData([...data]);
@@ -105,6 +106,7 @@ const Editable = ({ data,
   const deleteRow = (selectedOneRow) => {
     // Call confirmation popup here
     // DeleteOneRowPopUp
+    setSelectedOneRowForDelete(selectedOneRow)
     console.log(selectedOneRow)
   }
 
@@ -130,21 +132,50 @@ const Editable = ({ data,
 
   }
 
+  const onEditClicked = () => {
+    setSelectedOneRow(null)
+  }
+
+  const onDeleteConfirm = () => {
+    setSelectedOneRowForDelete(null)
+  }
+
+  const onDeleteCancel = () => {
+    setSelectedOneRowForDelete(null)
+  }
 
   return (
     <div>
       {tableHeader && <h2 className="tableHeader">{tableHeader}</h2>}
 
       <>
-        Popup Form
-        <div>
-          {selectedOneRow &&
-            columns.map((col, index) => (
-              <input value={selectedOneRow[col.column]} />
-            ))
-          }
-        </div>
+        {selectedOneRow &&
+
+          <div>
+            Popup Form
+            {
+              columns.map((col, index) => (
+                <input value={selectedOneRow[col.column]} />
+              ))
+            }
+            <button onClick={() => onEditClicked()}>submit</button>
+          </div>
+        }
       </>
+
+      <>
+        {
+          selectedOneRowForDelete &&
+
+          <div>
+            Popup Delete
+            <button onClick={() => onDeleteConfirm()}>Delete</button>
+            <button onClick={() => onDeleteCancel()}>Cancel</button>
+          </div>
+        }
+      </>
+
+
 
       <table>
         <tr>
