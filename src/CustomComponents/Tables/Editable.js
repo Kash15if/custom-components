@@ -18,6 +18,7 @@ const Editable = ({ data,
   const [datainPage, setDatainPage] = useState(
     data.filter((item, index) => index < recordsPerPage)
   );
+  const [selectedOneRow, setSelectedOneRow] = useState();
 
   // useEffect(() => {
   //   setTabData([...data]);
@@ -97,6 +98,7 @@ const Editable = ({ data,
     // EditOneRowPopUp
     // call edit popup form here
     console.log(selectedOneRow)
+    setSelectedOneRow(selectedOneRow)
   }
 
 
@@ -132,6 +134,18 @@ const Editable = ({ data,
   return (
     <div>
       {tableHeader && <h2 className="tableHeader">{tableHeader}</h2>}
+
+      <>
+        Popup Form
+        <div>
+          {selectedOneRow &&
+            columns.map((col, index) => (
+              <input value={selectedOneRow[col.column]} />
+            ))
+          }
+        </div>
+      </>
+
       <table>
         <tr>
           {columns.map((col, index) => (
