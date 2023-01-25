@@ -5,7 +5,8 @@ const Editable = ({ data,
   sortableCols,
   tableHeader,
   recordsPerPageOption,
-  defaultRecordPerPage, }) => {
+  defaultRecordPerPage,
+  uniqueId }) => {
 
   const [recordsPerPage, setRecordsPerPage] = useState(defaultRecordPerPage);
   const [tabData, setTabData] = useState(data);
@@ -18,7 +19,7 @@ const Editable = ({ data,
   const [datainPage, setDatainPage] = useState(
     data.filter((item, index) => index < recordsPerPage)
   );
-  const [selectedOneRow, setSelectedOneRow] = useState();
+  const [selectedOneRowForEdit, setSelectedOneRowForEdit] = useState();
   const [selectedOneRowForDelete, setSelectedOneRowForDelete] = useState();
 
   // useEffect(() => {
@@ -99,7 +100,7 @@ const Editable = ({ data,
     // EditOneRowPopUp
     // call edit popup form here
     console.log(selectedOneRow)
-    setSelectedOneRow(selectedOneRow)
+    setSelectedOneRowForEdit(selectedOneRow)
   }
 
 
@@ -132,11 +133,21 @@ const Editable = ({ data,
 
   }
 
-  const onEditClicked = () => {
-    setSelectedOneRow(null)
+  const onUpdateConfirm = () => {
+    setSelectedOneRowForEdit(null)
   }
 
-  const onDeleteConfirm = () => {
+
+  const onUpdateCancel = () => {
+    setSelectedOneRowForEdit(null)
+  }
+
+  const onDeleteConfirm = (selectedRow) => {
+
+    console.log(selectedRow)
+    let tempRowData = tabData.filter((row) => row[uniqueId] !== selectedRow[uniqueId]);
+    setTabData(tempRowData)
+    recordSelectionPerPageChange(recordsPerPage)
     setSelectedOneRowForDelete(null)
   }
 
@@ -149,16 +160,18 @@ const Editable = ({ data,
       {tableHeader && <h2 className="tableHeader">{tableHeader}</h2>}
 
       <>
-        {selectedOneRow &&
+        {selectedOneRowForEdit &&
 
           <div>
             Popup Form
             {
               columns.map((col, index) => (
-                <input value={selectedOneRow[col.column]} />
+                <input value={selectedOneRowForEdit[col.column]} />
               ))
             }
-            <button onClick={() => onEditClicked()}>submit</button>
+            <button onClick={() => onUpdateConfirm()}>Update</button>
+
+            <button onClick={() => onUpdateCancel()}>Cancel</button>
           </div>
         }
       </>
@@ -168,9 +181,9 @@ const Editable = ({ data,
           selectedOneRowForDelete &&
 
           <div>
-            Popup Delete
-            <button onClick={() => onDeleteConfirm()}>Delete</button>
-            <button onClick={() => onDeleteCancel()}>Cancel</button>
+            Popup Delete , Are you sure want to delete id : {selectedOneRowForDelete[uniqueId]}
+            <button onClick={() => onDeleteConfirm(selectedOneRowForDelete)}>Delete</button>
+            <button onClick={() => onDeleteCancel(selectedOneRowForDelete)}>Cancel</button>
           </div>
         }
       </>

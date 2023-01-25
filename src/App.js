@@ -18,6 +18,12 @@ function App() {
     ({
       column: colName, sortable: false, editable: true, filterable: false,
       formInputDetails: { inputType: "text", data: [{ label: "xyz", value: "abc" }] }
+      // if inut type is dropdown then [{ label: "xyz", value: "abc" }] 
+      // if it it text then {placeholder: "xyz" , name: "name"}
+      // if checkbox {label: "label" }
+      // if date {min: "" , max: "" }
+      // if int {min: "" , max: "" }
+      // if textarea  {placeholder: "xyz" , name: "name" , lines: 2}
     }));
     setColumns(tempCols);
     console.log(tempCols)
@@ -55,7 +61,9 @@ function App() {
             sortableCols={columns}
             tableHeader="Editable Table"
             recordsPerPageOption={[5, 10, 20]}
-            defaultRecordPerPage={15} />
+            defaultRecordPerPage={15}
+            uniqueId="id"
+          />
         )}
       </div>
 
