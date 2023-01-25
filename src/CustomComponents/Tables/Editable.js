@@ -25,7 +25,7 @@ const Editable = ({ data,
   // useEffect(() => {
   //   setTabData([...data]);
   //   sortColumn("", true);
-  // }, [recordsPerPage]);
+  // }, [pageStartIndex , pageEndIndex , ]);
 
   const changePage = (next) => {
     let page = next
@@ -80,6 +80,8 @@ const Editable = ({ data,
     }
     setDatainPage(tempDataArray);
   };
+
+
 
   const recordSelectionPerPageChange = (noOfRecords) => {
     let start = 0;
@@ -144,10 +146,18 @@ const Editable = ({ data,
 
   const onDeleteConfirm = (selectedRow) => {
 
-    console.log(selectedRow)
+    console.log(selectedRow, tabData)
     let tempRowData = tabData.filter((row) => row[uniqueId] !== selectedRow[uniqueId]);
-    setTabData(tempRowData)
-    recordSelectionPerPageChange(recordsPerPage)
+    setTabData(tempRowData);
+
+    let tempDataArray = [];
+    for (let index = pageStartIndex; index <= pageEndIndex; index++) {
+      tempDataArray.push(tempRowData[index]);
+    }
+    setDatainPage(tempDataArray);
+
+
+    // recordSelectionPerPageChange(recordsPerPage)
     setSelectedOneRowForDelete(null)
   }
 
@@ -238,7 +248,7 @@ const Editable = ({ data,
           })}
       </table>
 
-      {/* <button onClick={() => changePage(true)}>Next</button>
+      <button onClick={() => changePage(true)}>Next</button>
       <span>PageNo:- {pageNo}</span>
       <button onClick={() => changePage(false)}>Prev</button>
 
@@ -250,7 +260,7 @@ const Editable = ({ data,
         {recordsPerPageOption.map((item) => (
           <option value={item}>{item}</option>
         ))}
-      </select> */}
+      </select>
     </div>
   );
 

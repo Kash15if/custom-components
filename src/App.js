@@ -61,7 +61,7 @@ function App() {
             sortableCols={columns}
             tableHeader="Editable Table"
             recordsPerPageOption={[5, 10, 20]}
-            defaultRecordPerPage={15}
+            defaultRecordPerPage={5}
             uniqueId="id"
           />
         )}
