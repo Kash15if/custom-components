@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { getInputBoxFromType } from "../../services/editTable"
 
 const Editable = ({ data,
   columns,
@@ -189,10 +190,8 @@ const Editable = ({ data,
           <div>
             Popup Form
             {
-              columns.map((col, index) => (
-                <input name={col.column} value={selectedOneRowForEdit[col.column]} onChange={editFormContentChange} />
-              ))
-            }
+              columns.map((col, index) => getInputBoxFromType(col, selectedOneRowForEdit, editFormContentChange, index))}
+
             <button onClick={() => onUpdateConfirm()}>Update</button>
 
             <button onClick={() => onUpdateCancel()}>Cancel</button>

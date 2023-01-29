@@ -1,13 +1,19 @@
 
 
-const x = () => {
+const getInputBoxFromType = (col, selectedOneRowForEdit, editFormContentChange, index) => {
 
-}
-
-const getInputBoxFromType = (inputDetails) => {
-
-    let inputType = inputDetails.inputType;
+    let inputType = col.formInputDetails.inputType;
+    console.log(inputType)
     if (inputType === "dropdown") {
+        return (<>
+            <label for={col.column}>{col.column}</label>
+
+            <select name={col.column} id={col.column} value={selectedOneRowForEdit[col.column]} onChange={editFormContentChange}>
+                {
+                    col.formInputDetails.data.map(item => <option value={item.value}>{item.label}</option>)
+                }
+            </select>
+        </>)
 
     }
     else if (inputType === "checkbox") {
@@ -17,6 +23,9 @@ const getInputBoxFromType = (inputDetails) => {
 
     }
     else if (inputType === "datetime-local") {
+        return <> <label for={col.column}>{col.column}</label>
+            <input type="datetime-local" name={col.column} id={col.column} value={selectedOneRowForEdit[col.column]} onChange={editFormContentChange} />
+        </>
 
     }
 
@@ -35,6 +44,12 @@ const getInputBoxFromType = (inputDetails) => {
     else if (inputType === "textarea") {
 
     }
+    else {
+        return (<>
+            <label for={col.column}>{col.column}</label>
+            <input name={col.column} id={col.column} value={selectedOneRowForEdit[col.column]} onChange={editFormContentChange} />
+        </>)
+    }
 }
 
-export default { x }
+export { getInputBoxFromType }
