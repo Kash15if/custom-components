@@ -17,9 +17,15 @@ const getInputBoxFromType = (col, selectedOneRowForEdit, editFormContentChange, 
 
     }
     else if (inputType === "checkbox") {
-
+        return <>
+            <input type="checkbox" name={col.column} id={col.column} value={selectedOneRowForEdit[col.column]} onChange={editFormContentChange} />
+            <label for={col.column}>{col.column}</label>
+        </>
     }
     else if (inputType === "date") {
+        return <> <label for={col.column}>{col.column}</label>
+            <input type="date" name={col.column} id={col.column} value={selectedOneRowForEdit[col.column]} onChange={editFormContentChange} />
+        </>
 
     }
     else if (inputType === "datetime-local") {
@@ -30,19 +36,32 @@ const getInputBoxFromType = (col, selectedOneRowForEdit, editFormContentChange, 
     }
 
     else if (inputType === "number") {
+        return <> <label for={col.column}>{col.column}</label>
+            <input type="number" name={col.column} id={col.column} value={selectedOneRowForEdit[col.column]} onChange={editFormContentChange} min={col.formInputDetails.data.min} max={col.formInputDetails.data.max} />
+        </>
 
     }
     else if (inputType === "password") {
-
-    }
-    else if (inputType === "select") {
+        return <> <label for={col.column}>{col.column}</label>
+            <input type="password" name={col.column} id={col.column} value={selectedOneRowForEdit[col.column]} onChange={editFormContentChange} />
+        </>
 
     }
     else if (inputType === "radio") {
+        return <>
+            <p>{col.formInputDetails.radioLabel}</p>{
+                col.formInputDetails.data.map(item => <><label for={col.column}>{col.column}</label>
+                    <input type="password" name={col.column} id={col.column} value={selectedOneRowForEdit[col.column]} onChange={editFormContentChange} />
+                </>)
+            }
 
+        </>
     }
     else if (inputType === "textarea") {
-
+        return (<>
+            <label for={col.column}>{col.column}</label>
+            <input type="textarea" name={col.column} id={col.column} value={selectedOneRowForEdit[col.column]} onChange={editFormContentChange} />
+        </>)
     }
     else {
         return (<>

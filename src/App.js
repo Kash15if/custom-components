@@ -17,7 +17,7 @@ function App() {
     let tempCols = Object.keys(dummyData[0]).map((colName) =>
     ({
       column: colName, sortable: false, editable: true, filterable: false,
-      formInputDetails: { inputType: "datetime-local", data: [{ label: "xyz", value: "abc" }, { label: "uvw", value: "def" }] }
+      formInputDetails: { inputType: "checkbox", radioLabel: "Please select your favorite Web language:", data: [{ label: "xyz", value: "abc" }, { label: "uvw", value: "def" }], min: 0, max: 5 }
       // if inut type is dropdown then [{ label: "xyz", value: "abc" }] 
       // if it it text then {placeholder: "xyz" , name: "name"}
       // if checkbox {label: "label" }
