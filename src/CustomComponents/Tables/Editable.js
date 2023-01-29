@@ -136,6 +136,14 @@ const Editable = ({ data,
   }
 
   const onUpdateConfirm = () => {
+    let tempUpdatedData = tabData.map(item => (item[uniqueId] === selectedOneRowForEdit[uniqueId] ? selectedOneRowForEdit : item));
+
+    let tempDataArray = [];
+    for (let index = pageStartIndex; index <= pageEndIndex; index++) {
+      tempDataArray.push(tempUpdatedData[index]);
+    }
+    setDatainPage(tempDataArray);
+
     setSelectedOneRowForEdit(null)
   }
 
@@ -146,7 +154,7 @@ const Editable = ({ data,
 
   const onDeleteConfirm = (selectedRow) => {
 
-    console.log(selectedRow, tabData)
+    // console.log(selectedRow, tabData)
     let tempRowData = tabData.filter((row) => row[uniqueId] !== selectedRow[uniqueId]);
     setTabData(tempRowData);
 
@@ -165,6 +173,12 @@ const Editable = ({ data,
     setSelectedOneRowForDelete(null)
   }
 
+  const editFormContentChange = (e) => {
+
+    const { name, value } = e.target
+    setSelectedOneRowForEdit({ ...selectedOneRowForEdit, [name]: value })
+  }
+
   return (
     <div>
       {tableHeader && <h2 className="tableHeader">{tableHeader}</h2>}
@@ -176,7 +190,7 @@ const Editable = ({ data,
             Popup Form
             {
               columns.map((col, index) => (
-                <input value={selectedOneRowForEdit[col.column]} />
+                <input name={col.column} value={selectedOneRowForEdit[col.column]} onChange={editFormContentChange} />
               ))
             }
             <button onClick={() => onUpdateConfirm()}>Update</button>
