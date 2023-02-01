@@ -4,17 +4,30 @@ import { useEffect, useState } from "react";
 import "./FilterableTable.css"
 
 
+import { getInputBoxFromType } from "../../services/editTable"
 
 
 
-const SortFilterEdit = ({ data, columns, filterableCols, tableHeader }) => {
+const SortFilterEdit = ({ data, columns, filterableCols, sortableCols, tableHeader, recordsPerPageOption, defaultRecordPerPage, uniqueId
+}) => {
   const [tabData, setTabData] = useState(data);
   const [sortedColumn, setSortedColumn] = useState("");
   const [sortedAsc, setSortedAsc] = useState(0);
-  const [popupVisibility, setPopupVisibility] = useState(false);
   const [valuesToBeFiltered, setValuesToBeFiltered] = useState();
   const [filterableColumn, setFilterableColumn] = useState(columns.filter(col => col.filterable))
   // const [filterStrings, setFilterString] = useState();
+
+  const [recordsPerPage, setRecordsPerPage] = useState(defaultRecordPerPage);
+
+  const [pages, setPages] = useState(Math.ceil(data.length / recordsPerPage));
+  const [pageNo, setPageNo] = useState(1);
+  const [pageStartIndex, setPageStartIndex] = useState(0);
+  const [pageEndIndex, setPageEndIndex] = useState(recordsPerPage - 1);
+  const [datainPage, setDatainPage] = useState(
+    data.filter((item, index) => index < recordsPerPage)
+  );
+  const [selectedOneRowForEdit, setSelectedOneRowForEdit] = useState();
+  const [selectedOneRowForDelete, setSelectedOneRowForDelete] = useState();
 
 
 
@@ -62,6 +75,9 @@ const SortFilterEdit = ({ data, columns, filterableCols, tableHeader }) => {
 
     const { name, value } = e.target;
 
+
+
+
     let tempFilteredStringObject = { ...valuesToBeFiltered, [name]: value }
 
     console.log(tempFilteredStringObject)
@@ -91,6 +107,20 @@ const SortFilterEdit = ({ data, columns, filterableCols, tableHeader }) => {
     });
 
     setTabData([...filteredData]);
+    let start = 0;
+    let end = Math.min(recordsPerPage - 1, tabData.length - 1);
+
+    let tempDataArray = [];
+    for (let index = start; index <= end; index++) {
+      tempDataArray.push(filteredData[index]);
+    }
+
+    // setRecordsPerPage(recordsPerPage);
+    setPages(Math.ceil(data.length / recordsPerPage));
+    setPageNo(1);
+    setDatainPage(tempDataArray);
+
+
 
     setValuesToBeFiltered(tempFilteredStringObject)
     // console.log({ ...valuesToBeFiltered, [name]: value })
@@ -145,8 +175,144 @@ const SortFilterEdit = ({ data, columns, filterableCols, tableHeader }) => {
   //   setTabData([...sortedData]);
   // };
 
+
+  const editFormContentChange = (e) => {
+
+    const { name, value } = e.target
+    setSelectedOneRowForEdit({ ...selectedOneRowForEdit, [name]: value })
+  }
+
+
+  const onUpdateConfirm = () => {
+    let tempUpdatedData = tabData.map(item => (item[uniqueId] === selectedOneRowForEdit[uniqueId] ? selectedOneRowForEdit : item));
+
+    let tempDataArray = [];
+    for (let index = pageStartIndex; index <= pageEndIndex; index++) {
+      tempDataArray.push(tempUpdatedData[index]);
+    }
+    setDatainPage(tempDataArray);
+
+    setSelectedOneRowForEdit(null)
+  }
+
+
+  const onUpdateCancel = () => {
+    setSelectedOneRowForEdit(null)
+  }
+
+  const onDeleteConfirm = (selectedRow) => {
+
+    // console.log(selectedRow, tabData)
+    let tempRowData = tabData.filter((row) => row[uniqueId] !== selectedRow[uniqueId]);
+    setTabData(tempRowData);
+
+    let tempDataArray = [];
+    for (let index = pageStartIndex; index <= pageEndIndex; index++) {
+      tempDataArray.push(tempRowData[index]);
+    }
+    setDatainPage(tempDataArray);
+
+
+    // recordSelectionPerPageChange(recordsPerPage)
+    setSelectedOneRowForDelete(null)
+  }
+
+  const onDeleteCancel = () => {
+    setSelectedOneRowForDelete(null)
+  }
+
+
+  const editRow = (selectedOneRow) => {
+    // EditOneRowPopUp
+    // call edit popup form here
+    console.log(selectedOneRow)
+    setSelectedOneRowForEdit(selectedOneRow)
+  }
+
+
+  const deleteRow = (selectedOneRow) => {
+    // Call confirmation popup here
+    // DeleteOneRowPopUp
+    setSelectedOneRowForDelete(selectedOneRow)
+    console.log(selectedOneRow)
+  }
+
+
+  const changePage = (next) => {
+    let page = next
+      ? pageNo + 1 > pages
+        ? pages
+        : pageNo + 1
+      : pageNo - 1 < 1
+        ? 1
+        : pageNo - 1;
+
+    let start = Math.max((page - 1) * recordsPerPage, 0);
+    let end = Math.min(page * recordsPerPage - 1, tabData.length - 1);
+
+    console.log(start, end, pages, page);
+    console.log(tabData.length);
+    let tempDataArray = [];
+    for (let index = start; index <= end; index++) {
+      tempDataArray.push(tabData[index]);
+    }
+
+    setPageNo(page);
+    setPageStartIndex(start);
+    setPageEndIndex(end);
+    setDatainPage(tempDataArray);
+
+  };
+
+
+
+  const recordSelectionPerPageChange = (noOfRecords) => {
+    let start = 0;
+    let end = Math.min(noOfRecords - 1, tabData.length - 1);
+
+    let tempDataArray = [];
+    for (let index = start; index <= end; index++) {
+      tempDataArray.push(tabData[index]);
+    }
+
+    setRecordsPerPage(noOfRecords);
+    // setPages(Math.ceil(data.length / noOfRecords));
+    setPageNo(1);
+    setDatainPage(tempDataArray);
+  };
+
+
+
   return (
     <div>
+      <>
+        {selectedOneRowForEdit &&
+
+          <div>
+            Popup Form
+            {
+              columns.map((col, index) => getInputBoxFromType(col, selectedOneRowForEdit, editFormContentChange, index))}
+
+            <button onClick={() => onUpdateConfirm()}>Update</button>
+
+            <button onClick={() => onUpdateCancel()}>Cancel</button>
+          </div>
+        }
+      </>
+
+      <>
+        {
+          selectedOneRowForDelete &&
+
+          <div>
+            Popup Delete , Are you sure want to delete id : {selectedOneRowForDelete[uniqueId]}
+            <button onClick={() => onDeleteConfirm(selectedOneRowForDelete)}>Delete</button>
+            <button onClick={() => onDeleteCancel(selectedOneRowForDelete)}>Cancel</button>
+          </div>
+        }
+      </>
+
+
 
       {tableHeader && <h2 className="tableHeader">{tableHeader}</h2>}
       <table>
@@ -169,6 +335,9 @@ const SortFilterEdit = ({ data, columns, filterableCols, tableHeader }) => {
               {col.column}
             </th>
           ))}
+          <th>Edit</th>
+          <th>Delete</th>
+
         </tr>
 
         <tr>
@@ -187,18 +356,37 @@ const SortFilterEdit = ({ data, columns, filterableCols, tableHeader }) => {
           ))}
         </tr>
 
-        {tabData &&
-          tabData.map((row) => {
+        {datainPage &&
+          datainPage.map((row) => {
             return (
               <tr>
-                {" "}
                 {columns.map((col) => (
                   <td>{row[col.column]}</td>
-                ))}{" "}
+                ))}
+                <td><button onClick={() => editRow(row)}>Edit</button></td>
+
+                <td><button onClick={() => deleteRow(row)}>Delete</button></td>
+
               </tr>
             );
           })}
+
       </table>
+
+      <button onClick={() => changePage(true)}>Next</button>
+      <span>PageNo:- {pageNo}</span>
+      <button onClick={() => changePage(false)}>Prev</button>
+
+      <select
+        name="recordsPerPage"
+        onChange={(e) => recordSelectionPerPageChange(e.target.value)}
+        value={recordsPerPage}
+      >
+        {recordsPerPageOption.map((item) => (
+          <option value={item}>{item}</option>
+        ))}
+      </select>
+
     </div>
   );
 };

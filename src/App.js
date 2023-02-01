@@ -16,7 +16,7 @@ function App() {
   useEffect(() => {
     let tempCols = Object.keys(dummyData[0]).map((colName) =>
     ({
-      column: colName, sortable: false, editable: true, filterable: false,
+      column: colName, sortable: true, editable: true, filterable: true,
       formInputDetails: { inputType: "text", radioLabel: "Please select your favorite Web language:", data: [{ label: "xyz", value: "abc" }, { label: "uvw", value: "def" }], min: 0, max: 5 }
       // if inut type is dropdown then [{ label: "xyz", value: "abc" }] 
       // if it it text then {placeholder: "xyz" , name: "name"}
@@ -53,7 +53,7 @@ function App() {
           />)}
       </div> */}
 
-      <div className="frame gray">
+      {/* <div className="frame gray">
         {dummyData && columns && (
           <Editable
             data={dummyData}
@@ -65,15 +65,29 @@ function App() {
             uniqueId="id"
           />
         )}
-      </div>
+      </div> */}
 
       <div className="frame blue">
-        <SortFilter />
+        {dummyData && columns && (
+          <AllTogether
+            data={dummyData}
+            columns={columns}
+            filterableCols={columns}
+            sortableCols={columns}
+            tableHeader="Editable Table"
+            recordsPerPageOption={[5, 10, 20]}
+            defaultRecordPerPage={5}
+            uniqueId="id"
+          />
+
+        )}
       </div>
 
-      <div className="frame black">
-        <AllTogether />
-      </div>
+
+
+      {/* <div className="frame black">
+        <SortFilter />
+      </div> */}
     </div>
   );
 }
