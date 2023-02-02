@@ -268,6 +268,39 @@ const SortFilterEdit = ({ data, columns, filterableCols, sortableCols, tableHead
   };
 
 
+  const sortColumn = (col, asc) => {
+    if (asc) {
+      setSortedAsc(1);
+    } else {
+      setSortedAsc(-1);
+    }
+
+    if (sortedColumn !== col) {
+      setSortedAsc(1);
+      setSortedColumn(col);
+    }
+    let sortedData = asc
+      ? data.sort((row1, row2) =>
+        row1[col] > row2[col] ? 1 : row1[col] < row2[col] ? -1 : 0
+      )
+      : data.sort((row1, row2) =>
+        row1[col] > row2[col] ? -1 : row1[col] < row2[col] ? 1 : 0
+      );
+
+    setTabData([...sortedData]);
+
+    console.log(sortedData, pageStartIndex, pageEndIndex)
+    let tempDataArray = [];
+    for (let index = pageStartIndex; index <= pageEndIndex; index++) {
+      tempDataArray.push(sortedData[index]);
+    }
+
+
+    console.log(tempDataArray, pageStartIndex, pageEndIndex)
+
+    setDatainPage(tempDataArray);
+  };
+
 
   const recordSelectionPerPageChange = (noOfRecords) => {
     let start = 0;
@@ -278,6 +311,8 @@ const SortFilterEdit = ({ data, columns, filterableCols, sortableCols, tableHead
       tempDataArray.push(tabData[index]);
     }
 
+    setPageStartIndex(start);
+    setPageEndIndex(end)
     setRecordsPerPage(noOfRecords);
     // setPages(Math.ceil(data.length / noOfRecords));
     setPageNo(1);
@@ -322,7 +357,7 @@ const SortFilterEdit = ({ data, columns, filterableCols, sortableCols, tableHead
         <tr>
           {columns.map((col, index) => (
             <th>
-              {/* {col.sortable ? <button onClick={() => sortColumn(col.column, (sortedColumn === col.column && sortedAsc === 1) ? false : true)}>
+              {col.sortable ? <button onClick={() => sortColumn(col.column, (sortedColumn === col.column && sortedAsc === 1) ? false : true)}>
                 {col.column}{" "}
                 {
                   col.column === sortedColumn && <span>
@@ -334,8 +369,7 @@ const SortFilterEdit = ({ data, columns, filterableCols, sortableCols, tableHead
                 : col.column
 
 
-              } */}
-              {col.column}
+              }
             </th>
           ))}
           <th>Edit</th>
