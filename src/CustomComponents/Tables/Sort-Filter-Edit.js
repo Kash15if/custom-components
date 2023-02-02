@@ -108,7 +108,10 @@ const SortFilterEdit = ({ data, columns, filterableCols, sortableCols, tableHead
 
     setTabData([...filteredData]);
     let start = 0;
-    let end = Math.min(recordsPerPage - 1, tabData.length - 1);
+    let end = Math.min(recordsPerPage - 1, filteredData.length - 1);
+
+    console.log(filteredData);
+
 
     let tempDataArray = [];
     for (let index = start; index <= end; index++) {
@@ -120,7 +123,7 @@ const SortFilterEdit = ({ data, columns, filterableCols, sortableCols, tableHead
     setPageNo(1);
     setDatainPage(tempDataArray);
 
-
+    console.log(tempDataArray)
 
     setValuesToBeFiltered(tempFilteredStringObject)
     // console.log({ ...valuesToBeFiltered, [name]: value })
