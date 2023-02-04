@@ -5,6 +5,7 @@ import Filterable from "./CustomComponents/Tables/FilterableTable";
 import Editable from "./CustomComponents/Tables/Editable";
 import SortFilter from "./CustomComponents/Tables/Sort-Filter";
 import AllTogether from "./CustomComponents/Tables/Sort-Filter-Edit";
+import Crud from "./CustomComponents/Tables/CrudTable"
 
 // importing data
 import dummyData from "./data/data1";
@@ -17,7 +18,7 @@ function App() {
     let tempCols = Object.keys(dummyData[0]).map((colName) =>
     ({
       column: colName, sortable: true, editable: true, filterable: true,
-      formInputDetails: { inputType: "text", radioLabel: "Please select your favorite Web language:", data: [{ label: "xyz", value: "abc" }, { label: "uvw", value: "def" }], min: 0, max: 5 }
+      formInputDetails: { defaultVal: "abcd", inputType: "text", radioLabel: "Please select your favorite Web language:", data: [{ label: "xyz", value: "abc" }, { label: "uvw", value: "def" }], min: 0, max: 5 }
       // if inut type is dropdown then [{ label: "xyz", value: "abc" }] 
       // if it it text then {placeholder: "xyz" , name: "name"}
       // if checkbox {label: "label" }
@@ -69,7 +70,7 @@ function App() {
 
       <div className="frame blue">
         {dummyData && columns && (
-          <AllTogether
+          <Crud
             data={dummyData}
             columns={columns}
             filterableCols={columns}

@@ -1,5 +1,12 @@
 
 
+const getDefaultValFromInputType = () => {
+
+}
+
+
+
+
 const getInputBoxFromType = (col, selectedOneRowForEdit, editFormContentChange, index) => {
 
     let inputType = col.formInputDetails.inputType;
