@@ -320,12 +320,40 @@ const CRUD = ({ data, columns, filterableCols, sortableCols, tableHeader, record
     };
 
     const createNewRecord = () => {
-        let inputFormData = columns.map((col, index) => col.formInputDetails ? col.formInputDetails.deault : "")
-        setSelectedOneRowForEdit([...inputFormData])
+
+        console.log(selectedOneRowForEdit)
+
+        let inputFormData = {};
+
+        columns.forEach((col) => {
+            inputFormData[col.column] = col.formInputDetails && col.formInputDetails.defaultVal ? col.formInputDetails.defaultVal : ""
+
+        }
+
+        )
+
+        console.log(inputFormData)
+        setSelectedOneRowForEdit({ ...inputFormData })
         setCreateNewRecordFormOpen(true)
     }
 
+    const onAddNewRecord = () => {
+        let maxId = 39;
 
+        // console.log(selectedOneRowForEdit)
+        let tabDataTemp = [...tabData, { ...selectedOneRowForEdit, [uniqueId]: maxId }];
+
+        console.log(tabDataTemp);
+
+        setTabData(tabDataTemp)
+        let tempDataArray = [];
+
+        for (let index = pageStartIndex; index <= pageEndIndex; index++) {
+            tempDataArray.push(tabDataTemp[index]);
+        }
+        setDatainPage(tempDataArray);
+
+    }
 
     return (
         <div>
@@ -348,7 +376,7 @@ const CRUD = ({ data, columns, filterableCols, sortableCols, tableHeader, record
 
                         {
                             createNewRecordFormOpen ?
-                                <button onClick={() => onUpdateConfirm()}>Create New</button> : <button onClick={() => onUpdateConfirm()}>Update</button>
+                                <button onClick={() => onAddNewRecord()}>Create New</button> : <button onClick={() => onUpdateConfirm()}>Update</button>
                         }
                         <button onClick={() => onUpdateCancel()}>Cancel</button>
                     </div>
