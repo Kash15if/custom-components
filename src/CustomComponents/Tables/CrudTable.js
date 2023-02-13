@@ -1,20 +1,25 @@
-
-
 import { useEffect, useState } from "react";
-import "./FilterableTable.css"
+import "./FilterableTable.css";
 
+import { getInputBoxFromType } from "../../services/editTable";
 
-import { getInputBoxFromType } from "../../services/editTable"
-
-
-
-const CRUD = ({ data, columns, filterableCols, sortableCols, tableHeader, recordsPerPageOption, defaultRecordPerPage, uniqueId
+const CRUD = ({
+    data,
+    columns,
+    filterableCols,
+    sortableCols,
+    tableHeader,
+    recordsPerPageOption,
+    defaultRecordPerPage,
+    uniqueId,
 }) => {
     const [tabData, setTabData] = useState(data);
     const [sortedColumn, setSortedColumn] = useState("");
     const [sortedAsc, setSortedAsc] = useState(0);
     const [valuesToBeFiltered, setValuesToBeFiltered] = useState();
-    const [filterableColumn, setFilterableColumn] = useState(columns.filter(col => col.filterable))
+    const [filterableColumn, setFilterableColumn] = useState(
+        columns.filter((col) => col.filterable)
+    );
     // const [filterStrings, setFilterString] = useState();
 
     const [recordsPerPage, setRecordsPerPage] = useState(defaultRecordPerPage);
@@ -30,20 +35,16 @@ const CRUD = ({ data, columns, filterableCols, sortableCols, tableHeader, record
     const [selectedOneRowForDelete, setSelectedOneRowForDelete] = useState();
     const [createNewRecordFormOpen, setCreateNewRecordFormOpen] = useState(false);
 
-
-
-
-
     useEffect(() => {
         let filteredTempObj = {};
         filterableCols.forEach((elemt) => {
             if (elemt.filterable) {
                 filteredTempObj[elemt.column] = "";
             }
-        })
+        });
 
-        setValuesToBeFiltered(filteredTempObj)
-    }, [])
+        setValuesToBeFiltered(filteredTempObj);
+    }, []);
 
     // useEffect(() => {
 
@@ -74,29 +75,29 @@ const CRUD = ({ data, columns, filterableCols, sortableCols, tableHeader, record
     // }, [valuesToBeFiltered, filterableColumn, tabData]);
 
     const changeFilterableInputs = (e) => {
-
         const { name, value } = e.target;
 
-        let tempFilteredStringObject = { ...valuesToBeFiltered, [name]: value }
+        let tempFilteredStringObject = { ...valuesToBeFiltered, [name]: value };
 
-        console.log(tempFilteredStringObject)
+        console.log(tempFilteredStringObject);
         // filterLogic to be implemented here
 
         let filteredData = data.filter((itemRow) => {
-
             let dataPresentInRow = true;
             columns.forEach((cols, index) => {
-
                 let columnName = cols.column;
 
                 let columnData = itemRow[columnName].toString();
 
-
-                if (cols.filterable && tempFilteredStringObject[columnName] !== "" && !columnData.includes(tempFilteredStringObject[columnName])) {
-                    console.log(tempFilteredStringObject[columnName], columnData)
-                    dataPresentInRow = false
+                if (
+                    cols.filterable &&
+                    tempFilteredStringObject[columnName] !== "" &&
+                    !columnData.includes(tempFilteredStringObject[columnName])
+                ) {
+                    console.log(tempFilteredStringObject[columnName], columnData);
+                    dataPresentInRow = false;
                 }
-            })
+            });
 
             return dataPresentInRow;
 
@@ -111,7 +112,6 @@ const CRUD = ({ data, columns, filterableCols, sortableCols, tableHeader, record
 
         console.log(filteredData);
 
-
         let tempDataArray = [];
         for (let index = start; index <= end; index++) {
             tempDataArray.push(filteredData[index]);
@@ -122,12 +122,12 @@ const CRUD = ({ data, columns, filterableCols, sortableCols, tableHeader, record
         setPageNo(1);
         setDatainPage(tempDataArray);
 
-        console.log(tempDataArray)
+        console.log(tempDataArray);
 
-        setValuesToBeFiltered(tempFilteredStringObject)
+        setValuesToBeFiltered(tempFilteredStringObject);
         // console.log({ ...valuesToBeFiltered, [name]: value })
         // console.log(e.target.name, e.target.value)
-    }
+    };
 
     // const PopUp = ({ filterableColumns }) => {
     //   // console.log("popv b", filterableColumns)
@@ -144,12 +144,9 @@ const CRUD = ({ data, columns, filterableCols, sortableCols, tableHeader, record
     //       )
     //     }</div>
 
-
     //   </div>
 
     // }
-
-
 
     // const closePopup = () => {
     //   setPopupVisibility(!popupVisibility);
@@ -173,20 +170,20 @@ const CRUD = ({ data, columns, filterableCols, sortableCols, tableHeader, record
     //     ? data.sort((row1, row2) => (row1[col] > row2[col]) ? 1 : (row1[col] < row2[col]) ? -1 : 0)
     //     : data.sort((row1, row2) => (row1[col] > row2[col]) ? -1 : (row1[col] < row2[col]) ? 1 : 0)
 
-
     //   setTabData([...sortedData]);
     // };
 
-
     const editFormContentChange = (e) => {
-
-        const { name, value } = e.target
-        setSelectedOneRowForEdit({ ...selectedOneRowForEdit, [name]: value })
-    }
-
+        const { name, value } = e.target;
+        setSelectedOneRowForEdit({ ...selectedOneRowForEdit, [name]: value });
+    };
 
     const onUpdateConfirm = () => {
-        let tempUpdatedData = tabData.map(item => (item[uniqueId] === selectedOneRowForEdit[uniqueId] ? selectedOneRowForEdit : item));
+        let tempUpdatedData = tabData.map((item) =>
+            item[uniqueId] === selectedOneRowForEdit[uniqueId]
+                ? selectedOneRowForEdit
+                : item
+        );
 
         let tempDataArray = [];
         for (let index = pageStartIndex; index <= pageEndIndex; index++) {
@@ -194,52 +191,60 @@ const CRUD = ({ data, columns, filterableCols, sortableCols, tableHeader, record
         }
         setDatainPage(tempDataArray);
 
-        setSelectedOneRowForEdit(null)
-    }
-
+        setSelectedOneRowForEdit(null);
+    };
 
     const onUpdateCancel = () => {
-        setSelectedOneRowForEdit(null)
-    }
+        setSelectedOneRowForEdit(null);
+    };
 
     const onDeleteConfirm = (selectedRow) => {
-
         // console.log(selectedRow, tabData)
-        let tempRowData = tabData.filter((row) => row[uniqueId] !== selectedRow[uniqueId]);
+        let tempRowData = tabData.filter(
+            (row) => row[uniqueId] !== selectedRow[uniqueId]
+        );
         setTabData(tempRowData);
 
+        let pagesLeftNow = Math.ceil(tempRowData.length / recordsPerPage);
+        console.log(pagesLeftNow);
         let tempDataArray = [];
-        for (let index = pageStartIndex; index <= pageEndIndex; index++) {
+        let start = Math.max((pagesLeftNow - 1) * recordsPerPage, 0);
+        let end = Math.min(
+            pagesLeftNow * recordsPerPage - 1,
+            tempRowData.length - 1
+        );
+
+        for (let index = start; index <= end; index++) {
             tempDataArray.push(tempRowData[index]);
         }
+
+        console.log(pagesLeftNow, pageNo, start);
+        if (pagesLeftNow < pageNo) setPageNo(pagesLeftNow);
+        setPages(pagesLeftNow);
         setDatainPage(tempDataArray);
 
-
         // recordSelectionPerPageChange(recordsPerPage)
-        setSelectedOneRowForDelete(null)
-    }
+        setSelectedOneRowForDelete(null);
+    };
 
     const onDeleteCancel = () => {
-        setSelectedOneRowForDelete(null)
-    }
-
+        setSelectedOneRowForDelete(null);
+    };
 
     const editRow = (selectedOneRow) => {
         // EditOneRowPopUp
         // call edit popup form here
-        console.log(selectedOneRow)
-        setCreateNewRecordFormOpen(false)
-        setSelectedOneRowForEdit(selectedOneRow)
-    }
-
+        console.log(selectedOneRow);
+        setCreateNewRecordFormOpen(false);
+        setSelectedOneRowForEdit(selectedOneRow);
+    };
 
     const deleteRow = (selectedOneRow) => {
         // Call confirmation popup here
         // DeleteOneRowPopUp
-        setSelectedOneRowForDelete(selectedOneRow)
-        console.log(selectedOneRow)
-    }
-
+        setSelectedOneRowForDelete(selectedOneRow);
+        console.log(selectedOneRow);
+    };
 
     const changePage = (next) => {
         let page = next
@@ -251,6 +256,7 @@ const CRUD = ({ data, columns, filterableCols, sortableCols, tableHeader, record
                 : pageNo - 1;
 
         let start = Math.max((page - 1) * recordsPerPage, 0);
+        console.log(tabData);
         let end = Math.min(page * recordsPerPage - 1, tabData.length - 1);
 
         console.log(start, end, pages, page);
@@ -264,9 +270,7 @@ const CRUD = ({ data, columns, filterableCols, sortableCols, tableHeader, record
         setPageStartIndex(start);
         setPageEndIndex(end);
         setDatainPage(tempDataArray);
-
     };
-
 
     const sortColumn = (col, asc) => {
         if (asc) {
@@ -289,18 +293,16 @@ const CRUD = ({ data, columns, filterableCols, sortableCols, tableHeader, record
 
         setTabData([...sortedData]);
 
-        console.log(sortedData, pageStartIndex, pageEndIndex)
+        console.log(sortedData, pageStartIndex, pageEndIndex);
         let tempDataArray = [];
         for (let index = pageStartIndex; index <= pageEndIndex; index++) {
             tempDataArray.push(sortedData[index]);
         }
 
-
-        console.log(tempDataArray, pageStartIndex, pageEndIndex)
+        console.log(tempDataArray, pageStartIndex, pageEndIndex);
 
         setDatainPage(tempDataArray);
     };
-
 
     const recordSelectionPerPageChange = (noOfRecords) => {
         let start = 0;
@@ -312,7 +314,7 @@ const CRUD = ({ data, columns, filterableCols, sortableCols, tableHeader, record
         }
 
         setPageStartIndex(start);
-        setPageEndIndex(end)
+        setPageEndIndex(end);
         setRecordsPerPage(noOfRecords);
         // setPages(Math.ceil(data.length / noOfRecords));
         setPageNo(1);
@@ -320,122 +322,142 @@ const CRUD = ({ data, columns, filterableCols, sortableCols, tableHeader, record
     };
 
     const createNewRecord = () => {
-
-        console.log(selectedOneRowForEdit)
+        console.log(selectedOneRowForEdit);
 
         let inputFormData = {};
 
         columns.forEach((col) => {
-            inputFormData[col.column] = col.formInputDetails && col.formInputDetails.defaultVal ? col.formInputDetails.defaultVal : ""
+            inputFormData[col.column] =
+                col.formInputDetails && col.formInputDetails.defaultVal
+                    ? col.formInputDetails.defaultVal
+                    : "";
+        });
 
-        }
-
-        )
-
-        console.log(inputFormData)
-        setSelectedOneRowForEdit({ ...inputFormData })
-        setCreateNewRecordFormOpen(true)
-    }
+        console.log(inputFormData);
+        setSelectedOneRowForEdit({ ...inputFormData });
+        setCreateNewRecordFormOpen(true);
+    };
 
     const onAddNewRecord = () => {
-        let maxId = 39;
+        // let maxId = 39;
 
         // console.log(selectedOneRowForEdit)
-        let tabDataTemp = [...tabData, { ...selectedOneRowForEdit, [uniqueId]: maxId }];
+        let tabDataTemp = [
+            ...tabData,
+            {
+                ...selectedOneRowForEdit,
+                [uniqueId]: parseInt(selectedOneRowForEdit[uniqueId]),
+            },
+        ];
 
         console.log(tabDataTemp);
 
-        setTabData(tabDataTemp)
+        setTabData(tabDataTemp);
         let tempDataArray = [];
 
         for (let index = pageStartIndex; index <= pageEndIndex; index++) {
             tempDataArray.push(tabDataTemp[index]);
         }
+        setPages(Math.ceil(tabDataTemp.length / recordsPerPage));
         setDatainPage(tempDataArray);
-
-    }
+    };
 
     return (
         <div>
-
             <>
                 <button onClick={createNewRecord}>Create New</button>
                 <button>Delete</button>
                 <button>Import</button>
                 <button>Export</button>
-
             </>
 
             <>
-                {selectedOneRowForEdit &&
-
+                {selectedOneRowForEdit && (
                     <div>
                         Popup Form
-                        {
-                            columns.map((col, index) => getInputBoxFromType(col, selectedOneRowForEdit, editFormContentChange, index))}
-
-                        {
-                            createNewRecordFormOpen ?
-                                <button onClick={() => onAddNewRecord()}>Create New</button> : <button onClick={() => onUpdateConfirm()}>Update</button>
-                        }
+                        {columns.map((col, index) =>
+                            getInputBoxFromType(
+                                col,
+                                selectedOneRowForEdit,
+                                editFormContentChange,
+                                index
+                            )
+                        )}
+                        {createNewRecordFormOpen ? (
+                            <button onClick={() => onAddNewRecord()}>Create New</button>
+                        ) : (
+                            <button onClick={() => onUpdateConfirm()}>Update</button>
+                        )}
                         <button onClick={() => onUpdateCancel()}>Cancel</button>
                     </div>
-                }
+                )}
             </>
 
             <>
-                {
-                    selectedOneRowForDelete &&
-
+                {selectedOneRowForDelete && (
                     <div>
-                        Popup Delete , Are you sure want to delete id : {selectedOneRowForDelete[uniqueId]}
-                        <button onClick={() => onDeleteConfirm(selectedOneRowForDelete)}>Delete</button>
-                        <button onClick={() => onDeleteCancel(selectedOneRowForDelete)}>Cancel</button>
+                        Popup Delete , Are you sure want to delete id :{" "}
+                        {selectedOneRowForDelete[uniqueId]}
+                        <button onClick={() => onDeleteConfirm(selectedOneRowForDelete)}>
+                            Delete
+                        </button>
+                        <button onClick={() => onDeleteCancel(selectedOneRowForDelete)}>
+                            Cancel
+                        </button>
                     </div>
-                }
+                )}
             </>
-
-
 
             {tableHeader && <h2 className="tableHeader">{tableHeader}</h2>}
             <table>
                 <tr>
                     {columns.map((col, index) => (
                         <th>
-                            {col.sortable ? <button onClick={() => sortColumn(col.column, (sortedColumn === col.column && sortedAsc === 1) ? false : true)}>
-                                {col.column}{" "}
-                                {
-                                    col.column === sortedColumn && <span>
-                                        {sortedAsc === -1 && <i>&#8595;</i>}
-                                        {sortedAsc === 1 && <i >&#8593;</i>}
-                                    </span>
-                                }
-                            </button>
-                                : col.column
-
-
-                            }
+                            {col.sortable ? (
+                                <button
+                                    onClick={() =>
+                                        sortColumn(
+                                            col.column,
+                                            sortedColumn === col.column && sortedAsc === 1
+                                                ? false
+                                                : true
+                                        )
+                                    }
+                                >
+                                    {col.column}{" "}
+                                    {col.column === sortedColumn && (
+                                        <span>
+                                            {sortedAsc === -1 && <i>&#8595;</i>}
+                                            {sortedAsc === 1 && <i>&#8593;</i>}
+                                        </span>
+                                    )}
+                                </button>
+                            ) : (
+                                col.column
+                            )}
                         </th>
                     ))}
                     <th>Edit</th>
                     <th>Delete</th>
-
                 </tr>
 
                 <tr>
-                    {columns && valuesToBeFiltered && columns.map((col, index) => (
-                        <th>
-                            {col.filterable ?
-                                <input placeholder={col.column} value={valuesToBeFiltered[col.column]}
-                                    name={col.column}
-                                    onChange={(e) => changeFilterableInputs(e)}
-                                />
-                                : <input disabled />
-
-
-                            }
-                        </th>
-                    ))}
+                    {columns &&
+                        valuesToBeFiltered &&
+                        columns.map((col, index) => (
+                            <th>
+                                {col.filterable ? (
+                                    <input
+                                        placeholder={col.column}
+                                        value={valuesToBeFiltered[col.column]}
+                                        name={col.column}
+                                        onChange={(e) => changeFilterableInputs(e)}
+                                    />
+                                ) : (
+                                    <input disabled />
+                                )}
+                            </th>
+                        ))}
                 </tr>
 
                 {datainPage &&
@@ -445,14 +467,16 @@ const CRUD = ({ data, columns, filterableCols, sortableCols, tableHeader, record
                                 {columns.map((col) => (
                                     <td>{row[col.column]}</td>
                                 ))}
-                                <td><button onClick={() => editRow(row)}>Edit</button></td>
+                                <td>
+                                    <button onClick={() => editRow(row)}>Edit</button>
+                                </td>
 
-                                <td><button onClick={() => deleteRow(row)}>Delete</button></td>
-
+                                <td>
+                                    <button onClick={() => deleteRow(row)}>Delete</button>
+                                </td>
                             </tr>
                         );
                     })}
-
             </table>
 
             <button onClick={() => changePage(true)}>Next</button>
@@ -468,10 +492,8 @@ const CRUD = ({ data, columns, filterableCols, sortableCols, tableHeader, record
                     <option value={item}>{item}</option>
                 ))}
             </select>
-
         </div>
     );
 };
 
 export default CRUD;
-
