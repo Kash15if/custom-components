@@ -13,7 +13,7 @@ const CRUDIE = ({
     uniqueId,
 }) => {
 
-    const [tabData, setTabData] = useState(data);
+    const [tabData, setTabData] = useState();
     const [sortedColumn, setSortedColumn] = useState("");
     const [sortedAsc, setSortedAsc] = useState(0);
     const [valuesToBeFiltered, setValuesToBeFiltered] = useState();
@@ -43,7 +43,25 @@ const CRUDIE = ({
             }
         });
 
+        const tempData = data.map(itemRow => ({ ...itemRow, selectedCurrentRow: false }))
+        setTabData(tempData);
         setValuesToBeFiltered(filteredTempObj);
+
+
+        let start = 0;
+        let end = Math.min(recordsPerPage - 1, tempData.length - 1);
+
+        // console.log(filteredData);
+
+        let tempDataArray = [];
+        for (let index = start; index <= end; index++) {
+            tempDataArray.push(tempData[index]);
+        }
+
+        // setRecordsPerPage(recordsPerPage);
+        setPages(Math.ceil(data.length / recordsPerPage));
+        setPageNo(1);
+        setDatainPage(tempDataArray);
     }, []);
 
 
@@ -336,6 +354,10 @@ const CRUDIE = ({
     };
 
 
+    const onMulitSelectChange = (e, selectedRow) => {
+        console.log(e.target)
+    }
+
     return <div>
         <>
             <button onClick={createNewRecord}>Create New</button>
@@ -384,30 +406,9 @@ const CRUDIE = ({
         {tableHeader && <h2 className="tableHeader">{tableHeader}</h2>}
         <table>
             <tr>
+                <th></th>
                 {columns.map((col, index) => (
-                    <th>
-                        {col.sortable ? (
-                            <button
-                                onClick={() =>
-                                    sortColumn(
-                                        col.column,
-                                        sortedColumn === col.column && sortedAsc === 1
-                                            ? false
-                                            : true
-                                    )
-                                }
-                            >
-                                {col.column}{" "}
-                                {col.column === sortedColumn && (
-                                    <span>
-                                        {sortedAsc === -1 && <i>&#8595;</i>}
-                                        {sortedAsc === 1 && <i>&#8593;</i>}
-                                    </span>
-                                )}
-                            </button>
-                        ) : (
-                            col.column
-                        )}
+                    <th>{col.column}
                     </th>
                 ))}
                 <th>Edit</th>
@@ -415,9 +416,11 @@ const CRUDIE = ({
             </tr>
 
             <tr>
+                <th></th>
                 {columns &&
                     valuesToBeFiltered &&
                     columns.map((col, index) => (
+
                         <th>
                             {col.filterable ? (
                                 <input
@@ -437,6 +440,7 @@ const CRUDIE = ({
                 datainPage.map((row) => {
                     return (
                         <tr>
+                            <td>{row.selectedCurrentRow}<input type="checkbox" id={"checkBox_" + row[uniqueId]} name="selectCheckBox" checked={row.selectedCurrentRow} onChange={(e) => onMulitSelectChange(e, row)} /></td>
                             {columns.map((col) => (
                                 <td>{row[col.column]}</td>
                             ))}
