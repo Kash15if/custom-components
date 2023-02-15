@@ -355,7 +355,26 @@ const CRUDIE = ({
 
 
     const onMulitSelectChange = (e, selectedRow) => {
-        console.log(e.target)
+        const checkedVal = e.target.checkedVal;
+        const tempData = tabData.map(itemRow => (itemRow[uniqueId] === selectedRow[uniqueId] ? { ...itemRow, selectedCurrentRow: checkedVal } : itemRow))
+        // console.log(e.target.checked)
+
+        setTabData([...tempData]);
+
+        let start = 0;
+        let end = Math.min(recordsPerPage - 1, tempData.length - 1);
+
+        // console.log(filteredData);
+
+        let tempDataArray = [];
+        for (let index = start; index <= end; index++) {
+            tempDataArray.push(tempData[index]);
+        }
+
+        // setRecordsPerPage(recordsPerPage);
+        setPages(Math.ceil(data.length / recordsPerPage));
+        setPageNo(1);
+        setDatainPage(tempDataArray);
     }
 
     return <div>
