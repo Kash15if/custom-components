@@ -7,6 +7,7 @@ import SortFilter from "./CustomComponents/Tables/Sort-Filter";
 import AllTogether from "./CustomComponents/Tables/Sort-Filter-Edit";
 import Crud from "./CustomComponents/Tables/CrudTable";
 import CrudIe from "./CustomComponents/Tables/CRUDIE"
+import ImportExport from "./CustomComponents/Tables/FileImportExport";
 
 // importing data
 import dummyData from "./data/data1";
@@ -71,7 +72,7 @@ function App() {
 
       <div className="frame blue">
         {dummyData && columns && (
-          <CrudIe
+          <ImportExport
             data={dummyData}
             columns={columns}
             filterableCols={columns}
