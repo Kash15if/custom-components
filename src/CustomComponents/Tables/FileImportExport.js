@@ -1,4 +1,5 @@
 
+import { useState } from 'react';
 import { read, utils, writeFile } from 'xlsx'; const ImportExport = ({
 
 
@@ -11,6 +12,9 @@ import { read, utils, writeFile } from 'xlsx'; const ImportExport = ({
     defaultRecordPerPage,
     uniqueId,
 }) => {
+
+
+    const [tabData, setTabData] = useState();
 
     const onFileChange = (e) => {
 
@@ -26,9 +30,14 @@ import { read, utils, writeFile } from 'xlsx'; const ImportExport = ({
                 if (sheets.length) {
                     const rows = utils.sheet_to_json(wb.Sheets[sheets[0]]);
                     // setMovies(rows)
+
+                    setTabData([...tabData, ...rows])
+
                     console.log(rows)
                 }
             }
+
+
             reader.readAsArrayBuffer(file);
         }
         console.log("changed")
@@ -45,7 +54,7 @@ import { read, utils, writeFile } from 'xlsx'; const ImportExport = ({
         const wb = utils.book_new();
         const ws = utils.json_to_sheet([]);
         utils.sheet_add_aoa(ws, headings);
-        utils.sheet_add_json(ws, [], { origin: 'A2', skipHeader: true });
+        utils.sheet_add_json(ws, data, { origin: 'A2', skipHeader: true });
         utils.book_append_sheet(wb, ws, 'Report');
         writeFile(wb, 'Movie Report.xlsx');
     }
