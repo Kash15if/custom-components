@@ -68,11 +68,33 @@ import { read, utils, writeFile } from 'xlsx'; const ImportExport = ({
     };
 
 
+    const importJSON = (e) => {
+
+        const files = e.target.files;
+        console.log(files.length)
+        if (files.length) {
+            const file = files[0];
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                var content = e.target.result;
+                var newDataSetFromJSON = JSON.parse(content); // parse json 
+                setTabData([...tabData, ...newDataSetFromJSON])
+            }
+
+            reader.readAsText(file);
+        }
+        console.log("changed")
+
+    }
+
+
     return (
         <div>
 
             <div>
                 <input type="file" onChange={onFileChange} />
+                <input type="file" onChange={importJSON} />
+
                 <button onClick={handleExport} className="btn">
                     Export <i className="fa fa-download"></i>
                 </button>
