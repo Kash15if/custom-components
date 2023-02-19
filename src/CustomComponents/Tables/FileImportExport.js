@@ -14,7 +14,7 @@ import { read, utils, writeFile } from 'xlsx'; const ImportExport = ({
 }) => {
 
 
-    const [tabData, setTabData] = useState();
+    const [tabData, setTabData] = useState(data);
 
     const onFileChange = (e) => {
 
@@ -27,13 +27,14 @@ import { read, utils, writeFile } from 'xlsx'; const ImportExport = ({
                 const wb = read(e.target.result);
                 const sheets = wb.SheetNames;
 
+                // console.log(sheets.length)
                 if (sheets.length) {
                     const rows = utils.sheet_to_json(wb.Sheets[sheets[0]]);
                     // setMovies(rows)
 
                     setTabData([...tabData, ...rows])
 
-                    console.log(rows)
+                    // console.log(rows)
                 }
             }
 
@@ -45,35 +46,46 @@ import { read, utils, writeFile } from 'xlsx'; const ImportExport = ({
 
 
     const handleExport = () => {
-        const headings = [[
-            'Movie',
-            'Category',
-            'Director',
-            'Rating'
-        ]];
+        const headings = [columns.map(oneCol => oneCol.column)];
         const wb = utils.book_new();
         const ws = utils.json_to_sheet([]);
         utils.sheet_add_aoa(ws, headings);
-        utils.sheet_add_json(ws, data, { origin: 'A2', skipHeader: true });
+        utils.sheet_add_json(ws, tabData, { origin: 'A2', skipHeader: true });
         utils.book_append_sheet(wb, ws, 'Report');
         writeFile(wb, 'Movie Report.xlsx');
+
     }
+
+    const exportJsonData = () => {
+        const jsonString = `data:text/json;chatset=utf-8,${encodeURIComponent(
+            JSON.stringify(tabData)
+        )}`;
+        const link = document.createElement("a");
+        link.href = jsonString;
+        link.download = tableHeader + ".json";
+
+        link.click();
+    };
+
 
     return (
         <div>
 
             <div>
                 <input type="file" onChange={onFileChange} />
-                <button onClick={handleExport} className="btn btn-primary float-right">
+                <button onClick={handleExport} className="btn">
                     Export <i className="fa fa-download"></i>
                 </button>
+                <button onClick={exportJsonData} className="btn">
+                    Export JSON
+                </button>
+
             </div>
 
             <div>
                 {tableHeader && <h2 className="tableHeader">{tableHeader}</h2>}
                 <table>
                     <tr>
-                        <th></th>
                         {columns.map((col, index) => (
                             <th>{col.column}
                             </th>
@@ -83,8 +95,8 @@ import { read, utils, writeFile } from 'xlsx'; const ImportExport = ({
                     </tr>
 
 
-                    {data &&
-                        data.map((row) => {
+                    {tabData &&
+                        tabData.map((row) => {
                             return (
                                 <tr>
                                     {columns.map((col) => (
