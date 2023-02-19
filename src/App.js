@@ -39,7 +39,6 @@ function App() {
           <Sortable
             data={dummyData}
             columns={columns}
-            sortableCols={columns}
             tableHeader="Sortable Table"
             recordsPerPageOption={[5, 10, 20]}
             defaultRecordPerPage={5}

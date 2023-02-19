@@ -1,9 +1,8 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 const Sortable = ({
   data,
   columns,
-  sortableCols,
   tableHeader,
   recordsPerPageOption,
   defaultRecordPerPage,
@@ -20,10 +19,6 @@ const Sortable = ({
     data.filter((item, index) => index < recordsPerPage)
   );
 
-  // useEffect(() => {
-  //   setTabData([...data]);
-  //   sortColumn("", true);
-  // }, [recordsPerPage]);
 
   const changePage = (next) => {
     let page = next
@@ -35,22 +30,6 @@ const Sortable = ({
         : pageNo - 1;
 
     setDataForSelectedPage(null, null, recordsPerPage, page, null)
-
-
-    // let start = Math.max((page - 1) * recordsPerPage, 0);
-    // let end = Math.min(page * recordsPerPage - 1, tabData.length - 1);
-
-    // console.log(start, end, pages, page);
-    // console.log(tabData.length);
-    // let tempDataArray = [];
-    // for (let index = start; index <= end; index++) {
-    //   tempDataArray.push(tabData[index]);
-    // }
-
-    // setPageNo(page);
-    // setPageStartIndex(start);
-    // setPageEndIndex(end);
-    // setDatainPage(tempDataArray);
   };
 
   const sortColumn = (col, asc) => {
@@ -75,36 +54,17 @@ const Sortable = ({
     setTabData([...sortedData]);
 
     setDataForSelectedPage(pageStartIndex, pageEndIndex, recordsPerPage, pageNo, sortedData)
-
-    // let tempDataArray = [];
-    // for (let index = pageStartIndex; index <= pageEndIndex; index++) {
-    //   tempDataArray.push(sortedData[index]);
-    // }
-    // setDatainPage(tempDataArray);
   };
 
   const recordSelectionPerPageChange = (noOfRecords) => {
 
     setDataForSelectedPage(null, null, noOfRecords, null, null)
     setRecordsPerPage(noOfRecords)
-    // console.log("tested")
-    // let start = 0;
-    // let end = Math.min(noOfRecords - 1, tabData.length - 1);
 
-    // let tempDataArray = [];
-    // for (let index = start; index <= end; index++) {
-    //   tempDataArray.push(tabData[index]);
-    // }
-
-    // setRecordsPerPage(noOfRecords);
-    // setPages(Math.ceil(data.length / noOfRecords));
-    // setPageNo(1);
-    // setDatainPage(tempDataArray);
   };
 
   const setDataForSelectedPage = (recordStartIndex, recordEndIndex, noOfRecords, currrPageNo, sortedArrayData) => {
 
-    console.log(recordStartIndex, recordEndIndex, noOfRecords, currrPageNo, sortedArrayData)
     currrPageNo = currrPageNo ? currrPageNo : 1;
     noOfRecords = noOfRecords ? noOfRecords : defaultRecordPerPage;
     sortedArrayData = sortedArrayData ? sortedArrayData : tabData;
