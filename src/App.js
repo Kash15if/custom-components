@@ -34,7 +34,7 @@ function App() {
 
   return (
     <div className="App">
-      {/* <div className="frame">
+      <div className="frame">
         {dummyData && columns && (
           <Sortable
             data={dummyData}
@@ -45,7 +45,7 @@ function App() {
             defaultRecordPerPage={5}
           />
         )}
-      </div> */}
+      </div>
 
       {/* <div className="frame red">
         {dummyData && columns && (

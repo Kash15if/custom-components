@@ -34,20 +34,23 @@ const Sortable = ({
         ? 1
         : pageNo - 1;
 
-    let start = Math.max((page - 1) * recordsPerPage, 0);
-    let end = Math.min(page * recordsPerPage - 1, tabData.length - 1);
+    setDataForSelectedPage(null, null, recordsPerPage, page, null)
 
-    console.log(start, end, pages, page);
-    console.log(tabData.length);
-    let tempDataArray = [];
-    for (let index = start; index <= end; index++) {
-      tempDataArray.push(tabData[index]);
-    }
 
-    setPageNo(page);
-    setPageStartIndex(start);
-    setPageEndIndex(end);
-    setDatainPage(tempDataArray);
+    // let start = Math.max((page - 1) * recordsPerPage, 0);
+    // let end = Math.min(page * recordsPerPage - 1, tabData.length - 1);
+
+    // console.log(start, end, pages, page);
+    // console.log(tabData.length);
+    // let tempDataArray = [];
+    // for (let index = start; index <= end; index++) {
+    //   tempDataArray.push(tabData[index]);
+    // }
+
+    // setPageNo(page);
+    // setPageStartIndex(start);
+    // setPageEndIndex(end);
+    // setDatainPage(tempDataArray);
   };
 
   const sortColumn = (col, asc) => {
@@ -71,27 +74,54 @@ const Sortable = ({
 
     setTabData([...sortedData]);
 
-    let tempDataArray = [];
-    for (let index = pageStartIndex; index <= pageEndIndex; index++) {
-      tempDataArray.push(sortedData[index]);
-    }
-    setDatainPage(tempDataArray);
+    setDataForSelectedPage(pageStartIndex, pageEndIndex, recordsPerPage, pageNo, sortedData)
+
+    // let tempDataArray = [];
+    // for (let index = pageStartIndex; index <= pageEndIndex; index++) {
+    //   tempDataArray.push(sortedData[index]);
+    // }
+    // setDatainPage(tempDataArray);
   };
 
   const recordSelectionPerPageChange = (noOfRecords) => {
-    let start = 0;
-    let end = Math.min(noOfRecords - 1, tabData.length - 1);
 
-    let tempDataArray = [];
-    for (let index = start; index <= end; index++) {
-      tempDataArray.push(tabData[index]);
-    }
+    setDataForSelectedPage(null, null, noOfRecords, null, null)
+    setRecordsPerPage(noOfRecords)
+    // console.log("tested")
+    // let start = 0;
+    // let end = Math.min(noOfRecords - 1, tabData.length - 1);
 
-    setRecordsPerPage(noOfRecords);
-    setPages(Math.ceil(data.length / noOfRecords));
-    setPageNo(1);
-    setDatainPage(tempDataArray);
+    // let tempDataArray = [];
+    // for (let index = start; index <= end; index++) {
+    //   tempDataArray.push(tabData[index]);
+    // }
+
+    // setRecordsPerPage(noOfRecords);
+    // setPages(Math.ceil(data.length / noOfRecords));
+    // setPageNo(1);
+    // setDatainPage(tempDataArray);
   };
+
+  const setDataForSelectedPage = (recordStartIndex, recordEndIndex, noOfRecords, currrPageNo, sortedArrayData) => {
+
+    console.log(recordStartIndex, recordEndIndex, noOfRecords, currrPageNo, sortedArrayData)
+    currrPageNo = currrPageNo ? currrPageNo : 1;
+    noOfRecords = noOfRecords ? noOfRecords : defaultRecordPerPage;
+    sortedArrayData = sortedArrayData ? sortedArrayData : tabData;
+
+    recordStartIndex = recordStartIndex ? recordStartIndex : Math.max((currrPageNo - 1) * noOfRecords, 0);
+    recordEndIndex = recordEndIndex ? recordEndIndex : Math.min(currrPageNo * noOfRecords - 1, tabData.length - 1);
+
+
+    let tempDataArray = sortedArrayData.slice(recordStartIndex, recordEndIndex + 1);
+
+    setPages(Math.ceil(sortedArrayData.length / noOfRecords));
+    setPageStartIndex(recordStartIndex);
+    setPageEndIndex(recordEndIndex)
+    setPageNo(currrPageNo);
+    setDatainPage([...tempDataArray]);
+
+  }
 
   return (
     <div>

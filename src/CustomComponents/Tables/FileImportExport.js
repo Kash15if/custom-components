@@ -76,8 +76,8 @@ import { read, utils, writeFile } from 'xlsx'; const ImportExport = ({
             const file = files[0];
             const reader = new FileReader();
             reader.onload = (e) => {
-                var content = e.target.result;
-                var newDataSetFromJSON = JSON.parse(content); // parse json 
+                const content = e.target.result;
+                const newDataSetFromJSON = JSON.parse(content); // parse json 
                 setTabData([...tabData, ...newDataSetFromJSON])
             }
 
