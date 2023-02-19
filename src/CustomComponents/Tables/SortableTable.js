@@ -29,7 +29,7 @@ const Sortable = ({
         ? 1
         : pageNo - 1;
 
-    setDataForSelectedPage(null, null, recordsPerPage, page, null)
+    paginator(null, null, recordsPerPage, page, null)
   };
 
   const sortColumn = (col, asc) => {
@@ -53,25 +53,22 @@ const Sortable = ({
 
     setTabData([...sortedData]);
 
-    setDataForSelectedPage(pageStartIndex, pageEndIndex, recordsPerPage, pageNo, sortedData)
+    paginator(pageStartIndex, pageEndIndex, recordsPerPage, pageNo, sortedData)
   };
 
   const recordSelectionPerPageChange = (noOfRecords) => {
-
-    setDataForSelectedPage(null, null, noOfRecords, null, null)
+    paginator(null, null, noOfRecords, null, null)
     setRecordsPerPage(noOfRecords)
-
   };
 
-  const setDataForSelectedPage = (recordStartIndex, recordEndIndex, noOfRecords, currrPageNo, sortedArrayData) => {
+
+  const paginator = (recordStartIndex, recordEndIndex, noOfRecords, currrPageNo, sortedArrayData) => {
 
     currrPageNo = currrPageNo ? currrPageNo : 1;
     noOfRecords = noOfRecords ? noOfRecords : defaultRecordPerPage;
     sortedArrayData = sortedArrayData ? sortedArrayData : tabData;
-
     recordStartIndex = recordStartIndex ? recordStartIndex : Math.max((currrPageNo - 1) * noOfRecords, 0);
-    recordEndIndex = recordEndIndex ? recordEndIndex : Math.min(currrPageNo * noOfRecords - 1, tabData.length - 1);
-
+    recordEndIndex = recordEndIndex ? recordEndIndex : Math.min(currrPageNo * noOfRecords - 1, sortedArrayData.length - 1);
 
     let tempDataArray = sortedArrayData.slice(recordStartIndex, recordEndIndex + 1);
 
@@ -80,7 +77,6 @@ const Sortable = ({
     setPageEndIndex(recordEndIndex)
     setPageNo(currrPageNo);
     setDatainPage([...tempDataArray]);
-
   }
 
   return (

@@ -34,7 +34,7 @@ function App() {
 
   return (
     <div className="App">
-      <div className="frame">
+      {/* <div className="frame">
         {dummyData && columns && (
           <Sortable
             data={dummyData}
@@ -44,16 +44,18 @@ function App() {
             defaultRecordPerPage={5}
           />
         )}
-      </div>
+      </div> */}
 
-      {/* <div className="frame red">
+      <div className="frame blue">
         {dummyData && columns && (
           <Filterable data={dummyData}
             columns={columns}
             filterableCols={columns}
             tableHeader="Filter Table"
+            recordsPerPageOption={[5, 10, 20]}
+            defaultRecordPerPage={5}
           />)}
-      </div> */}
+      </div>
 
       {/* <div className="frame gray">
         {dummyData && columns && (

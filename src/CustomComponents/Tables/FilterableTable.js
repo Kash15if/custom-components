@@ -7,13 +7,23 @@ import "./FilterableTable.css"
 
 
 
-const FilterableTable = ({ data, columns, filterableCols, tableHeader }) => {
+const FilterableTable = ({ data, columns, filterableCols, tableHeader,
+  recordsPerPageOption,
+  defaultRecordPerPage, }) => {
+  const [recordsPerPage, setRecordsPerPage] = useState(defaultRecordPerPage);
   const [tabData, setTabData] = useState(data);
   const [sortedColumn, setSortedColumn] = useState("");
   const [sortedAsc, setSortedAsc] = useState(0);
   const [popupVisibility, setPopupVisibility] = useState(false);
   const [valuesToBeFiltered, setValuesToBeFiltered] = useState();
-  const [filterableColumn, setFilterableColumn] = useState(columns.filter(col => col.filterable))
+  const [filterableColumn, setFilterableColumn] = useState(columns.filter(col => col.filterable));
+  const [pages, setPages] = useState(Math.ceil(data.length / recordsPerPage));
+  const [pageNo, setPageNo] = useState(1);
+  const [pageStartIndex, setPageStartIndex] = useState(0);
+  const [pageEndIndex, setPageEndIndex] = useState(recordsPerPage - 1);
+  const [datainPage, setDatainPage] = useState(
+    data.filter((item, index) => index < recordsPerPage)
+  );
   // const [filterStrings, setFilterString] = useState();
 
 
@@ -91,8 +101,9 @@ const FilterableTable = ({ data, columns, filterableCols, tableHeader }) => {
     });
 
     setTabData([...filteredData]);
-
     setValuesToBeFiltered(tempFilteredStringObject)
+
+    paginator(null, null, null, null, filteredData)
     // console.log({ ...valuesToBeFiltered, [name]: value })
     // console.log(e.target.name, e.target.value)
   }
@@ -145,6 +156,47 @@ const FilterableTable = ({ data, columns, filterableCols, tableHeader }) => {
   //   setTabData([...sortedData]);
   // };
 
+
+  const changePage = (next) => {
+    let page = next
+      ? pageNo + 1 > pages
+        ? pages
+        : pageNo + 1
+      : pageNo - 1 < 1
+        ? 1
+        : pageNo - 1;
+
+    paginator(null, null, recordsPerPage, page, null)
+  };
+
+
+  const recordSelectionPerPageChange = (noOfRecords) => {
+    paginator(null, null, noOfRecords, null, null)
+    setRecordsPerPage(noOfRecords)
+  };
+
+  const paginator = (recordStartIndex, recordEndIndex, noOfRecords, currrPageNo, sortedArrayData) => {
+
+    currrPageNo = currrPageNo ? currrPageNo : 1;
+    noOfRecords = noOfRecords ? noOfRecords : defaultRecordPerPage;
+    sortedArrayData = sortedArrayData ? sortedArrayData : tabData;
+
+    recordStartIndex = recordStartIndex ? recordStartIndex : Math.max((currrPageNo - 1) * noOfRecords, 0);
+    recordEndIndex = recordEndIndex ? recordEndIndex : Math.min(currrPageNo * noOfRecords - 1, sortedArrayData.length - 1);
+
+    console.log(recordStartIndex, recordEndIndex, noOfRecords, currrPageNo, sortedArrayData)
+
+    let tempDataArray = sortedArrayData.slice(recordStartIndex, recordEndIndex + 1);
+
+    setPages(Math.ceil(sortedArrayData.length / noOfRecords));
+    setPageStartIndex(recordStartIndex);
+    setPageEndIndex(recordEndIndex)
+    setPageNo(currrPageNo);
+    setDatainPage([...tempDataArray]);
+
+  }
+
+
   return (
     <div>
 
@@ -187,8 +239,8 @@ const FilterableTable = ({ data, columns, filterableCols, tableHeader }) => {
           ))}
         </tr>
 
-        {tabData &&
-          tabData.map((row) => {
+        {datainPage &&
+          datainPage.map((row) => {
             return (
               <tr>
                 {" "}
@@ -198,7 +250,20 @@ const FilterableTable = ({ data, columns, filterableCols, tableHeader }) => {
               </tr>
             );
           })}
-      </table>
+      </table>  <button onClick={() => changePage(true)}>Next</button>
+      <span>PageNo:- {pageNo}</span>
+      <button onClick={() => changePage(false)}>Prev</button>
+
+      <select
+        name="recordsPerPage"
+        onChange={(e) => recordSelectionPerPageChange(e.target.value)}
+        value={recordsPerPage}
+      >
+        {recordsPerPageOption.map((item) => (
+          <option value={item}>{item}</option>
+        ))}
+      </select>
+
     </div>
   );
 };
