@@ -76,7 +76,7 @@ function App() {
         )}
       </div> */}
 
-      <div className="frame blue">
+      <div className="frame red">
         {dummyData && columns && (
           <CRUDIE
             data={data}

@@ -471,8 +471,6 @@ const CRUDIE = ({
         <>
             <button onClick={createNewRecord}>Create New</button>
             <button onClick={deleteAllSelected}>Delete</button>
-            <button>Import</button>
-            <button>Export</button>
         </>
 
         <>
