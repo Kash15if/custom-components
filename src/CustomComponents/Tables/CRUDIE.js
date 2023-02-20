@@ -370,10 +370,39 @@ const CRUDIE = ({
         console.log(e.target.checked, multiSelectForDeleteList)
     }
 
+    const deleteAllSelected = () => {
+
+        const tempDataArr = tabData.filter(item => !multiSelectForDeleteList[item[uniqueId]])
+
+        setTabData(tempDataArr);
+
+        paginator(pageStartIndex, pageEndIndex, recordsPerPage, pageNo, tempDataArr)
+        console.log(tempDataArr)
+    }
+
+
+    const paginator = (recordStartIndex, recordEndIndex, noOfRecords, currrPageNo, sortedArrayData) => {
+
+        currrPageNo = currrPageNo ? currrPageNo : 1;
+        noOfRecords = noOfRecords ? noOfRecords : defaultRecordPerPage;
+        sortedArrayData = sortedArrayData ? sortedArrayData : tabData;
+        recordStartIndex = recordStartIndex ? recordStartIndex : Math.max((currrPageNo - 1) * noOfRecords, 0);
+        recordEndIndex = recordEndIndex ? recordEndIndex : Math.min(currrPageNo * noOfRecords - 1, sortedArrayData.length - 1);
+
+        let tempDataArray = sortedArrayData.slice(recordStartIndex, recordEndIndex + 1);
+
+        setPages(Math.ceil(sortedArrayData.length / noOfRecords));
+        setPageStartIndex(recordStartIndex);
+        setPageEndIndex(recordEndIndex)
+        setPageNo(currrPageNo);
+        setDatainPage([...tempDataArray]);
+    }
+
+
     return <div>
         <>
             <button onClick={createNewRecord}>Create New</button>
-            <button>Delete</button>
+            <button onClick={deleteAllSelected}>Delete</button>
             <button>Import</button>
             <button>Export</button>
         </>
