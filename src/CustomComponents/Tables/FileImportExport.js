@@ -1,6 +1,10 @@
 
 import { useState } from 'react';
-import { read, utils, writeFile } from 'xlsx'; const ImportExport = ({
+import { read, utils, writeFile } from 'xlsx';
+
+
+
+const ImportExport = ({
 
 
     data,
@@ -16,59 +20,48 @@ import { read, utils, writeFile } from 'xlsx'; const ImportExport = ({
 
     const [tabData, setTabData] = useState(data);
 
-    const onFileChange = (e) => {
-
+    const onExcelImport = (e) => {
         const files = e.target.files;
-        console.log(files.length)
         if (files.length) {
             const file = files[0];
             const reader = new FileReader();
             reader.onload = (e) => {
-                const wb = read(e.target.result);
-                const sheets = wb.SheetNames;
+                const workbook = read(e.target.result);
+                const sheets = workbook.SheetNames;
 
-                // console.log(sheets.length)
                 if (sheets.length) {
-                    const rows = utils.sheet_to_json(wb.Sheets[sheets[0]]);
-                    // setMovies(rows)
-
+                    const rows = utils.sheet_to_json(workbook.Sheets[sheets[0]]);
                     setTabData([...tabData, ...rows])
-
-                    // console.log(rows)
                 }
             }
-
-
             reader.readAsArrayBuffer(file);
         }
-        console.log("changed")
     }
 
 
-    const handleExport = () => {
+    const onExcelExport = () => {
         const headings = [columns.map(oneCol => oneCol.column)];
-        const wb = utils.book_new();
-        const ws = utils.json_to_sheet([]);
-        utils.sheet_add_aoa(ws, headings);
-        utils.sheet_add_json(ws, tabData, { origin: 'A2', skipHeader: true });
-        utils.book_append_sheet(wb, ws, 'Report');
-        writeFile(wb, 'Movie Report.xlsx');
-
+        const workbook = utils.book_new();
+        const worksheet = utils.json_to_sheet([]);
+        utils.sheet_add_aoa(worksheet, headings);
+        utils.sheet_add_json(worksheet, tabData, { origin: 'A2', skipHeader: true });
+        utils.book_append_sheet(workbook, worksheet, tableHeader || "Dataset");
+        writeFile(workbook, tableHeader + "xlsx" || 'Report.xlsx');
     }
 
-    const exportJsonData = () => {
+    const onJsonExport = () => {
         const jsonString = `data:text/json;chatset=utf-8,${encodeURIComponent(
             JSON.stringify(tabData)
         )}`;
         const link = document.createElement("a");
         link.href = jsonString;
         link.download = tableHeader + ".json";
-
         link.click();
+
     };
 
 
-    const importJSON = (e) => {
+    const onJsonImport = (e) => {
 
         const files = e.target.files;
         console.log(files.length)
@@ -83,8 +76,6 @@ import { read, utils, writeFile } from 'xlsx'; const ImportExport = ({
 
             reader.readAsText(file);
         }
-        console.log("changed")
-
     }
 
 
@@ -92,18 +83,28 @@ import { read, utils, writeFile } from 'xlsx'; const ImportExport = ({
         <div>
 
             <div>
-                <input type="file" onChange={onFileChange} />
-                <input type="file" onChange={importJSON} />
 
-                <button onClick={handleExport} className="btn">
-                    Export <i className="fa fa-download"></i>
-                </button>
-                <button onClick={exportJsonData} className="btn">
-                    Export JSON
-                </button>
+                <div>
+
+                    <input id="excelImportBtn" type="file" onChange={onExcelImport} name="excel import" />
+                    <label className="" htmlFor="excelImportBtn">Choose Excel</label>
+                </div>
+                <div>
+                    <input type="file" id="jsonImportBtn" onChange={onJsonImport} />
+                    <label className="" htmlFor="jsonImportBtn">Choose JSOn</label>
+
+                </div>
+
+                <div>
+                    <button onClick={onExcelExport} className="btn">
+                        Export Excel<i className="fa fa-download"></i>
+                    </button>
+                    <button onClick={onJsonExport} className="btn">
+                        Export JSON
+                    </button>
+                </div>
 
             </div>
-
             <div>
                 {tableHeader && <h2 className="tableHeader">{tableHeader}</h2>}
                 <table>
