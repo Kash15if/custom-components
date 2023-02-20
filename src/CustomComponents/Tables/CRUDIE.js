@@ -34,6 +34,7 @@ const CRUDIE = ({
     const [selectedOneRowForEdit, setSelectedOneRowForEdit] = useState();
     const [selectedOneRowForDelete, setSelectedOneRowForDelete] = useState();
     const [createNewRecordFormOpen, setCreateNewRecordFormOpen] = useState(false);
+    const [multiSelectForDeleteList, setMultiSelectForDeleteList] = useState({})
 
     useEffect(() => {
         let filteredTempObj = {};
@@ -355,26 +356,18 @@ const CRUDIE = ({
 
 
     const onMulitSelectChange = (e, selectedRow) => {
-        const checkedVal = e.target.checkedVal;
-        const tempData = tabData.map(itemRow => (itemRow[uniqueId] === selectedRow[uniqueId] ? { ...itemRow, selectedCurrentRow: checkedVal } : itemRow))
-        // console.log(e.target.checked)
+        const checkedVal = e.target.checked;
 
-        setTabData([...tempData]);
-
-        let start = 0;
-        let end = Math.min(recordsPerPage - 1, tempData.length - 1);
-
-        // console.log(filteredData);
-
-        let tempDataArray = [];
-        for (let index = start; index <= end; index++) {
-            tempDataArray.push(tempData[index]);
+        let rowId = selectedRow[uniqueId]
+        if (multiSelectForDeleteList[rowId]) {
+            let tempMultiDeleteList = multiSelectForDeleteList;
+            delete multiSelectForDeleteList[rowId];
+            setMultiSelectForDeleteList(tempMultiDeleteList)
         }
-
-        // setRecordsPerPage(recordsPerPage);
-        setPages(Math.ceil(data.length / recordsPerPage));
-        setPageNo(1);
-        setDatainPage(tempDataArray);
+        else {
+            setMultiSelectForDeleteList({ ...multiSelectForDeleteList, [rowId]: true })
+        }
+        console.log(e.target.checked, multiSelectForDeleteList)
     }
 
     return <div>
@@ -457,9 +450,10 @@ const CRUDIE = ({
 
             {datainPage &&
                 datainPage.map((row) => {
+                    let tempUniqueId = row[uniqueId]
                     return (
                         <tr>
-                            <td>{row.selectedCurrentRow}<input type="checkbox" id={"checkBox_" + row[uniqueId]} name="selectCheckBox" checked={row.selectedCurrentRow} onChange={(e) => onMulitSelectChange(e, row)} /></td>
+                            <td><input type="checkbox" id={"checkBox_" + row[uniqueId]} name="selectCheckBox" checked={multiSelectForDeleteList[tempUniqueId] ? true : false} onChange={(e) => onMulitSelectChange(e, row)} /></td>
                             {columns.map((col) => (
                                 <td>{row[col.column]}</td>
                             ))}

@@ -12,6 +12,7 @@ import ImportExport from "./CustomComponents/Tables/FileImportExport";
 // importing data
 import dummyData from "./data/data1";
 import { useEffect, useState } from "react";
+import CRUDIE from "./CustomComponents/Tables/CRUDIE";
 
 function App() {
   const [columns, setColumns] = useState();
@@ -45,7 +46,7 @@ function App() {
           />
         )}
       </div> */}
-
+      {/* 
       <div className="frame blue">
         {dummyData && columns && (
           <Filterable data={dummyData}
@@ -56,7 +57,7 @@ function App() {
             defaultRecordPerPage={5}
           />)}
       </div>
-
+ */}
       {/* <div className="frame gray">
         {dummyData && columns && (
           <Editable
@@ -73,7 +74,7 @@ function App() {
 
       <div className="frame blue">
         {dummyData && columns && (
-          <ImportExport
+          <CRUDIE
             data={dummyData}
             columns={columns}
             filterableCols={columns}
