@@ -12,7 +12,7 @@ const CRUDIE = ({
     tableHeader,
     recordsPerPageOption,
     defaultRecordPerPage,
-    uniqueId,
+    uniqueId, upDateData
 }) => {
 
     const [tabData, setTabData] = useState();
@@ -417,12 +417,11 @@ const CRUDIE = ({
                     let tempOpertedData = [...tabData, ...rows];
                     paginator(null, null, recordsPerPage, null, tempOpertedData)
                     setTabData(tempOpertedData);
+                    upDateData(tempOpertedData);
                 }
             }
             reader.readAsArrayBuffer(file);
         }
-
-
     }
 
 
@@ -461,6 +460,7 @@ const CRUDIE = ({
                 let tempOpertedData = [...tabData, ...newDataSetFromJSON];
                 paginator(null, null, recordsPerPage, null, tempOpertedData)
                 setTabData(tempOpertedData);
+                upDateData(tempOpertedData);
             }
 
             reader.readAsText(file);

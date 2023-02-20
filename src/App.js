@@ -16,7 +16,7 @@ import CRUDIE from "./CustomComponents/Tables/CRUDIE";
 
 function App() {
   const [columns, setColumns] = useState();
-
+  const [data, setData] = useState(dummyData)
   useEffect(() => {
     let tempCols = Object.keys(dummyData[0]).map((colName) =>
     ({
@@ -33,6 +33,10 @@ function App() {
     console.log(tempCols)
   }, []);
 
+
+  const upDateData = (newaData) => {
+    setData(newaData);
+  }
   return (
     <div className="App">
       {/* <div className="frame">
@@ -75,7 +79,7 @@ function App() {
       <div className="frame blue">
         {dummyData && columns && (
           <CRUDIE
-            data={dummyData}
+            data={data}
             columns={columns}
             filterableCols={columns}
             sortableCols={columns}
@@ -83,6 +87,7 @@ function App() {
             recordsPerPageOption={[5, 10, 20]}
             defaultRecordPerPage={5}
             uniqueId="id"
+            upDateData={upDateData}
           />
 
         )}
