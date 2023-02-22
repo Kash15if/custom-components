@@ -50,21 +50,9 @@ const CRUDIE = ({
         setTabData(tempData);
         setValuesToBeFiltered(filteredTempObj);
 
+        paginator(null, null, recordsPerPage, 1, tempData);
 
-        let start = 0;
-        let end = Math.min(recordsPerPage - 1, tempData.length - 1);
 
-        // console.log(filteredData);
-
-        let tempDataArray = [];
-        for (let index = start; index <= end; index++) {
-            tempDataArray.push(tempData[index]);
-        }
-
-        // setRecordsPerPage(recordsPerPage);
-        setPages(Math.ceil(data.length / recordsPerPage));
-        setPageNo(1);
-        setDatainPage(tempDataArray);
     }, []);
 
 
@@ -73,9 +61,7 @@ const CRUDIE = ({
 
         let tempFilteredStringObject = { ...valuesToBeFiltered, [name]: value };
 
-        console.log(tempFilteredStringObject);
         // filterLogic to be implemented here
-
         let filteredData = data.filter((itemRow) => {
             let dataPresentInRow = true;
             columns.forEach((cols, index) => {
@@ -94,78 +80,15 @@ const CRUDIE = ({
             });
 
             return dataPresentInRow;
-
-            // return filterableColumn.some((colName, index) =>
-            //   itemRow[colName].includes(valuesToBeFiltered[colName])
-            // );
         });
 
         setTabData([...filteredData]);
-        let start = 0;
-        let end = Math.min(recordsPerPage - 1, filteredData.length - 1);
-
-        console.log(filteredData);
-
-        let tempDataArray = [];
-        for (let index = start; index <= end; index++) {
-            tempDataArray.push(filteredData[index]);
-        }
-
-        // setRecordsPerPage(recordsPerPage);
-        setPages(Math.ceil(data.length / recordsPerPage));
-        setPageNo(1);
-        setDatainPage(tempDataArray);
-
-        console.log(tempDataArray);
-
         setValuesToBeFiltered(tempFilteredStringObject);
-        // console.log({ ...valuesToBeFiltered, [name]: value })
-        // console.log(e.target.name, e.target.value)
+
+        paginator(null, null, recordsPerPage, 1, filteredData)
+
     };
 
-    // const PopUp = ({ filterableColumns }) => {
-    //   // console.log("popv b", filterableColumns)
-    //   filterableCols.forEach(element => {
-    //     console.log(element)
-    //   });
-
-    //   return <div className={"popup " + true ? "showpopup" : "hidepopup"}>
-    //     <button onClick={() => closePopup()}>close</button>
-    //     <div>        {
-    //       filterableColumns.map((oneCol) =>
-    //         <div><span>{oneCol.column} : </span><input value={oneCol.column} /></div>
-
-    //       )
-    //     }</div>
-
-    //   </div>
-
-    // }
-
-    // const closePopup = () => {
-    //   setPopupVisibility(!popupVisibility);
-    // }
-
-    // const sortColumn = (col, asc) => {
-
-    //   if (asc) {
-    //     setSortedAsc(1);
-    //   }
-    //   else {
-    //     setSortedAsc(-1);
-    //   }
-
-    //   if (sortedColumn !== col) {
-
-    //     setSortedAsc(1);
-    //     setSortedColumn(col);
-    //   }
-    //   let sortedData = asc
-    //     ? data.sort((row1, row2) => (row1[col] > row2[col]) ? 1 : (row1[col] < row2[col]) ? -1 : 0)
-    //     : data.sort((row1, row2) => (row1[col] > row2[col]) ? -1 : (row1[col] < row2[col]) ? 1 : 0)
-
-    //   setTabData([...sortedData]);
-    // };
 
     const editFormContentChange = (e) => {
         const { name, value } = e.target;
@@ -199,25 +122,19 @@ const CRUDIE = ({
         );
         setTabData(tempRowData);
 
+
         let pagesLeftNow = Math.ceil(tempRowData.length / recordsPerPage);
-        console.log(pagesLeftNow);
-        let tempDataArray = [];
         let start = Math.max((pagesLeftNow - 1) * recordsPerPage, 0);
         let end = Math.min(
             pagesLeftNow * recordsPerPage - 1,
             tempRowData.length - 1
         );
 
-        for (let index = start; index <= end; index++) {
-            tempDataArray.push(tempRowData[index]);
-        }
+        let pageNumber = (pagesLeftNow < pageNo) ? pagesLeftNow : pageNo;
 
-        console.log(pagesLeftNow, pageNo, start);
-        if (pagesLeftNow < pageNo) setPageNo(pagesLeftNow);
-        setPages(pagesLeftNow);
-        setDatainPage(tempDataArray);
 
-        // recordSelectionPerPageChange(recordsPerPage)
+        paginator(start, end, recordsPerPage, pageNumber, tempRowData);
+
         setSelectedOneRowForDelete(null);
     };
 
@@ -249,21 +166,9 @@ const CRUDIE = ({
                 ? 1
                 : pageNo - 1;
 
-        let start = Math.max((page - 1) * recordsPerPage, 0);
-        console.log(tabData);
-        let end = Math.min(page * recordsPerPage - 1, tabData.length - 1);
-
-        console.log(start, end, pages, page);
-        console.log(tabData.length);
-        let tempDataArray = [];
-        for (let index = start; index <= end; index++) {
-            tempDataArray.push(tabData[index]);
-        }
-
         setPageNo(page);
-        setPageStartIndex(start);
-        setPageEndIndex(end);
-        setDatainPage(tempDataArray);
+        paginator(null, null, recordsPerPage, page, null);
+
     };
 
     const sortColumn = (col, asc) => {
@@ -333,9 +238,7 @@ const CRUDIE = ({
     };
 
     const onAddNewRecord = () => {
-        // let maxId = 39;
 
-        // console.log(selectedOneRowForEdit)
         let tabDataTemp = [
             ...tabData,
             {
@@ -344,16 +247,10 @@ const CRUDIE = ({
             },
         ];
 
-        console.log(tabDataTemp);
-
         setTabData(tabDataTemp);
-        let tempDataArray = [];
 
-        for (let index = pageStartIndex; index <= pageEndIndex; index++) {
-            tempDataArray.push(tabDataTemp[index]);
-        }
-        setPages(Math.ceil(tabDataTemp.length / recordsPerPage));
-        setDatainPage(tempDataArray);
+        paginator(pageStartIndex, pageEndIndex, recordsPerPage, pageNo, tabDataTemp)
+
     };
 
 
