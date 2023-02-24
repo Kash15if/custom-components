@@ -1,18 +1,18 @@
 import "./App.css";
 
-import Sortable from "./CustomComponents/Tables/SortableTable";
-import Filterable from "./CustomComponents/Tables/FilterableTable";
-import Editable from "./CustomComponents/Tables/Editable";
-import SortFilter from "./CustomComponents/Tables/Sort-Filter";
-import AllTogether from "./CustomComponents/Tables/Sort-Filter-Edit";
-import Crud from "./CustomComponents/Tables/CrudTable";
-import CrudIe from "./CustomComponents/Tables/CRUDIE"
-import ImportExport from "./CustomComponents/Tables/FileImportExport";
+import Sortable from "./CustomComponents/Tables/Sortable/SortableTable";
+import Filterable from "./CustomComponents/Tables/Filterable/FilterableTable";
+import Editable from "./CustomComponents/Tables/Editable/Editable";
+import SortFilter from "./CustomComponents/Tables/Sort-Filter/Sort-Filter";
+import AllTogether from "./CustomComponents/Tables/Sort-Filter-Edit/Sort-Filter-Edit";
+import Crud from "./CustomComponents/Tables/Extras/CrudTable";
+import CrudIe from "./CustomComponents/Tables/CRUDIE/CRUDIE"
+import ImportExport from "./CustomComponents/Tables/Extras/FileImportExport";
 
 // importing data
 import dummyData from "./data/data1";
 import { useEffect, useState } from "react";
-import CRUDIE from "./CustomComponents/Tables/CRUDIE";
+import CRUDIE from "./CustomComponents/Tables/CRUDIE/CRUDIE";
 
 function App() {
   const [columns, setColumns] = useState();

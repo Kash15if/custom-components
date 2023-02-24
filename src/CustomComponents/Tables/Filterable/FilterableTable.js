@@ -104,58 +104,7 @@ const FilterableTable = ({ data, columns, filterableCols, tableHeader,
     setValuesToBeFiltered(tempFilteredStringObject)
 
     paginator(null, null, null, null, filteredData)
-    // console.log({ ...valuesToBeFiltered, [name]: value })
-    // console.log(e.target.name, e.target.value)
   }
-
-  // const PopUp = ({ filterableColumns }) => {
-  //   // console.log("popv b", filterableColumns)
-  //   filterableCols.forEach(element => {
-  //     console.log(element)
-  //   });
-
-  //   return <div className={"popup " + true ? "showpopup" : "hidepopup"}>
-  //     <button onClick={() => closePopup()}>close</button>
-  //     <div>        {
-  //       filterableColumns.map((oneCol) =>
-  //         <div><span>{oneCol.column} : </span><input value={oneCol.column} /></div>
-
-  //       )
-  //     }</div>
-
-
-  //   </div>
-
-  // }
-
-
-
-  // const closePopup = () => {
-  //   setPopupVisibility(!popupVisibility);
-  // }
-
-  // const sortColumn = (col, asc) => {
-
-  //   if (asc) {
-  //     setSortedAsc(1);
-  //   }
-  //   else {
-  //     setSortedAsc(-1);
-  //   }
-
-  //   if (sortedColumn !== col) {
-
-  //     setSortedAsc(1);
-  //     setSortedColumn(col);
-  //   }
-  //   let sortedData = asc
-  //     ? data.sort((row1, row2) => (row1[col] > row2[col]) ? 1 : (row1[col] < row2[col]) ? -1 : 0)
-  //     : data.sort((row1, row2) => (row1[col] > row2[col]) ? -1 : (row1[col] < row2[col]) ? 1 : 0)
-
-
-  //   setTabData([...sortedData]);
-  // };
-
 
   const changePage = (next) => {
     let page = next

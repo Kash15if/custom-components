@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getInputBoxFromType } from "../../services/editTable"
+import { getInputBoxFromType } from "../../../services/editTable"
 
 const Editable = ({ data,
   columns,

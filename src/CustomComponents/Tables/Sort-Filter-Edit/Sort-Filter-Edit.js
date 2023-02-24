@@ -1,10 +1,10 @@
 
 
 import { useEffect, useState } from "react";
-import "./FilterableTable.css"
+// import "./FilterableTable.css"
 
 
-import { getInputBoxFromType } from "../../services/editTable"
+import { getInputBoxFromType } from "../../../services/editTable"
 
 
 

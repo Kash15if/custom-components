@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 
 import { read, utils, writeFile } from 'xlsx';
 
-import { getInputBoxFromType } from "../../services/editTable";
+import { getInputBoxFromType } from "../../../services/editTable";
 
 const CRUDIE = ({
     data,
