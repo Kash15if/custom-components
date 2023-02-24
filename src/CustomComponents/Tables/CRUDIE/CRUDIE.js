@@ -102,12 +102,7 @@ const CRUDIE = ({
                 : item
         );
 
-        let tempDataArray = [];
-        for (let index = pageStartIndex; index <= pageEndIndex; index++) {
-            tempDataArray.push(tempUpdatedData[index]);
-        }
-        setDatainPage(tempDataArray);
-
+        paginator(pageStartIndex, pageEndIndex, recordsPerPage, pageNo, tempUpdatedData)
         setSelectedOneRowForEdit(null);
     };
 
@@ -183,24 +178,17 @@ const CRUDIE = ({
             setSortedColumn(col);
         }
         let sortedData = asc
-            ? data.sort((row1, row2) =>
+            ? tabData.sort((row1, row2) =>
                 row1[col] > row2[col] ? 1 : row1[col] < row2[col] ? -1 : 0
             )
-            : data.sort((row1, row2) =>
+            : tabData.sort((row1, row2) =>
                 row1[col] > row2[col] ? -1 : row1[col] < row2[col] ? 1 : 0
             );
 
         setTabData([...sortedData]);
 
-        console.log(sortedData, pageStartIndex, pageEndIndex);
-        let tempDataArray = [];
-        for (let index = pageStartIndex; index <= pageEndIndex; index++) {
-            tempDataArray.push(sortedData[index]);
-        }
+        paginator(pageStartIndex, pageEndIndex, recordsPerPage, pageNo, sortedData)
 
-        console.log(tempDataArray, pageStartIndex, pageEndIndex);
-
-        setDatainPage(tempDataArray);
     };
 
     const recordSelectionPerPageChange = (noOfRecords) => {
@@ -431,14 +419,29 @@ const CRUDIE = ({
 
         {tableHeader && <h2 className="tableHeader">{tableHeader}</h2>}
         <table>
+
             <tr>
-                <th></th>
+                <th>Select</th>
                 {columns.map((col, index) => (
-                    <th>{col.column}
+                    <th>
+                        {col.sortable ? <button onClick={() => sortColumn(col.column, (sortedColumn === col.column && sortedAsc === 1) ? false : true)}>
+                            {col.column}{" "}
+                            {
+                                col.column === sortedColumn && <span>
+                                    {sortedAsc === -1 && <i>&#8595;</i>}
+                                    {sortedAsc === 1 && <i >&#8593;</i>}
+                                </span>
+                            }
+                        </button>
+                            : col.column
+
+
+                        }
                     </th>
                 ))}
                 <th>Edit</th>
                 <th>Delete</th>
+
             </tr>
 
             <tr>
