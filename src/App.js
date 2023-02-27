@@ -8,9 +8,11 @@ import AllTogether from "./CustomComponents/Tables/Sort-Filter-Edit/Sort-Filter-
 import Crud from "./CustomComponents/Tables/Extras/CrudTable";
 import CrudIe from "./CustomComponents/Tables/CRUDIE/CRUDIE"
 import ImportExport from "./CustomComponents/Tables/Extras/FileImportExport";
+import Expandable from "./CustomComponents/Tables/ExpanedTable/Expanded"
 
 // importing data
 import dummyData from "./data/data1";
+import expandableTableData from "./data/expandableData";
 import { useEffect, useState } from "react";
 import CRUDIE from "./CustomComponents/Tables/CRUDIE/CRUDIE";
 
@@ -95,9 +97,20 @@ function App() {
 
 
 
-      {/* <div className="frame black">
-        <SortFilter />
-      </div> */}
+      <div className="frame black">
+        <Expandable
+          data={data}
+          columns={columns}
+          filterableCols={columns}
+          sortableCols={columns}
+          tableHeader="Editable Table"
+          recordsPerPageOption={[5, 10, 20]}
+          defaultRecordPerPage={5}
+          uniqueId="id"
+          upDateData={upDateData}
+
+        />
+      </div>
     </div>
   );
 }
