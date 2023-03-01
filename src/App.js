@@ -17,6 +17,8 @@ import { useEffect, useState } from "react";
 import CRUDIE from "./CustomComponents/Tables/CRUDIE/CRUDIE";
 
 function App() {
+
+
   const [columns, setColumns] = useState();
   const [data, setData] = useState(dummyData)
   useEffect(() => {
@@ -98,18 +100,20 @@ function App() {
 
 
       <div className="frame black">
-        <Expandable
-          data={data}
-          columns={columns}
-          filterableCols={columns}
-          sortableCols={columns}
-          tableHeader="Editable Table"
-          recordsPerPageOption={[5, 10, 20]}
-          defaultRecordPerPage={5}
-          uniqueId="id"
-          upDateData={upDateData}
+        {dummyData && columns && (
+          <Expandable
+            data={data}
+            columns={columns}
+            filterableCols={columns}
+            sortableCols={columns}
+            tableHeader="Editable Table"
+            recordsPerPageOption={[5, 10, 20]}
+            defaultRecordPerPage={5}
+            uniqueId="id"
+            upDateData={upDateData}
+            innerTableColumns={["current_address", "permanent_address"]}
 
-        />
+          />)}
       </div>
     </div>
   );
