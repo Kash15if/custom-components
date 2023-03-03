@@ -26,6 +26,7 @@ const Expanded = ({ data,
     const [datainPage, setDatainPage] = useState(
         data.filter((item, index) => index < recordsPerPage)
     );
+    const [expandedTableAtIndex, setExpandedTableAtIndex] = useState({});
     // const [filterStrings, setFilterString] = useState();
 
 
@@ -116,6 +117,19 @@ const Expanded = ({ data,
     }
 
 
+    const showExpandedTableAtIndex = (index) => {
+
+        console.log(index)
+        if (expandedTableAtIndex[index]) {
+            let tempObj = expandedTableAtIndex;
+            delete tempObj[index];
+            setExpandedTableAtIndex({ ...tempObj })
+        }
+        else {
+            setExpandedTableAtIndex({ ...expandedTableAtIndex, [index]: true })
+        }
+    }
+
     return <div> {tableHeader && <h2 className="tableHeader">{tableHeader}</h2>}
         <table>
             <tr>
@@ -157,17 +171,19 @@ const Expanded = ({ data,
             </tr>
 
             {datainPage &&
-                datainPage.map((row) => {
-                    return (
+                datainPage.map((row, index) => {
+                    return (<>
                         <tr>
-                            <td><button >expandIcon</button></td>
+                            <td><button onClick={() => showExpandedTableAtIndex(index)}>expandIcon</button></td>
                             {columns.map((col) => (
                                 <td>{row[col.column]}</td>
                             ))}
+                        </tr>
 
 
-                            {
-                                row.expandableData &&
+                        {
+                            row.expandableData && expandedTableAtIndex[index] &&
+                            <tr><td>
                                 <table>
                                     {row.expandableData.map((innerRow, index) =>
                                         <tr>
@@ -178,10 +194,11 @@ const Expanded = ({ data,
                                     )
                                     }
 
-                                </table>
+                                </table></td></tr>}
 
-                            }
-                        </tr>
+
+
+                    </>
                     );
                 })}
         </table>  <button onClick={() => changePage(true)}>Next</button>

@@ -102,7 +102,7 @@ function App() {
       <div className="frame black">
         {dummyData && columns && (
           <Expandable
-            data={data}
+            data={expandableTableData}
             columns={columns}
             filterableCols={columns}
             sortableCols={columns}
