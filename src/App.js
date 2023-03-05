@@ -8,7 +8,7 @@ import AllTogether from "./CustomComponents/Tables/Sort-Filter-Edit/Sort-Filter-
 import Crud from "./CustomComponents/Tables/Extras/CrudTable";
 import CrudIe from "./CustomComponents/Tables/CRUDIE/CRUDIE"
 import ImportExport from "./CustomComponents/Tables/Extras/FileImportExport";
-import Expandable from "./CustomComponents/Tables/ExpanedTable/Expanded"
+import Expandable from "./CustomComponents/Tables/ExpanedTable/ExpandedUsingRecursion"
 
 // importing data
 import dummyData from "./data/data1";
@@ -32,7 +32,18 @@ function App() {
       // if date {min: "" , max: "" }
       // if int {min: "" , max: "" }
       // if textarea  {placeholder: "xyz" , name: "name" , lines: 2}
+
+
     }));
+
+    tempCols.innerColumns = [
+      {
+        column: "current_address", sortable: true, filterable: true,
+
+      }, {
+        column: "permanent_address", sortable: true, filterable: true,
+
+      }]
     setColumns(tempCols);
     console.log(tempCols)
   }, []);
@@ -110,8 +121,7 @@ function App() {
             recordsPerPageOption={[5, 10, 20]}
             defaultRecordPerPage={5}
             uniqueId="id"
-            upDateData={upDateData}
-            innerTableColumns={["current_address", "permanent_address"]}
+
 
           />)}
       </div>
