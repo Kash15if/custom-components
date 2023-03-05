@@ -43,7 +43,17 @@ function App() {
       }, {
         column: "permanent_address", sortable: true, filterable: true,
 
-      }]
+      },
+
+    ]
+
+    tempCols.innerColumns.innerColumns = [{
+      column: "current_address", sortable: true, filterable: true,
+
+    }, {
+      column: "permanent_address", sortable: true, filterable: true,
+
+    },]
     setColumns(tempCols);
     console.log(tempCols)
   }, []);

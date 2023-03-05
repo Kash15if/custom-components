@@ -9,7 +9,26 @@ const data = [
         expandableData: [
             {
                 current_address: "PO Box 22447",
-                permanent_address: "3 Thackeray Terrace"
+                permanent_address: "3 Thackeray Terrace",
+                expandableData: [{
+                    current_address: "PO Box 22447",
+                    permanent_address: "3 Thackeray Terrace"
+                }, {
+                    current_address: "PO Box 22447",
+                    permanent_address: "3 Thackeray Terrace"
+                }, {
+                    current_address: "PO Box 22447",
+                    permanent_address: "3 Thackeray Terrace"
+                }, {
+                    current_address: "PO Box 22447",
+                    permanent_address: "3 Thackeray Terrace"
+                }, {
+                    current_address: "PO Box 22447",
+                    permanent_address: "3 Thackeray Terrace"
+                }, {
+                    current_address: "PO Box 22447",
+                    permanent_address: "3 Thackeray Terrace"
+                }]
             }, {
                 current_address: "Room 1961",
                 permanent_address: "68075 Eagan Road"
@@ -164,6 +183,15 @@ const data = [
         ip_address: "83.97.38.164",
         expandableData: [
             {
+                current_address: "PO Box 22447",
+                permanent_address: "3 Thackeray Terrace"
+            }, {
+                current_address: "Room 1961",
+                permanent_address: "68075 Eagan Road"
+            }, {
+                current_address: "PO Box 31841",
+                permanent_address: "8801 Cordelia Place"
+            }, {
                 current_address: "PO Box 22447",
                 permanent_address: "3 Thackeray Terrace"
             }, {

@@ -193,7 +193,7 @@ const ExpandedTable = ({ data,
                                     sortableCols={[]}
                                     tableHeader="Inner Table"
                                     recordsPerPageOption={recordsPerPageOption}
-                                    defaultRecordPerPage={recordsPerPage}
+                                    defaultRecordPerPage={defaultRecordPerPage}
                                     uniqueId="id"
 
                                 />
