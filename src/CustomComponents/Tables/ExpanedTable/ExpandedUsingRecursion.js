@@ -32,6 +32,7 @@ const ExpandedTable = ({ data,
 
 
 
+
     useEffect(() => {
         let filteredTempObj = {};
         filterableCols.forEach((elemt) => {
@@ -39,8 +40,9 @@ const ExpandedTable = ({ data,
                 filteredTempObj[elemt.column] = "";
             }
         })
-    })
 
+        setValuesToBeFiltered(filteredTempObj)
+    }, [])
 
     const changeFilterableInputs = (e) => {
 
@@ -161,8 +163,10 @@ const ExpandedTable = ({ data,
     return <div> {tableHeader && <h2 className="tableHeader">{tableHeader}</h2>}
         <table>
             <tr>
+                <th>Expand</th>
                 {columns.map((col, index) => (
                     <th>
+
                         {col.sortable ? <button onClick={() => sortColumn(col.column, (sortedColumn === col.column && sortedAsc === 1) ? false : true)}>
                             {col.column}{" "}
                             {
@@ -181,7 +185,7 @@ const ExpandedTable = ({ data,
             </tr>
 
             <tr>
-                <th>Expand</th>
+                <th></th>
                 {columns && valuesToBeFiltered && columns.map((col, index) => (
                     <th>
                         {col.filterable ?
