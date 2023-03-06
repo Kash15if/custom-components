@@ -16,6 +16,8 @@ import expandableTableData from "./data/expandableData";
 import { useEffect, useState } from "react";
 import CRUDIE from "./CustomComponents/Tables/CRUDIE/CRUDIE";
 
+import HorizontalSLider from "./CustomComponents/Slider/HorizontalCarousel/HorizontalSlider"
+
 function App() {
 
 
@@ -101,7 +103,7 @@ function App() {
         )}
       </div> */}
 
-      <div className="frame red">
+      {/* <div className="frame red">
         {dummyData && columns && (
           <CRUDIE
             data={data}
@@ -134,7 +136,10 @@ function App() {
 
 
           />)}
-      </div>
+      </div> */}
+
+
+      <HorizontalSLider />
     </div>
   );
 }
