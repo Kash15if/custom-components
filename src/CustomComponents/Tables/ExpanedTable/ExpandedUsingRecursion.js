@@ -108,6 +108,8 @@ const ExpandedTable = ({ data,
 
         let tempDataArray = sortedArrayData.slice(recordStartIndex, recordEndIndex + 1);
 
+
+        setExpandedTableAtIndex({});
         setPages(Math.ceil(sortedArrayData.length / noOfRecords));
         setPageStartIndex(recordStartIndex);
         setPageEndIndex(recordEndIndex)
@@ -130,25 +132,50 @@ const ExpandedTable = ({ data,
         }
     }
 
+
+    const sortColumn = (col, asc) => {
+        if (asc) {
+            setSortedAsc(1);
+        } else {
+            setSortedAsc(-1);
+        }
+
+        if (sortedColumn !== col) {
+            setSortedAsc(1);
+            setSortedColumn(col);
+        }
+        let sortedData = asc
+            ? data.sort((row1, row2) =>
+                row1[col] > row2[col] ? 1 : row1[col] < row2[col] ? -1 : 0
+            )
+            : data.sort((row1, row2) =>
+                row1[col] > row2[col] ? -1 : row1[col] < row2[col] ? 1 : 0
+            );
+
+        setTabData([...sortedData]);
+
+        paginator(pageStartIndex, pageEndIndex, recordsPerPage, pageNo, sortedData)
+    };
+
+
     return <div> {tableHeader && <h2 className="tableHeader">{tableHeader}</h2>}
         <table>
             <tr>
                 {columns.map((col, index) => (
                     <th>
-                        {/* {col.sortable ? <button onClick={() => sortColumn(col.column, (sortedColumn === col.column && sortedAsc === 1) ? false : true)}>
-              {col.column}{" "}
-              {
-                col.column === sortedColumn && <span>
-                  {sortedAsc === -1 && <i>&#8595;</i>}
-                  {sortedAsc === 1 && <i >&#8593;</i>}
-                </span>
-              }
-            </button>
-              : col.column
+                        {col.sortable ? <button onClick={() => sortColumn(col.column, (sortedColumn === col.column && sortedAsc === 1) ? false : true)}>
+                            {col.column}{" "}
+                            {
+                                col.column === sortedColumn && <span>
+                                    {sortedAsc === -1 && <i>&#8595;</i>}
+                                    {sortedAsc === 1 && <i >&#8593;</i>}
+                                </span>
+                            }
+                        </button>
+                            : col.column
 
 
-            } */}
-                        {col.column}
+                        }
                     </th>
                 ))}
             </tr>
