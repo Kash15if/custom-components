@@ -7,11 +7,6 @@ const Popup = ({ children, visible, onClose }) => {
         onClose();
     }
 
-
-    // console.log(children)
-
-
-
     return (visible ? <div>
         {children}
         <button onClick={() => closePopup()}>close</button>
