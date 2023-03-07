@@ -18,6 +18,10 @@ import CRUDIE from "./CustomComponents/Tables/CRUDIE/CRUDIE";
 
 import HorizontalSLider from "./CustomComponents/Slider/HorizontalCarousel/HorizontalSlider"
 
+import Sliders from "./Pages/Sliders";
+import PopupPage from "./Pages/Popups";
+
+
 function App() {
 
 
@@ -139,7 +143,10 @@ function App() {
       </div> */}
 
 
-      <HorizontalSLider />
+      {/* <Sliders /> */}
+
+      <PopupPage />
+
     </div>
   );
 }
