@@ -144,7 +144,7 @@ function App() {
       </div> */}
 
 
-      {/* <Sliders /> */}
+      <Sliders />
 
       <PopupPage />
 
