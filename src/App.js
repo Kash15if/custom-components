@@ -20,6 +20,7 @@ import HorizontalSLider from "./CustomComponents/Slider/HorizontalCarousel/Horiz
 
 import Sliders from "./Pages/Sliders";
 import PopupPage from "./Pages/Popups";
+import Popover from "./Pages/Popover";
 
 
 function App() {
@@ -146,6 +147,8 @@ function App() {
       {/* <Sliders /> */}
 
       <PopupPage />
+
+      <Popover />
 
     </div>
   );

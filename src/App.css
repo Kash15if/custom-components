@@ -26,3 +26,10 @@
 .tableHeader {
   text-align: center;
 }
+
+button {
+  padding: 5px;
+  margin: 20px;
+  background-color: blueviolet;
+  color: white;
+}

@@ -1,0 +1,37 @@
+.alert {
+  background-color: black;
+  border: 3px rebeccapurple;
+  z-index: 100;
+  padding: 10px;
+  color: white;
+}
+
+.alert-danger {
+  background-color: red;
+  color: white;
+}
+
+.alert-success {
+  background-color: green;
+  color: white;
+}
+
+.alert-info {
+  background-color: blue;
+  color: white;
+}
+
+.alert-primary {
+  background-color: blue;
+  color: white;
+}
+
+.alert-warning {
+  background-color: yellow;
+  color: white;
+}
+
+.alert-secondary {
+  background-color: gray;
+  color: white;
+}
