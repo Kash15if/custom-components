@@ -11,13 +11,16 @@ const MultiCheckboxSelection = () => {
         let tempSV;
 
         if (selectedValues.includes(val)) {
+            console.log("contains")
             tempSV = selectedValues.filter((item) => item !== val);
         }
         else {
+            console.log("donot contains")
             tempSV = selectedValues;
             tempSV.push(val);
         }
 
+        console.log(tempSV)
         setSelectedValues([...tempSV]);
     }
 
@@ -26,7 +29,7 @@ const MultiCheckboxSelection = () => {
     return (<div>
         <label for="cars">Choose a car:</label>
 
-        <select multiple value={selectedValues} onChange={handleSelectChange}>
+        <select value={selectedValues} onSelect={handleSelectChange}>
             {options.map(option => (
                 <option key={option} value={option}>{option}</option>
             ))}

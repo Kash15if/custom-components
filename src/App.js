@@ -23,6 +23,7 @@ import PopupPage from "./Pages/Popups";
 import Popover from "./Pages/Popover";
 import Forms from "./Pages/Form";
 
+import Cards from "./Pages/Cards";
 
 function App() {
 
@@ -150,6 +151,8 @@ function App() {
       <PopupPage />
 
       <Popover />
+
+      <Cards />
 
     </div>
   );
