@@ -2,26 +2,28 @@ import { useState } from "react";
 
 const MultiCheckboxSelection = () => {
 
-    const [selectedValues, setSelectedValues] = useState([]);
+    const [selectedValues, setSelectedValues] = useState();
 
     function handleSelectChange(event) {
 
         let val = event.target.value;
         console.log(val)
-        let tempSV;
+        let tempSV = selectedValues ? selectedValues.split(",") : [];
 
-        if (selectedValues.includes(val)) {
+        console.log(tempSV)
+
+        if (selectedValues && selectedValues.includes(val)) {
             console.log("contains")
-            tempSV = selectedValues.filter((item) => item !== val);
+            tempSV = tempSV.filter((item) => item !== val);
+
         }
         else {
             console.log("donot contains")
-            tempSV = selectedValues;
             tempSV.push(val);
         }
 
         console.log(tempSV)
-        setSelectedValues([...tempSV]);
+        setSelectedValues(tempSV.join(','));
     }
 
     const options = ['Option 1', 'Option 2', 'Option 3'];
@@ -29,12 +31,14 @@ const MultiCheckboxSelection = () => {
     return (<div>
         <label for="cars">Choose a car:</label>
 
-        <select value={selectedValues} onSelect={handleSelectChange}>
+        <select value={selectedValues} onChange={handleSelectChange}>
+
+            <option value={""}>{selectedValues ? selectedValues : "Select Options"}</option>
             {options.map(option => (
                 <option key={option} value={option}>{option}</option>
             ))}
         </select>
-        <p>You have selected: {selectedValues.join(', ')}</p>
+        <p>You have selected: {selectedValues}</p>
 
 
 
