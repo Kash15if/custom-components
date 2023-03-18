@@ -4,7 +4,11 @@ import Product from "../CustomComponents/Cards/ecommerce/Ecom-Product";
 const Cards = () => {
     return (
         <div class="card">
+
+            {/* Profile Card */}
             <Profile />
+
+            {/* Product Card */}
             <Product />
 
         </div>

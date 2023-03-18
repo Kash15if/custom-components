@@ -33,7 +33,7 @@ const MultiCheckboxSelection = () => {
 
         <select value={selectedValues} onChange={handleSelectChange}>
 
-            <option value={""}>{selectedValues ? selectedValues : "Select Options"}</option>
+            <option value={""}>Select Options</option>
             {options.map(option => (
                 <option key={option} value={option}>{option}</option>
             ))}

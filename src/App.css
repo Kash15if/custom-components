@@ -5,31 +5,19 @@
   margin: 2%;
   padding: 2%;
 }
-
 .red {
   background-color: red;
 }
-
 .gray {
   background-color: gray;
 }
-
 .blue {
   background-color: blue;
 }
-
 .black {
   background-color: black;
   color: white;
 }
-
 .tableHeader {
   text-align: center;
-}
-
-button {
-  padding: 5px;
-  margin: 20px;
-  background-color: blueviolet;
-  color: white;
 }
