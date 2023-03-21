@@ -1,29 +1,32 @@
 import "./App.css";
 
-import Sortable from "./CustomComponents/Tables/Sortable/SortableTable";
-import Filterable from "./CustomComponents/Tables/Filterable/FilterableTable";
-import Editable from "./CustomComponents/Tables/Editable/Editable";
-import SortFilter from "./CustomComponents/Tables/Sort-Filter/Sort-Filter";
-import AllTogether from "./CustomComponents/Tables/Sort-Filter-Edit/Sort-Filter-Edit";
-import Crud from "./CustomComponents/Tables/Extras/CrudTable";
-import CrudIe from "./CustomComponents/Tables/CRUDIE/CRUDIE"
-import ImportExport from "./CustomComponents/Tables/Extras/FileImportExport";
-import Expandable from "./CustomComponents/Tables/ExpanedTable/ExpandedUsingRecursion"
+// import Sortable from "./CustomComponents/Tables/Sortable/SortableTable";
+// import Filterable from "./CustomComponents/Tables/Filterable/FilterableTable";
+// import Editable from "./CustomComponents/Tables/Editable/Editable";
+// import SortFilter from "./CustomComponents/Tables/Sort-Filter/Sort-Filter";
+// import AllTogether from "./CustomComponents/Tables/Sort-Filter-Edit/Sort-Filter-Edit";
+// import Crud from "./CustomComponents/Tables/Extras/CrudTable";
+// import CrudIe from "./CustomComponents/Tables/CRUDIE/CRUDIE"
+// import ImportExport from "./CustomComponents/Tables/Extras/FileImportExport";
+// import Expandable from "./CustomComponents/Tables/ExpanedTable/ExpandedUsingRecursion"
 
-// importing data
+// // importing data
 import dummyData from "./data/data1";
-import expandableTableData from "./data/expandableData";
+// import expandableTableData from "./data/expandableData";
 import { useEffect, useState } from "react";
-import CRUDIE from "./CustomComponents/Tables/CRUDIE/CRUDIE";
+// import CRUDIE from "./CustomComponents/Tables/CRUDIE/CRUDIE";
 
-import HorizontalSLider from "./CustomComponents/Slider/HorizontalCarousel/HorizontalSlider"
+// import HorizontalSLider from "./CustomComponents/Slider/HorizontalCarousel/HorizontalSlider"
 
 import Sliders from "./Pages/Sliders";
-import PopupPage from "./Pages/Popups";
+import Popups from "./Pages/Popups";
+import Alerts from "./Pages/Alerts"
 import Popover from "./Pages/Popover";
 import Forms from "./Pages/Form";
+import Tables from "./Pages/Tables"
 
 import Cards from "./Pages/Cards";
+import { Route, Routes } from "react-router-dom";
 
 function App() {
 
@@ -72,7 +75,8 @@ function App() {
     setData(newaData);
   }
   return (
-    <div className="App">
+    <div>
+
       {/* <div className="frame">
         {dummyData && columns && (
           <Sortable
@@ -123,12 +127,8 @@ function App() {
             uniqueId="id"
             upDateData={upDateData}
           />
-
         )}
       </div>
-
-
-
       <div className="frame black">
         {dummyData && columns && (
           <Expandable
@@ -140,21 +140,21 @@ function App() {
             recordsPerPageOption={[5, 10, 20]}
             defaultRecordPerPage={5}
             uniqueId="id"
-
-
           />)}
       </div> */}
-      <Forms />
+      <Routes>
+        <Route path="/tables" element={<Tables />} />
 
-      <Sliders />
-
-      <PopupPage />
-
-      <Popover />
-
-      <Cards />
+        <Route path="/popups" element={<Popups />} />
+        <Route path="/sliders" element={<Sliders />} />
+        <Route path="/cards" element={<Cards />} />
+        <Route path="/popovers" element={<Popover />} />
+        <Route path="/alerts" element={<Alerts />} />
+        <Route path="/forms" element={<Forms />} />
+      </Routes>
 
     </div>
+
   );
 }
 

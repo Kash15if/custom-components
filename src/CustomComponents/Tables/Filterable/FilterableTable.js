@@ -1,10 +1,7 @@
 
 
 import { useEffect, useState } from "react";
-import "./FilterableTable.css"
-
-
-
+import "./FilterableTable.module.css"
 
 
 const FilterableTable = ({ data, columns, filterableCols, tableHeader,
