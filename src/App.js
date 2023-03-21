@@ -143,7 +143,10 @@ function App() {
           />)}
       </div> */}
       <Routes>
-        <Route path="/tables" element={<Tables />} />
+        <Route path="/tables" element={dummyData && columns && <Tables dummyData={dummyData} data={data}
+          upDateData={upDateData}
+          columns={columns}
+        />} />
 
         <Route path="/popups" element={<Popups />} />
         <Route path="/sliders" element={<Sliders />} />

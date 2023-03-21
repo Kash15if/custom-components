@@ -1,4 +1,5 @@
 import { useState } from "react";
+import SortTableStyle from "./Sortable.module.css";
 
 const Sortable = ({
   data,
@@ -80,64 +81,74 @@ const Sortable = ({
   }
 
   return (
-    <div>
-      {tableHeader && <h2 className="tableHeader">{tableHeader}</h2>}
-      <table>
-        <tr>
-          {columns.map((col, index) => (
-            <th>
-              {col.sortable ? (
-                <button
-                  onClick={() =>
-                    sortColumn(
-                      col.column,
-                      sortedColumn === col.column && sortedAsc === 1
-                        ? false
-                        : true
-                    )
-                  }
-                >
-                  {col.column}{" "}
-                  {col.column === sortedColumn && (
-                    <span>
-                      {sortedAsc === -1 && <i>&#8595;</i>}
-                      {sortedAsc === 1 && <i>&#8593;</i>}
-                    </span>
-                  )}
-                </button>
-              ) : (
-                col.column
-              )}
-            </th>
-          ))}
-        </tr>
+    <div className={SortTableStyle.MainBody}>
+      <div className={SortTableStyle.frame}>
+        {tableHeader && <h2 className={SortTableStyle.MainHeader}>{tableHeader}</h2>}
+        <table>
+          <tr>
+            {columns.map((col, index) => (
+              <th>
+                {col.sortable ? (
+                  <button
+                    className={SortTableStyle.TableHeaderText}
+                    onClick={() =>
+                      sortColumn(
+                        col.column,
+                        sortedColumn === col.column && sortedAsc === 1
+                          ? false
+                          : true
+                      )
+                    }
+                  >
+                    {col.column}{" "}
+                    {col.column === sortedColumn && (
+                      <span>
+                        {sortedAsc === -1 && <i>&#8595;</i>}
+                        {sortedAsc === 1 && <i>&#8593;</i>}
+                      </span>
+                    )}
+                  </button>
+                ) : (
+                  col.column
+                )}
+              </th>
+            ))}
+          </tr>
 
-        {datainPage &&
-          datainPage.map((row) => {
-            return (
-              <tr>
-                {" "}
-                {columns.map((col) => (
-                  <td>{row[col.column]}</td>
-                ))}{" "}
-              </tr>
-            );
-          })}
-      </table>
+          {datainPage &&
+            datainPage.map((row) => {
+              return (
+                <tr className={SortTableStyle.test}>
+                  {" "}
+                  {columns.map((col) => (
+                    <td>{row[col.column]}</td>
+                  ))}{" "}
+                </tr>
+              );
+            })}
+        </table>
 
-      <button onClick={() => changePage(true)}>Next</button>
-      <span>PageNo:- {pageNo}</span>
-      <button onClick={() => changePage(false)}>Prev</button>
+        <div className={SortTableStyle.TablePagination}>
 
-      <select
-        name="recordsPerPage"
-        onChange={(e) => recordSelectionPerPageChange(e.target.value)}
-        value={recordsPerPage}
-      >
-        {recordsPerPageOption.map((item) => (
-          <option value={item}>{item}</option>
-        ))}
-      </select>
+          <button onClick={() => changePage(true)}
+            className={SortTableStyle.PreNext_btn}
+          >Next</button>
+          <span className={SortTableStyle.PageNo}>{pageNo}</span>
+          <button className={SortTableStyle.PreNext_btn}
+            onClick={() => changePage(false)}>Prev</button>
+
+          <select
+            name="recordsPerPage"
+            className={SortTableStyle.PageOption}
+            onChange={(e) => recordSelectionPerPageChange(e.target.value)}
+            value={recordsPerPage}
+          >
+            {recordsPerPageOption.map((item) => (
+              <option value={item}>{item}</option>
+            ))}
+          </select>
+        </div>
+      </div>
     </div>
   );
 };

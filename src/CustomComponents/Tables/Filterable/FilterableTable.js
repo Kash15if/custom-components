@@ -140,8 +140,17 @@ const FilterableTable = ({ data, columns, filterableCols, tableHeader,
         </tr>
 
         <tr>
-          {columns.map((col, index) => (
-            <th> <input disabled />
+          {columns && valuesToBeFiltered && columns.map((col, index) => (
+            <th>
+              {col.filterable ?
+                <input placeholder={col.column} value={valuesToBeFiltered[col.column]}
+                  name={col.column}
+                  onChange={(e) => changeFilterableInputs(e)}
+                />
+                : <input disabled />
+
+
+              }
             </th>
           ))}
         </tr>
