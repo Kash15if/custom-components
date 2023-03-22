@@ -7,7 +7,34 @@ const Tables = ({ dummyData, columns, upDateData, data }) => {
     return (<div>
 
         {/* Sortable */}
+        <h1>Sortable Table</h1>
 
+        <h2>Parameters</h2>
+        <h4>Required Field</h4>
+        <ul>
+            <li>data:- data for table should be in json format , array of object</li>
+            <li>columns :- array of objects having
+                <ol>
+                    <li>{'[{column: colName1, sortable: true},{column: colName2, sortable: true},...]'}]
+                    </li>
+                </ol>
+            </li>
+
+            <li> recordsPerPageOption:- It is the options for no of records present in a page. It will be an array of integers</li>
+            <li>defaultRecordPerPage: It is the no of records present in page by default. It will be an integer</li>
+        </ul>
+        <h4>Optional</h4>
+        <ul>
+            <li>tableHeader:- It is the header of the table. It will be of type String</li>
+        </ul>
+
+        <h2>Features</h2>
+        <ul>
+
+            <li>Sortable:- By clicking of the particular column of the table, It will sort the table wrt. clicked column </li>
+            <li>Pagination:- There are two buttons next and prev to navigate to different pages</li>
+            <li>No of Records per page:- It is a dropown, On selecting value no of records will be changed as selected</li>
+        </ul>
         <Sortable
             data={dummyData}
             columns={columns}
@@ -15,6 +42,10 @@ const Tables = ({ dummyData, columns, upDateData, data }) => {
             recordsPerPageOption={[5, 10, 20]}
             defaultRecordPerPage={5}
         />
+
+        <h3>Link to code:-  <a href="https://github.com/Kash15if/custom-components/tree/main/src/CustomComponents/Tables/Sortable"
+            target="_blank"
+            rel="noopener noreferrer">Sortable Table</a></h3>
 
 
         {/* Filterable */}

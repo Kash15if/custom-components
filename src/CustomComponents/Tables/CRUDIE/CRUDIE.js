@@ -1,5 +1,8 @@
 import { useState, useEffect } from "react";
 
+
+import CrudieStyle from "./Crudie.module.css";
+
 import { read, utils, writeFile } from 'xlsx';
 
 import { getInputBoxFromType } from "../../../services/editTable";
@@ -352,153 +355,155 @@ const CRUDIE = ({
         }
     }
 
-    return <div>
-        <>
-            <button onClick={createNewRecord}>Create New</button>
-            <button onClick={deleteAllSelected}>Delete</button>
-        </>
+    return <div className={CrudieStyle.MainBody}>
+        <div className={CrudieStyle.frame}>
+            <>
+                <button onClick={createNewRecord}>Create New</button>
+                <button onClick={deleteAllSelected}>Delete</button>
+            </>
 
-        <>
-            <div>
-                <input id="excelImportBtn" type="file" onChange={onExcelImport} name="excel import" />
-                <label className="" htmlFor="excelImportBtn">Choose Excel</label>
-            </div>
-            <div>
-                <input type="file" id="jsonImportBtn" onChange={onJsonImport} />
-                <label className="" htmlFor="jsonImportBtn">Choose JSOn</label>
-
-            </div>
-            <div>
-                <button onClick={onExcelExport} className="btn">
-                    Export Excel<i className="fa fa-download"></i>
-                </button>
-                <button onClick={onJsonExport} className="btn">
-                    Export JSON
-                </button>
-            </div>
-        </>
-
-
-
-        <>
-            {selectedOneRowForEdit && (
+            <>
                 <div>
-                    Popup Form
-                    {columns.map((col, index) =>
-                        getInputBoxFromType(
-                            col,
-                            selectedOneRowForEdit,
-                            editFormContentChange,
-                            index
-                        )
-                    )}
-                    {createNewRecordFormOpen ? (
-                        <button onClick={() => onAddNewRecord()}>Create New</button>
-                    ) : (
-                        <button onClick={() => onUpdateConfirm()}>Update</button>
-                    )}
-                    <button onClick={() => onUpdateCancel()}>Cancel</button>
+                    <input id="excelImportBtn" type="file" onChange={onExcelImport} name="excel import" />
+                    <label className="" htmlFor="excelImportBtn">Choose Excel</label>
                 </div>
-            )}
-        </>
-
-        <>
-            {selectedOneRowForDelete && (
                 <div>
-                    Popup Delete , Are you sure want to delete id :{" "}
-                    {selectedOneRowForDelete[uniqueId]}
-                    <button onClick={() => onDeleteConfirm(selectedOneRowForDelete)}>
-                        Delete
+                    <input type="file" id="jsonImportBtn" onChange={onJsonImport} />
+                    <label className="" htmlFor="jsonImportBtn">Choose JSOn</label>
+
+                </div>
+                <div>
+                    <button onClick={onExcelExport} className="btn">
+                        Export Excel<i className="fa fa-download"></i>
                     </button>
-                    <button onClick={() => onDeleteCancel(selectedOneRowForDelete)}>
-                        Cancel
+                    <button onClick={onJsonExport} className="btn">
+                        Export JSON
                     </button>
                 </div>
-            )}
-        </>
+            </>
 
-        {tableHeader && <h2 className="tableHeader">{tableHeader}</h2>}
-        <table>
 
-            <tr>
-                <th>Select</th>
-                {columns.map((col, index) => (
-                    <th>
-                        {col.sortable ? <button onClick={() => sortColumn(col.column, (sortedColumn === col.column && sortedAsc === 1) ? false : true)}>
-                            {col.column}{" "}
-                            {
-                                col.column === sortedColumn && <span>
-                                    {sortedAsc === -1 && <i>&#8595;</i>}
-                                    {sortedAsc === 1 && <i >&#8593;</i>}
-                                </span>
-                            }
+
+            <>
+                {selectedOneRowForEdit && (
+                    <div>
+                        Popup Form
+                        {columns.map((col, index) =>
+                            getInputBoxFromType(
+                                col,
+                                selectedOneRowForEdit,
+                                editFormContentChange,
+                                index
+                            )
+                        )}
+                        {createNewRecordFormOpen ? (
+                            <button onClick={() => onAddNewRecord()}>Create New</button>
+                        ) : (
+                            <button onClick={() => onUpdateConfirm()}>Update</button>
+                        )}
+                        <button onClick={() => onUpdateCancel()}>Cancel</button>
+                    </div>
+                )}
+            </>
+
+            <>
+                {selectedOneRowForDelete && (
+                    <div>
+                        Popup Delete , Are you sure want to delete id :{" "}
+                        {selectedOneRowForDelete[uniqueId]}
+                        <button onClick={() => onDeleteConfirm(selectedOneRowForDelete)}>
+                            Delete
                         </button>
-                            : col.column
+                        <button onClick={() => onDeleteCancel(selectedOneRowForDelete)}>
+                            Cancel
+                        </button>
+                    </div>
+                )}
+            </>
 
+            {tableHeader && <h2 className="tableHeader">{tableHeader}</h2>}
+            <table>
 
-                        }
-                    </th>
-                ))}
-                <th>Edit</th>
-                <th>Delete</th>
-
-            </tr>
-
-            <tr>
-                <th></th>
-                {columns &&
-                    valuesToBeFiltered &&
-                    columns.map((col, index) => (
-
+                <tr>
+                    <th>Select</th>
+                    {columns.map((col, index) => (
                         <th>
-                            {col.filterable ? (
-                                <input
-                                    placeholder={col.column}
-                                    value={valuesToBeFiltered[col.column]}
-                                    name={col.column}
-                                    onChange={(e) => changeFilterableInputs(e)}
-                                />
-                            ) : (
-                                <input disabled />
-                            )}
+                            {col.sortable ? <button onClick={() => sortColumn(col.column, (sortedColumn === col.column && sortedAsc === 1) ? false : true)}>
+                                {col.column}{" "}
+                                {
+                                    col.column === sortedColumn && <span>
+                                        {sortedAsc === -1 && <i>&#8595;</i>}
+                                        {sortedAsc === 1 && <i >&#8593;</i>}
+                                    </span>
+                                }
+                            </button>
+                                : col.column
+
+
+                            }
                         </th>
                     ))}
-            </tr>
+                    <th>Edit</th>
+                    <th>Delete</th>
 
-            {datainPage &&
-                datainPage.map((row) => {
-                    let tempUniqueId = row[uniqueId]
-                    return (
-                        <tr>
-                            <td><input type="checkbox" id={"checkBox_" + row[uniqueId]} name="selectCheckBox" checked={multiSelectForDeleteList[tempUniqueId] ? true : false} onChange={(e) => onMulitSelectChange(e, row)} /></td>
-                            {columns.map((col) => (
-                                <td>{row[col.column]}</td>
-                            ))}
-                            <td>
-                                <button onClick={() => editRow(row)}>Edit</button>
-                            </td>
+                </tr>
 
-                            <td>
-                                <button onClick={() => deleteRow(row)}>Delete</button>
-                            </td>
-                        </tr>
-                    );
-                })}
-        </table>
+                <tr>
+                    <th></th>
+                    {columns &&
+                        valuesToBeFiltered &&
+                        columns.map((col, index) => (
 
-        <button onClick={() => changePage(true)}>Next</button>
-        <span>PageNo:- {pageNo}</span>
-        <button onClick={() => changePage(false)}>Prev</button>
+                            <th>
+                                {col.filterable ? (
+                                    <input
+                                        placeholder={col.column}
+                                        value={valuesToBeFiltered[col.column]}
+                                        name={col.column}
+                                        onChange={(e) => changeFilterableInputs(e)}
+                                    />
+                                ) : (
+                                    <input disabled />
+                                )}
+                            </th>
+                        ))}
+                </tr>
 
-        <select
-            name="recordsPerPage"
-            onChange={(e) => recordSelectionPerPageChange(e.target.value)}
-            value={recordsPerPage}
-        >
-            {recordsPerPageOption.map((item) => (
-                <option value={item}>{item}</option>
-            ))}
-        </select>
+                {datainPage &&
+                    datainPage.map((row) => {
+                        let tempUniqueId = row[uniqueId]
+                        return (
+                            <tr>
+                                <td><input type="checkbox" id={"checkBox_" + row[uniqueId]} name="selectCheckBox" checked={multiSelectForDeleteList[tempUniqueId] ? true : false} onChange={(e) => onMulitSelectChange(e, row)} /></td>
+                                {columns.map((col) => (
+                                    <td>{row[col.column]}</td>
+                                ))}
+                                <td>
+                                    <button onClick={() => editRow(row)}>Edit</button>
+                                </td>
+
+                                <td>
+                                    <button onClick={() => deleteRow(row)}>Delete</button>
+                                </td>
+                            </tr>
+                        );
+                    })}
+            </table>
+
+            <button onClick={() => changePage(true)}>Next</button>
+            <span>PageNo:- {pageNo}</span>
+            <button onClick={() => changePage(false)}>Prev</button>
+
+            <select
+                name="recordsPerPage"
+                onChange={(e) => recordSelectionPerPageChange(e.target.value)}
+                value={recordsPerPage}
+            >
+                {recordsPerPageOption.map((item) => (
+                    <option value={item}>{item}</option>
+                ))}
+            </select>
+        </div>
     </div>
         ;
 }
