@@ -145,7 +145,7 @@ function App() {
       <Routes>
         <Route path="/tables" element={dummyData && columns && <Tables dummyData={dummyData} data={data}
           upDateData={upDateData}
-          columns={columns}
+          columns={columns} expandableTableData={expandableTableData}
         />} />
 
         <Route path="/popups" element={<Popups />} />

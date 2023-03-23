@@ -5,7 +5,7 @@ import CRUDIE from "../CustomComponents/Tables/CRUDIE/CRUDIE";
 import SortFilterEdit from "../CustomComponents/Tables/Sort-Filter-Edit/Sort-Filter-Edit"
 
 
-const Tables = ({ dummyData, columns, upDateData, data }) => {
+const Tables = ({ dummyData, columns, upDateData, data, expandableTableData }) => {
     return (<div>
 
         {/* Sortable */}
@@ -86,6 +86,18 @@ const Tables = ({ dummyData, columns, upDateData, data }) => {
             />)}
 
 
+        {/* Expandable table */}
+        {dummyData && columns && (
+            <Expandable
+                data={expandableTableData}
+                columns={columns}
+                filterableCols={columns}
+                sortableCols={columns}
+                tableHeader="Expandable Table"
+                recordsPerPageOption={[5, 10, 20]}
+                defaultRecordPerPage={5}
+                uniqueId="id"
+            />)}
 
         {/* Crud and Import Export */}
         {dummyData && columns && (
