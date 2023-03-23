@@ -3,7 +3,6 @@ import { getInputBoxFromType } from "../../../services/editTable"
 
 const Editable = ({ data,
   columns,
-  sortableCols,
   tableHeader,
   recordsPerPageOption,
   defaultRecordPerPage,
@@ -137,7 +136,13 @@ const Editable = ({ data,
   }
 
   const onUpdateConfirm = () => {
-    let tempUpdatedData = tabData.map(item => (item[uniqueId] === selectedOneRowForEdit[uniqueId] ? selectedOneRowForEdit : item));
+    let tempUpdatedData = tabData.map(item => {
+
+      console.log(item)
+      return item[uniqueId] === selectedOneRowForEdit[uniqueId] ? selectedOneRowForEdit : item
+    }
+    )
+      ;
 
     let tempDataArray = [];
     for (let index = pageStartIndex; index <= pageEndIndex; index++) {

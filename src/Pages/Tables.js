@@ -1,6 +1,8 @@
 import Sortable from "../CustomComponents/Tables/Sortable/SortableTable"
 import Filterable from "../CustomComponents/Tables/Filterable/FilterableTable"
+import Editable from "../CustomComponents/Tables/Editable/Editable";
 import CRUDIE from "../CustomComponents/Tables/CRUDIE/CRUDIE";
+import SortFilterEdit from "../CustomComponents/Tables/Sort-Filter-Edit/Sort-Filter-Edit"
 
 
 const Tables = ({ dummyData, columns, upDateData, data }) => {
@@ -43,7 +45,8 @@ const Tables = ({ dummyData, columns, upDateData, data }) => {
             defaultRecordPerPage={5}
         />
 
-        <h3>Link to code:-  <a href="https://github.com/Kash15if/custom-components/tree/main/src/CustomComponents/Tables/Sortable"
+        <h3>Link to code:-  <a
+            href="https://github.com/Kash15if/custom-components/tree/main/src/CustomComponents/Tables/Sortable"
             target="_blank"
             rel="noopener noreferrer">Sortable Table</a></h3>
 
@@ -59,9 +62,30 @@ const Tables = ({ dummyData, columns, upDateData, data }) => {
             />)}
 
 
-        {/* Sort Filter */}
+        {/* Edit */}
+        {dummyData && columns && (
+            <Editable data={dummyData}
+                columns={columns}
+                filterableCols={columns}
+                tableHeader="Editable Table"
+                uniqueId={"id"}
+                recordsPerPageOption={[5, 10, 20]}
+                defaultRecordPerPage={5}
+            />)}
+
 
         {/* Sort Filter and Edit */}
+        {dummyData && columns && (
+            <SortFilterEdit data={dummyData}
+                columns={columns}
+                filterableCols={columns}
+                tableHeader="Sort Filter and Edit Table"
+                uniqueId={"id"}
+                recordsPerPageOption={[5, 10, 20]}
+                defaultRecordPerPage={5}
+            />)}
+
+
 
         {/* Crud and Import Export */}
         {dummyData && columns && (
