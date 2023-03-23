@@ -12,7 +12,7 @@ import "./App.css";
 
 // // importing data
 import dummyData from "./data/data1";
-// import expandableTableData from "./data/expandableData";
+import expandableTableData from "./data/expandableData";
 import { useEffect, useState } from "react";
 // import CRUDIE from "./CustomComponents/Tables/CRUDIE/CRUDIE";
 

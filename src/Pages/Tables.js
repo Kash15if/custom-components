@@ -3,6 +3,7 @@ import Filterable from "../CustomComponents/Tables/Filterable/FilterableTable"
 import Editable from "../CustomComponents/Tables/Editable/Editable";
 import CRUDIE from "../CustomComponents/Tables/CRUDIE/CRUDIE";
 import SortFilterEdit from "../CustomComponents/Tables/Sort-Filter-Edit/Sort-Filter-Edit"
+import Expandable from "../CustomComponents/Tables/ExpanedTable/ExpandedUsingRecursion"
 
 
 const Tables = ({ dummyData, columns, upDateData, data, expandableTableData }) => {
