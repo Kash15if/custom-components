@@ -12,6 +12,8 @@ const Sliders = () => {
 
 
         <HorizontalSlider />
+
+
     </div>);
 }
 

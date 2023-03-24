@@ -53,6 +53,35 @@ const Tables = ({ dummyData, columns, upDateData, data, expandableTableData }) =
 
 
         {/* Filterable */}
+        <h1>Filterable Table</h1>
+
+        <h2>Parameters</h2>
+        <h4>Required Field</h4>
+        <ul>
+            <li>data:- data for table should be in json format , array of object</li>
+            <li>columns :- array of objects having
+                <ol>
+                    <li>{'[{column: colName1, filterable: true},{column: colName2, filterable: true},...]'}]
+                    </li>
+                </ol>
+            </li>
+
+            <li> recordsPerPageOption:- It is the options for no of records present in a page. It will be an array of integers</li>
+            <li>defaultRecordPerPage: It is the no of records present in page by default. It will be an integer</li>
+        </ul>
+        <h4>Optional</h4>
+        <ul>
+            <li>tableHeader:- It is the header of the table. It will be of type String</li>
+        </ul>
+
+        <h2>Features</h2>
+        <ul>
+
+            <li>Filter:- By typing/selecting in the input field , It will filter column accordingly </li>
+            <li>Pagination:- There are two buttons next and prev to navigate to different pages</li>
+            <li>No of Records per page:- It is a dropown, On selecting value no of records will be changed as selected</li>
+        </ul>
+
         {dummyData && columns && (
             <Filterable data={dummyData}
                 columns={columns}
