@@ -5,15 +5,24 @@ import CRUDIE from "../CustomComponents/Tables/CRUDIE/CRUDIE";
 import SortFilterEdit from "../CustomComponents/Tables/Sort-Filter-Edit/Sort-Filter-Edit"
 import Expandable from "../CustomComponents/Tables/ExpanedTable/ExpandedUsingRecursion"
 import { useEffect, useState } from "react";
+import axios from "axios";
 
 
 
 
-const Tables = ({ dummyData, columns, upDateData, data, expandableTableData }) => {
+const Tables = ({ columns, upDateData, data, expandableTableData }) => {
 
     // const [data , setData] = useState();
+    const [dummyData, setDummyData] = useState();
 
-    // useEffect(()=>{} , [])
+    useEffect(() => {
+
+        axios.get(process.env.REACT_APP_TEST_API).then((response) => {
+            const tempDataFromDB = response.data;
+            setDummyData(tempDataFromDB);
+
+        })
+    }, [])
 
 
 
@@ -52,13 +61,14 @@ const Tables = ({ dummyData, columns, upDateData, data, expandableTableData }) =
             <li>Pagination:- There are two buttons next and prev to navigate to different pages</li>
             <li>No of Records per page:- It is a dropown, On selecting value no of records will be changed as selected</li>
         </ul>
-        <Sortable
+        {dummyData && <Sortable
             data={dummyData}
             columns={columns}
             tableHeader="Sortable Table"
             recordsPerPageOption={[5, 10, 20]}
             defaultRecordPerPage={5}
         />
+        }
 
         <h3>Link to code:-  <a
             href="https://github.com/Kash15if/custom-components/tree/main/src/CustomComponents/Tables/Sortable"
