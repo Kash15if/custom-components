@@ -5,6 +5,8 @@ import CrudieStyle from "./Crudie.module.css";
 
 import { read, utils, writeFile } from 'xlsx';
 
+import axios from "axios"
+
 import { getInputBoxFromType } from "../../../services/editTable";
 
 const CRUDIE = ({
@@ -29,17 +31,32 @@ const CRUDIE = ({
 
     const [recordsPerPage, setRecordsPerPage] = useState(defaultRecordPerPage);
 
-    const [pages, setPages] = useState(Math.ceil(data.length / recordsPerPage));
+    const [pages, setPages] = useState(1);
     const [pageNo, setPageNo] = useState(1);
     const [pageStartIndex, setPageStartIndex] = useState(0);
     const [pageEndIndex, setPageEndIndex] = useState(recordsPerPage - 1);
-    const [datainPage, setDatainPage] = useState(
-        data.filter((item, index) => index < recordsPerPage)
-    );
+    const [datainPage, setDatainPage] = useState()
+
     const [selectedOneRowForEdit, setSelectedOneRowForEdit] = useState();
     const [selectedOneRowForDelete, setSelectedOneRowForDelete] = useState();
     const [createNewRecordFormOpen, setCreateNewRecordFormOpen] = useState(false);
     const [multiSelectForDeleteList, setMultiSelectForDeleteList] = useState({})
+
+
+    // API will be called for CRUD operation
+    useEffect(() => {
+        // call api here first time
+        axios.get(process.env.REACT_APP_TEST_API).then((response) => {
+            const tempDataFromDB = response.data
+            setTabData(tempDataFromDB);
+            setPages(Math.ceil(tempDataFromDB.length / recordsPerPage))
+            setDatainPage(
+                tempDataFromDB.filter((item, index) => index < recordsPerPage))
+        });
+
+    }, [])
+
+
 
     useEffect(() => {
         let filteredTempObj = {};

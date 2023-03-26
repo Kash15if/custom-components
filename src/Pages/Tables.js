@@ -4,10 +4,24 @@ import Editable from "../CustomComponents/Tables/Editable/Editable";
 import CRUDIE from "../CustomComponents/Tables/CRUDIE/CRUDIE";
 import SortFilterEdit from "../CustomComponents/Tables/Sort-Filter-Edit/Sort-Filter-Edit"
 import Expandable from "../CustomComponents/Tables/ExpanedTable/ExpandedUsingRecursion"
+import { useEffect, useState } from "react";
+
+
 
 
 const Tables = ({ dummyData, columns, upDateData, data, expandableTableData }) => {
+
+    // const [data , setData] = useState();
+
+    // useEffect(()=>{} , [])
+
+
+
+
+
     return (<div>
+
+
 
         {/* Sortable */}
         <h1>Sortable Table</h1>
@@ -139,7 +153,7 @@ const Tables = ({ dummyData, columns, upDateData, data, expandableTableData }) =
                 tableHeader="CRUD Import Export Table"
                 recordsPerPageOption={[5, 10, 20]}
                 defaultRecordPerPage={5}
-                uniqueId="id"
+                uniqueId="_id"
                 upDateData={upDateData}
             />
         )}
