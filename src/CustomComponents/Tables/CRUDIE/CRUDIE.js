@@ -45,16 +45,8 @@ const CRUDIE = ({
 
     // API will be called for CRUD operation
     useEffect(() => {
-        // call api here first time
-        axios.get(process.env.REACT_APP_TEST_API).then((response) => {
-            const tempDataFromDB = response.data
-            setTabData(tempDataFromDB);
-            setPages(Math.ceil(tempDataFromDB.length / recordsPerPage))
-            setDatainPage(
-                tempDataFromDB.filter((item, index) => index < recordsPerPage))
-        });
-
-    }, [])
+        getDataFromDb();
+    }, []);
 
 
 
@@ -74,6 +66,18 @@ const CRUDIE = ({
 
 
     }, []);
+
+
+    const getDataFromDb = async () => {
+        // call api here first time
+        axios.get(process.env.REACT_APP_TEST_API).then((response) => {
+            const tempDataFromDB = response.data
+            setTabData(tempDataFromDB);
+
+            paginator(null, null, recordsPerPage, null, tempDataFromDB)
+        });
+
+    }
 
 
     const changeFilterableInputs = (e) => {
@@ -359,13 +363,28 @@ const CRUDIE = ({
         if (files.length) {
             const file = files[0];
             const reader = new FileReader();
-            reader.onload = (e) => {
+            reader.onload = async (e) => {
                 const content = e.target.result;
                 const newDataSetFromJSON = JSON.parse(content); // parse json 
-                let tempOpertedData = [...tabData, ...newDataSetFromJSON];
-                paginator(null, null, recordsPerPage, null, tempOpertedData)
-                setTabData(tempOpertedData);
-                upDateData(tempOpertedData);
+                // let tempOpertedData = [...tabData, ...newDataSetFromJSON];
+                // paginator(null, null, recordsPerPage, null, tempOpertedData)
+                // setTabData(tempOpertedData);
+                // upDateData(tempOpertedData);
+
+                // console.log(newDataSetFromJSON)
+                // const response = await fetch(process.env.REACT_APP_TEST_API + "/bulkData", {
+                //     method: "POST",
+                //     body: newDataSetFromJSON,
+                // });
+
+                axios.post(process.env.REACT_APP_TEST_API + "/bulkData", newDataSetFromJSON)
+                    .then(function (response) {
+                        console.log(response);
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                    });
+                getDataFromDb();
             }
 
             reader.readAsText(file);

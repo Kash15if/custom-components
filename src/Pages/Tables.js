@@ -10,16 +10,54 @@ import axios from "axios";
 
 
 
-const Tables = ({ columns, upDateData, data, expandableTableData }) => {
+const Tables = ({ upDateData, data, expandableTableData }) => {
 
     // const [data , setData] = useState();
     const [dummyData, setDummyData] = useState();
+    const [columns, setColumns] = useState();
 
     useEffect(() => {
 
         axios.get(process.env.REACT_APP_TEST_API).then((response) => {
             const tempDataFromDB = response.data;
             setDummyData(tempDataFromDB);
+
+
+
+            let tempCols = Object.keys(tempDataFromDB[0]).map((colName) =>
+            ({
+                column: colName, sortable: true, editable: true, filterable: true,
+                formInputDetails: { defaultVal: "abcd", inputType: "text", radioLabel: "Please select your favorite Web language:", data: [{ label: "xyz", value: "abc" }, { label: "uvw", value: "def" }], min: 0, max: 5 }
+                // if inut type is dropdown then [{ label: "xyz", value: "abc" }] 
+                // if it it text then {placeholder: "xyz" , name: "name"}
+                // if checkbox {label: "label" }
+                // if date {min: "" , max: "" }
+                // if int {min: "" , max: "" }
+                // if textarea  {placeholder: "xyz" , name: "name" , lines: 2}
+
+
+            }));
+
+            tempCols.innerColumns = [
+                {
+                    column: "current_address", sortable: true, filterable: true,
+
+                }, {
+                    column: "permanent_address", sortable: true, filterable: true,
+
+                },
+
+            ]
+
+            tempCols.innerColumns.innerColumns = [{
+                column: "current_address", sortable: true, filterable: true,
+
+            }, {
+                column: "permanent_address", sortable: true, filterable: true,
+
+            },]
+            setColumns(tempCols);
+
 
         })
     }, [])
@@ -61,7 +99,7 @@ const Tables = ({ columns, upDateData, data, expandableTableData }) => {
             <li>Pagination:- There are two buttons next and prev to navigate to different pages</li>
             <li>No of Records per page:- It is a dropown, On selecting value no of records will be changed as selected</li>
         </ul>
-        {dummyData && <Sortable
+        {dummyData && columns && <Sortable
             data={dummyData}
             columns={columns}
             tableHeader="Sortable Table"
