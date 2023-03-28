@@ -69,6 +69,7 @@ const CRUDIE = ({
 
 
     const getDataFromDb = async () => {
+        console.log("getting vl")
         // call api here first time
         axios.get(process.env.REACT_APP_TEST_API).then((response) => {
             const tempDataFromDB = response.data
@@ -249,19 +250,31 @@ const CRUDIE = ({
         setCreateNewRecordFormOpen(true);
     };
 
-    const onAddNewRecord = () => {
+    const onAddNewRecord = async () => {
 
-        let tabDataTemp = [
-            ...tabData,
-            {
-                ...selectedOneRowForEdit,
-                [uniqueId]: parseInt(selectedOneRowForEdit[uniqueId]),
-            },
-        ];
+        // let tabDataTemp = [
+        //     ...tabData,
+        //     {
+        //         ...selectedOneRowForEdit,
+        //         [uniqueId]: parseInt(selectedOneRowForEdit[uniqueId]),
+        //     },
+        // ];
 
-        setTabData(tabDataTemp);
+        console.log(selectedOneRowForEdit)
 
-        paginator(pageStartIndex, pageEndIndex, recordsPerPage, pageNo, tabDataTemp)
+        try {
+            let res = await axios.post(process.env.REACT_APP_TEST_API, selectedOneRowForEdit)
+            console.log(res);
+        } catch (e) {
+            console.log(e)
+        }
+
+
+        getDataFromDb();
+
+        // setTabData(tabDataTemp);
+
+        // paginator(pageStartIndex, pageEndIndex, recordsPerPage, pageNo, tabDataTemp)
 
     };
 
@@ -283,12 +296,24 @@ const CRUDIE = ({
 
     const deleteAllSelected = () => {
 
-        const tempDataArr = tabData.filter(item => !multiSelectForDeleteList[item[uniqueId]])
+        // const tempDataArr = tabData.filter(item => !multiSelectForDeleteList[item[uniqueId]])
 
-        setTabData(tempDataArr);
+        // console.log(multiSelectForDeleteList)
+
+        axios.post(process.env.REACT_APP_TEST_API + "/multiple", multiSelectForDeleteList)
+            .then(function (response) {
+                console.log(response);
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+
+        getDataFromDb();
+
+        // setTabData(tempDataArr);
         setMultiSelectForDeleteList({});
 
-        paginator(pageStartIndex, pageEndIndex, recordsPerPage, pageNo, tempDataArr);
+        // paginator(pageStartIndex, pageEndIndex, recordsPerPage, pageNo, tempDataArr);
 
     }
 
@@ -323,10 +348,17 @@ const CRUDIE = ({
 
                 if (sheets.length) {
                     const rows = utils.sheet_to_json(workbook.Sheets[sheets[0]]);
-                    let tempOpertedData = [...tabData, ...rows];
-                    paginator(null, null, recordsPerPage, null, tempOpertedData)
-                    setTabData(tempOpertedData);
-                    upDateData(tempOpertedData);
+
+                    axios.post(process.env.REACT_APP_TEST_API + "/bulkData", rows)
+                        .then(function (response) {
+                            console.log(response);
+                        })
+                        .catch(function (error) {
+                            console.log(error);
+                        });
+
+                    getDataFromDb();
+
                 }
             }
             reader.readAsArrayBuffer(file);
@@ -366,16 +398,6 @@ const CRUDIE = ({
             reader.onload = async (e) => {
                 const content = e.target.result;
                 const newDataSetFromJSON = JSON.parse(content); // parse json 
-                // let tempOpertedData = [...tabData, ...newDataSetFromJSON];
-                // paginator(null, null, recordsPerPage, null, tempOpertedData)
-                // setTabData(tempOpertedData);
-                // upDateData(tempOpertedData);
-
-                // console.log(newDataSetFromJSON)
-                // const response = await fetch(process.env.REACT_APP_TEST_API + "/bulkData", {
-                //     method: "POST",
-                //     body: newDataSetFromJSON,
-                // });
 
                 axios.post(process.env.REACT_APP_TEST_API + "/bulkData", newDataSetFromJSON)
                     .then(function (response) {
@@ -384,6 +406,7 @@ const CRUDIE = ({
                     .catch(function (error) {
                         console.log(error);
                     });
+
                 getDataFromDb();
             }
 
