@@ -120,14 +120,26 @@ const CRUDIE = ({
         setSelectedOneRowForEdit({ ...selectedOneRowForEdit, [name]: value });
     };
 
-    const onUpdateConfirm = () => {
-        let tempUpdatedData = tabData.map((item) =>
-            item[uniqueId] === selectedOneRowForEdit[uniqueId]
-                ? selectedOneRowForEdit
-                : item
-        );
+    const onUpdateConfirm = async () => {
+        // let tempUpdatedData = tabData.map((item) =>
+        //     item[uniqueId] === selectedOneRowForEdit[uniqueId]
+        //         ? selectedOneRowForEdit
+        //         : item
+        // );
 
-        paginator(pageStartIndex, pageEndIndex, recordsPerPage, pageNo, tempUpdatedData)
+        // paginator(pageStartIndex, pageEndIndex, recordsPerPage, pageNo, tempUpdatedData)
+
+        // axios.patch(process.env.REACT_APP_TEST_API, selectedOneRowForEdit)
+
+        try {
+            let res = await axios.patch(process.env.REACT_APP_TEST_API + "/" + selectedOneRowForEdit[uniqueId], selectedOneRowForEdit)
+            console.log(res);
+        } catch (e) {
+            console.log(e)
+        }
+
+        getDataFromDb()
+
         setSelectedOneRowForEdit(null);
     };
 
@@ -135,25 +147,38 @@ const CRUDIE = ({
         setSelectedOneRowForEdit(null);
     };
 
-    const onDeleteConfirm = (selectedRow) => {
+    const onDeleteConfirm = async (selectedRow) => {
+
         // console.log(selectedRow, tabData)
-        let tempRowData = tabData.filter(
-            (row) => row[uniqueId] !== selectedRow[uniqueId]
-        );
-        setTabData(tempRowData);
+
+        // let tempRowData = tabData.filter(
+        //     (row) => row[uniqueId] !== selectedRow[uniqueId]
+        // );
+        // setTabData(tempRowData);
 
 
-        let pagesLeftNow = Math.ceil(tempRowData.length / recordsPerPage);
-        let start = Math.max((pagesLeftNow - 1) * recordsPerPage, 0);
-        let end = Math.min(
-            pagesLeftNow * recordsPerPage - 1,
-            tempRowData.length - 1
-        );
 
-        let pageNumber = (pagesLeftNow < pageNo) ? pagesLeftNow : pageNo;
+        try {
+            let res = await axios.delete(process.env.REACT_APP_TEST_API + "/" + selectedRow[uniqueId])
+            console.log(res);
+        } catch (e) {
+            console.log(e)
+        }
 
 
-        paginator(start, end, recordsPerPage, pageNumber, tempRowData);
+        getDataFromDb()
+
+        // let pagesLeftNow = Math.ceil(tempRowData.length / recordsPerPage);
+        // let start = Math.max((pagesLeftNow - 1) * recordsPerPage, 0);
+        // let end = Math.min(
+        //     pagesLeftNow * recordsPerPage - 1,
+        //     tempRowData.length - 1
+        // );
+
+        // let pageNumber = (pagesLeftNow < pageNo) ? pagesLeftNow : pageNo;
+
+
+        // paginator(start, end, recordsPerPage, pageNumber, tempRowData);
 
         setSelectedOneRowForDelete(null);
     };
