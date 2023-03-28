@@ -301,6 +301,8 @@ const CRUDIE = ({
 
         // paginator(pageStartIndex, pageEndIndex, recordsPerPage, pageNo, tabDataTemp)
 
+
+        setSelectedOneRowForEdit(null);
     };
 
 
