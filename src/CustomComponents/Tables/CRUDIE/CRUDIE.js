@@ -42,6 +42,7 @@ const CRUDIE = ({
     const [createNewRecordFormOpen, setCreateNewRecordFormOpen] = useState(false);
     const [multiSelectForDeleteList, setMultiSelectForDeleteList] = useState({})
     const [allRowsOfTableSelected, setAllRowsOfTableSelected] = useState(false);
+    const [selectedMultipleRowForDeletePopup, setSelectedMultipleRowForDeletePopup] = useState(false);
 
 
     // API will be called for CRUD operation
@@ -361,7 +362,7 @@ const CRUDIE = ({
 
         // console.log(multiSelectForDeleteList)
         try {
-            let response = await axios.post(process.env.REACT_APP_TEST_API + "/multiple", multiSelectForDeleteList)
+            let response = await axios.post(process.env.REACT_APP_TEST_API + "/delete-multiple", Object.keys(multiSelectForDeleteList))
 
             let tempDataArr = await getDataFromDb();
             paginator(pageStartIndex, pageEndIndex, recordsPerPage, pageNo, tempDataArr);
@@ -484,7 +485,7 @@ const CRUDIE = ({
         <div className={CrudieStyle.frame}>
             <>
                 <button onClick={createNewRecord}>Create New</button>
-                <button onClick={deleteAllSelected}>Delete</button>
+                <button onClick={() => setSelectedMultipleRowForDeletePopup(true)}>Delete</button>
             </>
 
             <>
@@ -540,6 +541,21 @@ const CRUDIE = ({
                             Delete
                         </button>
                         <button onClick={() => onDeleteCancel(selectedOneRowForDelete)}>
+                            Cancel
+                        </button>
+                    </div>
+                )}
+            </>
+
+            <>
+                {selectedMultipleRowForDeletePopup && (
+                    <div>
+                        <h3>Popup Delete , Are you sure want to delete id all selected data.</h3>
+                        <h4>No of rows to be deleteted :- {Object.keys(multiSelectForDeleteList).length}</h4>
+                        <button onClick={deleteAllSelected}>
+                            Delete
+                        </button>
+                        <button onClick={() => setSelectedMultipleRowForDeletePopup(false)}>
                             Cancel
                         </button>
                     </div>
