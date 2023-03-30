@@ -374,7 +374,7 @@ const CRUDIE = ({
 
         // setTabData(tempDataArr);
         setMultiSelectForDeleteList({});
-
+        setSelectedMultipleRowForDeletePopup(false)
 
     }
 
