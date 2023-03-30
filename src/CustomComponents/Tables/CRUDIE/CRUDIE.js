@@ -327,22 +327,21 @@ const CRUDIE = ({
         console.log(e.target.checked, multiSelectForDeleteList)
     }
 
-    const deleteAllSelected = () => {
+    const deleteAllSelected = async () => {
 
         // const tempDataArr = tabData.filter(item => !multiSelectForDeleteList[item[uniqueId]])
 
         // console.log(multiSelectForDeleteList)
+        try {
+            let response = await axios.post(process.env.REACT_APP_TEST_API + "/multiple", multiSelectForDeleteList)
 
-        axios.post(process.env.REACT_APP_TEST_API + "/multiple", multiSelectForDeleteList)
-            .then(function (response) {
-                console.log(response);
-            })
-            .catch(function (error) {
-                console.log(error);
-            });
+            let tempDataArr = await getDataFromDb();
+            paginator(pageStartIndex, pageEndIndex, recordsPerPage, pageNo, tempDataArr);
+        }
+        catch (error) {
+            console.log(error);
+        }
 
-        let tempDataArr = getDataFromDb();
-        paginator(pageStartIndex, pageEndIndex, recordsPerPage, pageNo, tempDataArr);
 
         // setTabData(tempDataArr);
         setMultiSelectForDeleteList({});
@@ -375,22 +374,26 @@ const CRUDIE = ({
         if (files.length) {
             const file = files[0];
             const reader = new FileReader();
-            reader.onload = (e) => {
+            reader.onload = async (e) => {
                 const workbook = read(e.target.result);
                 const sheets = workbook.SheetNames;
 
                 if (sheets.length) {
-                    const rows = utils.sheet_to_json(workbook.Sheets[sheets[0]]);
 
-                    axios.post(process.env.REACT_APP_TEST_API + "/bulkData", rows)
-                        .then(function (response) {
-                            console.log(response);
-                        })
-                        .catch(function (error) {
-                            console.log(error);
-                        });
+                    try {
 
-                    getDataFromDb();
+                        const rows = utils.sheet_to_json(workbook.Sheets[sheets[0]]);
+
+                        let response = await axios.post(process.env.REACT_APP_TEST_API + "/bulkData", rows);
+                        console.log(response);
+
+                        let tempDataArr = await getDataFromDb();
+                        paginator(null, null, recordsPerPage, null, tempDataArr);
+                    }
+                    catch (e) {
+                        console.log(e);
+                    }
+
 
                 }
             }
@@ -421,7 +424,7 @@ const CRUDIE = ({
     };
 
 
-    const onJsonImport = (e) => {
+    const onJsonImport = async (e) => {
 
         const files = e.target.files;
         console.log(files.length)
@@ -432,15 +435,17 @@ const CRUDIE = ({
                 const content = e.target.result;
                 const newDataSetFromJSON = JSON.parse(content); // parse json 
 
-                axios.post(process.env.REACT_APP_TEST_API + "/bulkData", newDataSetFromJSON)
-                    .then(function (response) {
-                        console.log(response);
-                    })
-                    .catch(function (error) {
-                        console.log(error);
-                    });
+                try {
+                    let response = await axios.post(process.env.REACT_APP_TEST_API + "/bulkData", newDataSetFromJSON);
 
-                getDataFromDb();
+                    let tempDataArr = await getDataFromDb();
+                    paginator(null, null, recordsPerPage, null, tempDataArr);
+                }
+                catch (e) {
+                    console.log(e)
+                }
+
+
             }
 
             reader.readAsText(file);
