@@ -178,7 +178,7 @@ const CRUDIE = ({
         }
 
 
-        let tempDataArr = getDataFromDb()
+        let tempDataArr = await getDataFromDb()
 
         let pagesLeftNow = Math.ceil(tempDataArr.length / recordsPerPage);
         let start = Math.max((pagesLeftNow - 1) * recordsPerPage, 0);
@@ -190,7 +190,7 @@ const CRUDIE = ({
         let pageNumber = (pagesLeftNow < pageNo) ? pagesLeftNow : pageNo;
 
 
-        paginator(start, end, recordsPerPage, pageNumber, tempDataArr);
+        paginator(null, null, recordsPerPage, pageNumber, tempDataArr);
 
         setSelectedOneRowForDelete(null);
     };
@@ -369,7 +369,19 @@ const CRUDIE = ({
             let response = await axios.post(process.env.REACT_APP_TEST_API + "/delete-multiple", Object.keys(multiSelectForDeleteList))
 
             let tempDataArr = await getDataFromDb();
-            paginator(pageStartIndex, pageEndIndex, recordsPerPage, pageNo, tempDataArr);
+
+
+            let pagesLeftNow = Math.ceil(tempDataArr.length / recordsPerPage);
+            // let start = Math.max((pagesLeftNow - 1) * recordsPerPage, 0);
+            // let end = Math.min(
+            //     pagesLeftNow * recordsPerPage - 1,
+            //     tempDataArr.length - 1
+            // );
+
+            let pageNumber = (pagesLeftNow < pageNo) ? pagesLeftNow : pageNo;
+
+
+            paginator(null, null, recordsPerPage, pageNumber, tempDataArr);
         }
         catch (error) {
             console.log(error);
