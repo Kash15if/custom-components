@@ -92,20 +92,24 @@ const CRUDIE = ({
     const changeFilterableInputs = (e) => {
         const { name, value } = e.target;
 
+        console.log(name, value)
+        // console.log(valuesToBeFiltered, "values")
         let tempFilteredStringObject = { ...valuesToBeFiltered, [name]: value };
 
         // filterLogic to be implemented here
-        let filteredData = data.filter((itemRow) => {
+        let filteredData = tabData.filter((itemRow) => {
             let dataPresentInRow = true;
             columns.forEach((cols, index) => {
                 let columnName = cols.column;
-
-                let columnData = itemRow[columnName].toString();
+                console.log(cols)
+                console.log(columns)
+                console.log(itemRow, itemRow[cols])
+                let columnData = itemRow[columnName].toString().toLowerCase();
 
                 if (
                     cols.filterable &&
                     tempFilteredStringObject[columnName] !== "" &&
-                    !columnData.includes(tempFilteredStringObject[columnName])
+                    !columnData.includes(tempFilteredStringObject[columnName].toLowerCase())
                 ) {
                     console.log(tempFilteredStringObject[columnName], columnData);
                     dataPresentInRow = false;
@@ -115,11 +119,11 @@ const CRUDIE = ({
             return dataPresentInRow;
         });
 
-        setTabData([...filteredData]);
         setValuesToBeFiltered(tempFilteredStringObject);
 
         paginator(null, null, recordsPerPage, 1, filteredData)
 
+        // setTabData([...filteredData]);
     };
 
 
@@ -375,6 +379,7 @@ const CRUDIE = ({
         // setTabData(tempDataArr);
         setMultiSelectForDeleteList({});
         setSelectedMultipleRowForDeletePopup(false)
+
 
     }
 
