@@ -41,6 +41,7 @@ const CRUDIE = ({
     const [selectedOneRowForDelete, setSelectedOneRowForDelete] = useState();
     const [createNewRecordFormOpen, setCreateNewRecordFormOpen] = useState(false);
     const [multiSelectForDeleteList, setMultiSelectForDeleteList] = useState({})
+    const [allRowsOfTableSelected, setAllRowsOfTableSelected] = useState(false);
 
 
     // API will be called for CRUD operation
@@ -312,17 +313,44 @@ const CRUDIE = ({
     };
 
 
-    const onMulitSelectChange = (e, selectedRow) => {
+    const onMulitSelectChange = (e, selectedRow, selectAllTogle) => {
         const checkedVal = e.target.checked;
+
+        if (e.target.name === "selectAllCheckBox") {
+
+            if (Object.keys(multiSelectForDeleteList).length || allRowsOfTableSelected) {
+                setMultiSelectForDeleteList({});
+                setAllRowsOfTableSelected(false)
+            }
+            else {
+
+                let tempMultiDeleteList = {};
+                tabData.forEach(eachRow => {
+                    tempMultiDeleteList[eachRow[uniqueId]] = true;
+                })
+                setMultiSelectForDeleteList(tempMultiDeleteList);
+                setAllRowsOfTableSelected(true)
+            }
+
+            return;
+        }
+
 
         let rowId = selectedRow[uniqueId]
         if (multiSelectForDeleteList[rowId]) {
             let tempMultiDeleteList = multiSelectForDeleteList;
             delete multiSelectForDeleteList[rowId];
-            setMultiSelectForDeleteList(tempMultiDeleteList)
+            setMultiSelectForDeleteList({ ...tempMultiDeleteList })
+            setAllRowsOfTableSelected(false)
         }
         else {
+
+            if (Object.keys(multiSelectForDeleteList).length === tabData.length - 1)
+                setAllRowsOfTableSelected(true);
+
+
             setMultiSelectForDeleteList({ ...multiSelectForDeleteList, [rowId]: true })
+
         }
         console.log(e.target.checked, multiSelectForDeleteList)
     }
@@ -546,7 +574,10 @@ const CRUDIE = ({
                 </tr>
 
                 <tr>
-                    <th></th>
+                    <th><input type="checkbox" id="checkBox_selectAll" name="selectAllCheckBox"
+                        checked={allRowsOfTableSelected}
+                        onChange={(e) => onMulitSelectChange(e, {})} />
+                    </th>
                     {columns &&
                         valuesToBeFiltered &&
                         columns.map((col, index) => (
@@ -571,7 +602,9 @@ const CRUDIE = ({
                         let tempUniqueId = row[uniqueId]
                         return (
                             <tr>
-                                <td><input type="checkbox" id={"checkBox_" + row[uniqueId]} name="selectCheckBox" checked={multiSelectForDeleteList[tempUniqueId] ? true : false} onChange={(e) => onMulitSelectChange(e, row)} /></td>
+                                <td><input type="checkbox" id={"checkBox_" + row[uniqueId]} name="selectCheckBox"
+                                    checked={multiSelectForDeleteList[tempUniqueId] ? true : false}
+                                    onChange={(e) => onMulitSelectChange(e, row)} /></td>
                                 {columns.map((col) => (
                                     <td>{row[col.column]}</td>
                                 ))}
