@@ -45,24 +45,30 @@ const CRUDIE = ({
 
     // API will be called for CRUD operation
     useEffect(() => {
-        getDataFromDb();
+
+        axios.get(process.env.REACT_APP_TEST_API).then((response) => {
+            const tempDataFromDB = response.data
+            setTabData(tempDataFromDB);
+            paginator(null, null, recordsPerPage, null, tempDataFromDB)
+
+        })
     }, []);
 
 
 
     useEffect(() => {
         let filteredTempObj = {};
-        filterableCols.forEach((elemt) => {
+        columns.forEach((elemt) => {
             if (elemt.filterable) {
                 filteredTempObj[elemt.column] = "";
             }
         });
 
-        const tempData = data.map(itemRow => ({ ...itemRow, selectedCurrentRow: false }))
-        setTabData(tempData);
+        // const tempData = data.map(itemRow => ({ ...itemRow, selectedCurrentRow: false }))
+        // setTabData(tempData);
         setValuesToBeFiltered(filteredTempObj);
 
-        paginator(null, null, recordsPerPage, 1, tempData);
+        // paginator(null, null, recordsPerPage, 1, tempData);
 
 
     }, []);
@@ -71,12 +77,12 @@ const CRUDIE = ({
     const getDataFromDb = async () => {
         console.log("getting vl")
         // call api here first time
-        axios.get(process.env.REACT_APP_TEST_API).then((response) => {
-            const tempDataFromDB = response.data
-            setTabData(tempDataFromDB);
 
-            paginator(null, null, recordsPerPage, null, tempDataFromDB)
-        });
+        let response = await axios.get(process.env.REACT_APP_TEST_API);
+        let tempDataFromDB = response.data;
+        setTabData(tempDataFromDB);
+        // console.log(tempDataFromDB)
+        return tempDataFromDB;
 
     }
 
@@ -127,7 +133,6 @@ const CRUDIE = ({
         //         : item
         // );
 
-        // paginator(pageStartIndex, pageEndIndex, recordsPerPage, pageNo, tempUpdatedData)
 
         // axios.patch(process.env.REACT_APP_TEST_API, selectedOneRowForEdit)
 
@@ -138,7 +143,8 @@ const CRUDIE = ({
             console.log(e)
         }
 
-        getDataFromDb()
+        let tempUpdatedData = getDataFromDb()
+        paginator(pageStartIndex, pageEndIndex, recordsPerPage, pageNo, tempUpdatedData)
 
         setSelectedOneRowForEdit(null);
     };
@@ -166,19 +172,19 @@ const CRUDIE = ({
         }
 
 
-        getDataFromDb()
+        let tempDataArr = getDataFromDb()
 
-        // let pagesLeftNow = Math.ceil(tempRowData.length / recordsPerPage);
-        // let start = Math.max((pagesLeftNow - 1) * recordsPerPage, 0);
-        // let end = Math.min(
-        //     pagesLeftNow * recordsPerPage - 1,
-        //     tempRowData.length - 1
-        // );
+        let pagesLeftNow = Math.ceil(tempDataArr.length / recordsPerPage);
+        let start = Math.max((pagesLeftNow - 1) * recordsPerPage, 0);
+        let end = Math.min(
+            pagesLeftNow * recordsPerPage - 1,
+            tempDataArr.length - 1
+        );
 
-        // let pageNumber = (pagesLeftNow < pageNo) ? pagesLeftNow : pageNo;
+        let pageNumber = (pagesLeftNow < pageNo) ? pagesLeftNow : pageNo;
 
 
-        // paginator(start, end, recordsPerPage, pageNumber, tempRowData);
+        paginator(start, end, recordsPerPage, pageNumber, tempDataArr);
 
         setSelectedOneRowForDelete(null);
     };
@@ -295,11 +301,11 @@ const CRUDIE = ({
         }
 
 
-        getDataFromDb();
+        let tempDataArr = getDataFromDb();
 
         // setTabData(tabDataTemp);
 
-        // paginator(pageStartIndex, pageEndIndex, recordsPerPage, pageNo, tabDataTemp)
+        paginator(pageStartIndex, pageEndIndex, recordsPerPage, pageNo, tempDataArr)
 
 
         setSelectedOneRowForEdit(null);
@@ -335,12 +341,12 @@ const CRUDIE = ({
                 console.log(error);
             });
 
-        getDataFromDb();
+        let tempDataArr = getDataFromDb();
+        paginator(pageStartIndex, pageEndIndex, recordsPerPage, pageNo, tempDataArr);
 
         // setTabData(tempDataArr);
         setMultiSelectForDeleteList({});
 
-        // paginator(pageStartIndex, pageEndIndex, recordsPerPage, pageNo, tempDataArr);
 
     }
 
