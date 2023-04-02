@@ -146,6 +146,7 @@ function App() {
         <Route path="/tables" element={dummyData && columns && <Tables dummyData={dummyData} data={data}
           upDateData={upDateData}
           columns={columns}
+          colmns={columns}
           expandableTableData={expandableTableData}
         />} />
 

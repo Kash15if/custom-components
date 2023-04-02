@@ -77,13 +77,11 @@ const CRUDIE = ({
 
 
     const getDataFromDb = async () => {
-        console.log("getting vl")
         // call api here first time
 
         let response = await axios.get(process.env.REACT_APP_TEST_API);
         let tempDataFromDB = response.data;
         setTabData(tempDataFromDB);
-        // console.log(tempDataFromDB)
         return tempDataFromDB;
 
     }
@@ -92,8 +90,6 @@ const CRUDIE = ({
     const changeFilterableInputs = (e) => {
         const { name, value } = e.target;
 
-        console.log(name, value)
-        // console.log(valuesToBeFiltered, "values")
         let tempFilteredStringObject = { ...valuesToBeFiltered, [name]: value };
 
         // filterLogic to be implemented here
@@ -101,9 +97,6 @@ const CRUDIE = ({
             let dataPresentInRow = true;
             columns.forEach((cols, index) => {
                 let columnName = cols.column;
-                console.log(cols)
-                console.log(columns)
-                console.log(itemRow, itemRow[cols])
                 let columnData = itemRow[columnName].toString().toLowerCase();
 
                 if (
@@ -111,7 +104,6 @@ const CRUDIE = ({
                     tempFilteredStringObject[columnName] !== "" &&
                     !columnData.includes(tempFilteredStringObject[columnName].toLowerCase())
                 ) {
-                    console.log(tempFilteredStringObject[columnName], columnData);
                     dataPresentInRow = false;
                 }
             });
@@ -144,7 +136,7 @@ const CRUDIE = ({
 
         try {
             let res = await axios.patch(process.env.REACT_APP_TEST_API + "/" + selectedOneRowForEdit[uniqueId], selectedOneRowForEdit)
-            console.log(res);
+
         } catch (e) {
             console.log(e)
         }
@@ -161,7 +153,6 @@ const CRUDIE = ({
 
     const onDeleteConfirm = async (selectedRow) => {
 
-        // console.log(selectedRow, tabData)
 
         // let tempRowData = tabData.filter(
         //     (row) => row[uniqueId] !== selectedRow[uniqueId]
@@ -172,7 +163,7 @@ const CRUDIE = ({
 
         try {
             let res = await axios.delete(process.env.REACT_APP_TEST_API + "/" + selectedRow[uniqueId])
-            console.log(res);
+
         } catch (e) {
             console.log(e)
         }
@@ -202,7 +193,6 @@ const CRUDIE = ({
     const editRow = (selectedOneRow) => {
         // EditOneRowPopUp
         // call edit popup form here
-        console.log(selectedOneRow);
         setCreateNewRecordFormOpen(false);
         setSelectedOneRowForEdit(selectedOneRow);
     };
@@ -211,7 +201,6 @@ const CRUDIE = ({
         // Call confirmation popup here
         // DeleteOneRowPopUp
         setSelectedOneRowForDelete(selectedOneRow);
-        console.log(selectedOneRow);
     };
 
     const changePage = (next) => {
@@ -271,7 +260,6 @@ const CRUDIE = ({
     };
 
     const createNewRecord = () => {
-        console.log(selectedOneRowForEdit);
 
         let inputFormData = {};
 
@@ -282,7 +270,6 @@ const CRUDIE = ({
                     : "";
         });
 
-        console.log(inputFormData);
         setSelectedOneRowForEdit({ ...inputFormData });
         setCreateNewRecordFormOpen(true);
     };
@@ -297,11 +284,10 @@ const CRUDIE = ({
         //     },
         // ];
 
-        console.log(selectedOneRowForEdit)
 
         try {
             let res = await axios.post(process.env.REACT_APP_TEST_API, selectedOneRowForEdit)
-            console.log(res);
+
         } catch (e) {
             console.log(e)
         }
@@ -357,14 +343,12 @@ const CRUDIE = ({
             setMultiSelectForDeleteList({ ...multiSelectForDeleteList, [rowId]: true })
 
         }
-        console.log(e.target.checked, multiSelectForDeleteList)
     }
 
     const deleteAllSelected = async () => {
 
         // const tempDataArr = tabData.filter(item => !multiSelectForDeleteList[item[uniqueId]])
 
-        // console.log(multiSelectForDeleteList)
         try {
             let response = await axios.post(process.env.REACT_APP_TEST_API + "/delete-multiple", Object.keys(multiSelectForDeleteList))
 
@@ -390,7 +374,8 @@ const CRUDIE = ({
 
         // setTabData(tempDataArr);
         setMultiSelectForDeleteList({});
-        setSelectedMultipleRowForDeletePopup(false)
+        setSelectedMultipleRowForDeletePopup(false);
+        setAllRowsOfTableSelected(false)
 
 
     }
@@ -431,7 +416,7 @@ const CRUDIE = ({
                         const rows = utils.sheet_to_json(workbook.Sheets[sheets[0]]);
 
                         let response = await axios.post(process.env.REACT_APP_TEST_API + "/bulkData", rows);
-                        console.log(response);
+
 
                         let tempDataArr = await getDataFromDb();
                         paginator(null, null, recordsPerPage, null, tempDataArr);
@@ -473,7 +458,6 @@ const CRUDIE = ({
     const onJsonImport = async (e) => {
 
         const files = e.target.files;
-        console.log(files.length)
         if (files.length) {
             const file = files[0];
             const reader = new FileReader();

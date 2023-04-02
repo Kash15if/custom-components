@@ -6,11 +6,13 @@ import SortFilterEdit from "../CustomComponents/Tables/Sort-Filter-Edit/Sort-Fil
 import Expandable from "../CustomComponents/Tables/ExpanedTable/ExpandedUsingRecursion"
 import { useEffect, useState } from "react";
 import axios from "axios";
+import ExpandableWithComponent from "../CustomComponents/Tables/ExpanedTable/ExpandableWithComponent";
 
 
+import InnerCard from "../CustomComponents/Tables/ExpanedTable/InnerCard";
 
 
-const Tables = ({ upDateData, data, expandableTableData }) => {
+const Tables = ({ upDateData, data, expandableTableData, colmns }) => {
 
     // const [data , setData] = useState();
     const [dummyData, setDummyData] = useState();
@@ -190,6 +192,22 @@ const Tables = ({ upDateData, data, expandableTableData }) => {
                 defaultRecordPerPage={5}
                 uniqueId="id"
             />)}
+
+
+        {expandableTableData && colmns && (
+            <ExpandableWithComponent data={expandableTableData}
+                columns={colmns}
+                filterableCols={colmns}
+                sortableCols={colmns}
+                tableHeader="Expandable Table with components"
+                recordsPerPageOption={[5, 10, 20]}
+                defaultRecordPerPage={5}
+                uniqueId="id"
+                InnerComponent={InnerCard}
+            >
+            </ExpandableWithComponent>
+        )
+        }
 
         {/* Crud and Import Export */}
         {dummyData && columns && (
