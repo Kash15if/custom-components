@@ -187,9 +187,7 @@ const ExpandableWithComponent = ({
                         {
                             expandedTableAtIndex[index] &&
                             <tr><td>
-                                <InnerComponent title={row.expandableData[0].current_address}
-                                    content={row.expandableData[0].permanent_address}
-                                />
+                                <InnerComponent innerData={row.expandableData} />
                             </td></tr>
                         }
                     </>
