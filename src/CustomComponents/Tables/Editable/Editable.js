@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { getInputBoxFromType } from "../../../services/editTable"
 
 const Editable = ({ data,
@@ -114,28 +114,30 @@ const Editable = ({ data,
   }
 
 
-  const EditOneRowPopUp = ({ selectedRow }) => {
-    // console.log("popv b", filterableColumns)
-    // filterableCols.forEach(element => {
-    //   console.log(element)
-    // });
-    // return <div className={"popup " + true ? "showpopup" : "hidepopup"}>
-    //   <button onClick={() => closePopup()}>close</button>
-    //   <div>        {
-    //     filterableColumns.map((oneCol) =>
-    //       <div><span>{oneCol.column} : </span><input value={oneCol.column} /></div>
-    //     )
-    //   }</div>
-    // </div>
+  // const EditOneRowPopUp = ({ selectedRow }) => {
+  // console.log("popv b", filterableColumns)
+  // filterableCols.forEach(element => {
+  //   console.log(element)
+  // });
+  // return <div className={"popup " + true ? "showpopup" : "hidepopup"}>
+  //   <button onClick={() => closePopup()}>close</button>
+  //   <div>        {
+  //     filterableColumns.map((oneCol) =>
+  //       <div><span>{oneCol.column} : </span><input value={oneCol.column} /></div>
+  //     )
+  //   }</div>
+  // </div>
 
-  }
+  // }
 
 
-  const DeleteOneRowPopUp = ({ selectedRow }) => {
+  // const DeleteOneRowPopUp = ({ selectedRow }) => {
 
-  }
+  // }
 
   const onUpdateConfirm = () => {
+
+
     let tempUpdatedData = tabData.map(item => {
 
       console.log(item)

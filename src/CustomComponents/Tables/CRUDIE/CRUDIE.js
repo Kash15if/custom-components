@@ -10,24 +10,20 @@ import axios from "axios"
 import { getInputBoxFromType } from "../../../services/editTable";
 
 const CRUDIE = ({
-    data,
     columns,
-    filterableCols,
-    sortableCols,
     tableHeader,
     recordsPerPageOption,
     defaultRecordPerPage,
-    uniqueId, upDateData
+    uniqueId
 }) => {
 
     const [tabData, setTabData] = useState();
     const [sortedColumn, setSortedColumn] = useState("");
     const [sortedAsc, setSortedAsc] = useState(0);
     const [valuesToBeFiltered, setValuesToBeFiltered] = useState();
-    const [filterableColumn, setFilterableColumn] = useState(
-        columns.filter((col) => col.filterable)
-    );
-    // const [filterStrings, setFilterString] = useState();
+    // const [filterableColumn, setFilterableColumn] = useState(
+    //     columns.filter((col) => col.filterable)
+    // );
 
     const [recordsPerPage, setRecordsPerPage] = useState(defaultRecordPerPage);
 
@@ -45,14 +41,12 @@ const CRUDIE = ({
     const [selectedMultipleRowForDeletePopup, setSelectedMultipleRowForDeletePopup] = useState(false);
 
 
-    // API will be called for CRUD operation
-    useEffect(() => {
 
+    useEffect(() => {
         axios.get(process.env.REACT_APP_TEST_API).then((response) => {
             const tempDataFromDB = response.data
             setTabData(tempDataFromDB);
             paginator(null, null, recordsPerPage, null, tempDataFromDB)
-
         })
     }, []);
 
@@ -65,25 +59,16 @@ const CRUDIE = ({
                 filteredTempObj[elemt.column] = "";
             }
         });
-
-        // const tempData = data.map(itemRow => ({ ...itemRow, selectedCurrentRow: false }))
-        // setTabData(tempData);
         setValuesToBeFiltered(filteredTempObj);
-
-        // paginator(null, null, recordsPerPage, 1, tempData);
-
-
-    }, []);
+    }, [columns]);
 
 
     const getDataFromDb = async () => {
-        // call api here first time
 
         let response = await axios.get(process.env.REACT_APP_TEST_API);
         let tempDataFromDB = response.data;
         setTabData(tempDataFromDB);
         return tempDataFromDB;
-
     }
 
 
@@ -92,7 +77,6 @@ const CRUDIE = ({
 
         let tempFilteredStringObject = { ...valuesToBeFiltered, [name]: value };
 
-        // filterLogic to be implemented here
         let filteredData = tabData.filter((itemRow) => {
             let dataPresentInRow = true;
             columns.forEach((cols, index) => {
@@ -114,8 +98,6 @@ const CRUDIE = ({
         setValuesToBeFiltered(tempFilteredStringObject);
 
         paginator(null, null, recordsPerPage, 1, filteredData)
-
-        // setTabData([...filteredData]);
     };
 
 
@@ -125,18 +107,8 @@ const CRUDIE = ({
     };
 
     const onUpdateConfirm = async () => {
-        // let tempUpdatedData = tabData.map((item) =>
-        //     item[uniqueId] === selectedOneRowForEdit[uniqueId]
-        //         ? selectedOneRowForEdit
-        //         : item
-        // );
-
-
-        // axios.patch(process.env.REACT_APP_TEST_API, selectedOneRowForEdit)
-
         try {
-            let res = await axios.patch(process.env.REACT_APP_TEST_API + "/" + selectedOneRowForEdit[uniqueId], selectedOneRowForEdit)
-
+            await axios.patch(process.env.REACT_APP_TEST_API + "/" + selectedOneRowForEdit[uniqueId], selectedOneRowForEdit)
         } catch (e) {
             console.log(e)
         }
@@ -153,16 +125,8 @@ const CRUDIE = ({
 
     const onDeleteConfirm = async (selectedRow) => {
 
-
-        // let tempRowData = tabData.filter(
-        //     (row) => row[uniqueId] !== selectedRow[uniqueId]
-        // );
-        // setTabData(tempRowData);
-
-
-
         try {
-            let res = await axios.delete(process.env.REACT_APP_TEST_API + "/" + selectedRow[uniqueId])
+            await axios.delete(process.env.REACT_APP_TEST_API + "/" + selectedRow[uniqueId])
 
         } catch (e) {
             console.log(e)
@@ -172,14 +136,7 @@ const CRUDIE = ({
         let tempDataArr = await getDataFromDb()
 
         let pagesLeftNow = Math.ceil(tempDataArr.length / recordsPerPage);
-        let start = Math.max((pagesLeftNow - 1) * recordsPerPage, 0);
-        let end = Math.min(
-            pagesLeftNow * recordsPerPage - 1,
-            tempDataArr.length - 1
-        );
-
         let pageNumber = (pagesLeftNow < pageNo) ? pagesLeftNow : pageNo;
-
 
         paginator(null, null, recordsPerPage, pageNumber, tempDataArr);
 
@@ -191,15 +148,11 @@ const CRUDIE = ({
     };
 
     const editRow = (selectedOneRow) => {
-        // EditOneRowPopUp
-        // call edit popup form here
         setCreateNewRecordFormOpen(false);
         setSelectedOneRowForEdit(selectedOneRow);
     };
 
     const deleteRow = (selectedOneRow) => {
-        // Call confirmation popup here
-        // DeleteOneRowPopUp
         setSelectedOneRowForDelete(selectedOneRow);
     };
 
@@ -254,7 +207,6 @@ const CRUDIE = ({
         setPageStartIndex(start);
         setPageEndIndex(end);
         setRecordsPerPage(noOfRecords);
-        // setPages(Math.ceil(data.length / noOfRecords));
         setPageNo(1);
         setDatainPage(tempDataArray);
     };
@@ -262,7 +214,6 @@ const CRUDIE = ({
     const createNewRecord = () => {
 
         let inputFormData = {};
-
         columns.forEach((col) => {
             inputFormData[col.column] =
                 col.formInputDetails && col.formInputDetails.defaultVal
@@ -275,37 +226,20 @@ const CRUDIE = ({
     };
 
     const onAddNewRecord = async () => {
-
-        // let tabDataTemp = [
-        //     ...tabData,
-        //     {
-        //         ...selectedOneRowForEdit,
-        //         [uniqueId]: parseInt(selectedOneRowForEdit[uniqueId]),
-        //     },
-        // ];
-
-
         try {
-            let res = await axios.post(process.env.REACT_APP_TEST_API, selectedOneRowForEdit)
-
+            await axios.post(process.env.REACT_APP_TEST_API, selectedOneRowForEdit)
         } catch (e) {
             console.log(e)
         }
 
-
         let tempDataArr = getDataFromDb();
-
-        // setTabData(tabDataTemp);
-
         paginator(pageStartIndex, pageEndIndex, recordsPerPage, pageNo, tempDataArr)
-
-
         setSelectedOneRowForEdit(null);
     };
 
 
     const onMulitSelectChange = (e, selectedRow, selectAllTogle) => {
-        const checkedVal = e.target.checked;
+        // const checkedVal = e.target.checked;
 
         if (e.target.name === "selectAllCheckBox") {
 
@@ -314,7 +248,6 @@ const CRUDIE = ({
                 setAllRowsOfTableSelected(false)
             }
             else {
-
                 let tempMultiDeleteList = {};
                 tabData.forEach(eachRow => {
                     tempMultiDeleteList[eachRow[uniqueId]] = true;
@@ -335,35 +268,19 @@ const CRUDIE = ({
             setAllRowsOfTableSelected(false)
         }
         else {
-
             if (Object.keys(multiSelectForDeleteList).length === tabData.length - 1)
                 setAllRowsOfTableSelected(true);
-
-
             setMultiSelectForDeleteList({ ...multiSelectForDeleteList, [rowId]: true })
-
         }
     }
 
     const deleteAllSelected = async () => {
-
-        // const tempDataArr = tabData.filter(item => !multiSelectForDeleteList[item[uniqueId]])
-
         try {
-            let response = await axios.post(process.env.REACT_APP_TEST_API + "/delete-multiple", Object.keys(multiSelectForDeleteList))
-
+            await axios.post(process.env.REACT_APP_TEST_API + "/delete-multiple", Object.keys(multiSelectForDeleteList))
             let tempDataArr = await getDataFromDb();
-
-
             let pagesLeftNow = Math.ceil(tempDataArr.length / recordsPerPage);
-            // let start = Math.max((pagesLeftNow - 1) * recordsPerPage, 0);
-            // let end = Math.min(
-            //     pagesLeftNow * recordsPerPage - 1,
-            //     tempDataArr.length - 1
-            // );
 
             let pageNumber = (pagesLeftNow < pageNo) ? pagesLeftNow : pageNo;
-
 
             paginator(null, null, recordsPerPage, pageNumber, tempDataArr);
         }
@@ -376,13 +293,10 @@ const CRUDIE = ({
         setMultiSelectForDeleteList({});
         setSelectedMultipleRowForDeletePopup(false);
         setAllRowsOfTableSelected(false)
-
-
     }
 
 
     const paginator = (recordStartIndex, recordEndIndex, noOfRecords, currrPageNo, sortedArrayData) => {
-
         currrPageNo = currrPageNo ? currrPageNo : 1;
         noOfRecords = noOfRecords ? noOfRecords : defaultRecordPerPage;
         sortedArrayData = sortedArrayData ? sortedArrayData : tabData;
@@ -410,22 +324,15 @@ const CRUDIE = ({
                 const sheets = workbook.SheetNames;
 
                 if (sheets.length) {
-
                     try {
-
                         const rows = utils.sheet_to_json(workbook.Sheets[sheets[0]]);
-
-                        let response = await axios.post(process.env.REACT_APP_TEST_API + "/bulkData", rows);
-
-
+                        await axios.post(process.env.REACT_APP_TEST_API + "/bulkData", rows);
                         let tempDataArr = await getDataFromDb();
                         paginator(null, null, recordsPerPage, null, tempDataArr);
                     }
                     catch (e) {
                         console.log(e);
                     }
-
-
                 }
             }
             reader.readAsArrayBuffer(file);
@@ -451,7 +358,6 @@ const CRUDIE = ({
         link.href = jsonString;
         link.download = tableHeader + ".json";
         link.click();
-
     };
 
 
@@ -466,18 +372,14 @@ const CRUDIE = ({
                 const newDataSetFromJSON = JSON.parse(content); // parse json 
 
                 try {
-                    let response = await axios.post(process.env.REACT_APP_TEST_API + "/bulkData", newDataSetFromJSON);
-
+                    await axios.post(process.env.REACT_APP_TEST_API + "/bulkData", newDataSetFromJSON);
                     let tempDataArr = await getDataFromDb();
                     paginator(null, null, recordsPerPage, null, tempDataArr);
                 }
                 catch (e) {
                     console.log(e)
                 }
-
-
             }
-
             reader.readAsText(file);
         }
     }
