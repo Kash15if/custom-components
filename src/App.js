@@ -23,7 +23,8 @@ import Popups from "./Pages/Popups";
 import Alerts from "./Pages/Alerts"
 import Popover from "./Pages/Popover";
 import Forms from "./Pages/Form";
-import Tables from "./Pages/Tables"
+import Tables from "./Pages/Tables";
+import Home from "./Pages/Homepage";
 
 import Cards from "./Pages/Cards";
 import { Route, Routes } from "react-router-dom";
@@ -143,6 +144,11 @@ function App() {
           />)}
       </div> */}
       <Routes>
+
+
+        <Route path="/" element={<Home />} />
+
+
         <Route path="/tables" element={dummyData && columns && <Tables dummyData={dummyData} data={data}
           upDateData={upDateData}
           columns={columns}
