@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { getInputBoxFromType } from "../../../services/editTable"
 
+import axios from "axios"
 const Editable = ({ data,
   columns,
   tableHeader,
@@ -9,7 +10,7 @@ const Editable = ({ data,
   uniqueId }) => {
 
   const [recordsPerPage, setRecordsPerPage] = useState(defaultRecordPerPage);
-  const [tabData, setTabData] = useState(data);
+  const [tabData, setTabData] = useState();
   const [sortedColumn, setSortedColumn] = useState("");
   const [sortedAsc, setSortedAsc] = useState(0);
   const [pages, setPages] = useState(Math.ceil(data.length / recordsPerPage));
@@ -26,6 +27,36 @@ const Editable = ({ data,
   //   setTabData([...data]);
   //   sortColumn("", true);
   // }, [pageStartIndex , pageEndIndex , ]);
+
+
+  useEffect(() => {
+    axios.get(process.env.REACT_APP_TEST_API).then((response) => {
+      const tempDataFromDB = response.data
+      setTabData(tempDataFromDB);
+      paginator(null, null, recordsPerPage, null, tempDataFromDB)
+    })
+  }, []);
+
+
+
+
+  const paginator = (recordStartIndex, recordEndIndex, noOfRecords, currrPageNo, sortedArrayData) => {
+    currrPageNo = currrPageNo ? currrPageNo : 1;
+    noOfRecords = noOfRecords ? noOfRecords : defaultRecordPerPage;
+    sortedArrayData = sortedArrayData ? sortedArrayData : tabData;
+    recordStartIndex = recordStartIndex ? recordStartIndex : Math.max((currrPageNo - 1) * noOfRecords, 0);
+    recordEndIndex = recordEndIndex ? recordEndIndex : Math.min(currrPageNo * noOfRecords - 1, sortedArrayData.length - 1);
+
+    let tempDataArray = sortedArrayData.slice(recordStartIndex, recordEndIndex + 1);
+
+    setPages(Math.ceil(sortedArrayData.length / noOfRecords));
+    setPageStartIndex(recordStartIndex);
+    setPageEndIndex(recordEndIndex)
+    setPageNo(currrPageNo);
+    setDatainPage([...tempDataArray]);
+  }
+
+
 
   const changePage = (next) => {
     let page = next
@@ -98,10 +129,11 @@ const Editable = ({ data,
     setDatainPage(tempDataArray);
   };
 
+
   const editRow = (selectedOneRow) => {
     // EditOneRowPopUp
     // call edit popup form here
-    console.log(selectedOneRow)
+    // console.log(selectedOneRow)
     setSelectedOneRowForEdit(selectedOneRow)
   }
 
@@ -135,47 +167,57 @@ const Editable = ({ data,
 
   // }
 
-  const onUpdateConfirm = () => {
 
+  const getDataFromDb = async () => {
 
-    let tempUpdatedData = tabData.map(item => {
-
-      console.log(item)
-      return item[uniqueId] === selectedOneRowForEdit[uniqueId] ? selectedOneRowForEdit : item
-    }
-    )
-      ;
-
-    let tempDataArray = [];
-    for (let index = pageStartIndex; index <= pageEndIndex; index++) {
-      tempDataArray.push(tempUpdatedData[index]);
-    }
-    setDatainPage(tempDataArray);
-
-    setSelectedOneRowForEdit(null)
+    let response = await axios.get(process.env.REACT_APP_TEST_API);
+    let tempDataFromDB = response.data;
+    setTabData(tempDataFromDB);
+    return tempDataFromDB;
   }
+
+
+
+  const onUpdateConfirm = async () => {
+    try {
+      await axios.patch(process.env.REACT_APP_TEST_API + "/" + selectedOneRowForEdit[uniqueId], selectedOneRowForEdit)
+    } catch (e) {
+      console.log(e)
+    }
+
+    let tempUpdatedData = await getDataFromDb()
+    paginator(pageStartIndex, pageEndIndex, recordsPerPage, pageNo, tempUpdatedData)
+
+    setSelectedOneRowForEdit(null);
+  };
+
 
 
   const onUpdateCancel = () => {
     setSelectedOneRowForEdit(null)
   }
 
-  const onDeleteConfirm = (selectedRow) => {
 
-    // console.log(selectedRow, tabData)
-    let tempRowData = tabData.filter((row) => row[uniqueId] !== selectedRow[uniqueId]);
-    setTabData(tempRowData);
 
-    let tempDataArray = [];
-    for (let index = pageStartIndex; index <= pageEndIndex; index++) {
-      tempDataArray.push(tempRowData[index]);
+  const onDeleteConfirm = async (selectedRow) => {
+
+    try {
+      await axios.delete(process.env.REACT_APP_TEST_API + "/" + selectedRow[uniqueId])
+
+    } catch (e) {
+      console.log(e)
     }
-    setDatainPage(tempDataArray);
 
 
-    // recordSelectionPerPageChange(recordsPerPage)
-    setSelectedOneRowForDelete(null)
-  }
+    let tempDataArr = await getDataFromDb()
+
+    let pagesLeftNow = Math.ceil(tempDataArr.length / recordsPerPage);
+    let pageNumber = (pagesLeftNow < pageNo) ? pagesLeftNow : pageNo;
+
+    paginator(null, null, recordsPerPage, pageNumber, tempDataArr);
+
+    setSelectedOneRowForDelete(null);
+  };
 
   const onDeleteCancel = () => {
     setSelectedOneRowForDelete(null)

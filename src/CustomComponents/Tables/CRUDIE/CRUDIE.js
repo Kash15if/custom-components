@@ -113,7 +113,7 @@ const CRUDIE = ({
             console.log(e)
         }
 
-        let tempUpdatedData = getDataFromDb()
+        let tempUpdatedData = await getDataFromDb()
         paginator(pageStartIndex, pageEndIndex, recordsPerPage, pageNo, tempUpdatedData)
 
         setSelectedOneRowForEdit(null);

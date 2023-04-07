@@ -24,7 +24,7 @@ const Tables = ({ upDateData, data, expandableTableData, colmns }) => {
             const tempDataFromDB = response.data;
             setDummyData(tempDataFromDB);
 
-
+            console.log(tempDataFromDB)
 
             let tempCols = Object.keys(tempDataFromDB[0]).map((colName) =>
             ({
@@ -162,7 +162,7 @@ const Tables = ({ upDateData, data, expandableTableData, colmns }) => {
                 columns={columns}
                 filterableCols={columns}
                 tableHeader="Editable Table"
-                uniqueId={"id"}
+                uniqueId={"_id"}
                 recordsPerPageOption={[5, 10, 20]}
                 defaultRecordPerPage={5}
             />)}

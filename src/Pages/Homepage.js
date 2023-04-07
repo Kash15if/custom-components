@@ -140,6 +140,28 @@ const Home = () => {
                     the next few days..</p>
 
             </div>
+
+            <div>
+                <h2>Newly Added components</h2>
+                <ul>
+                    <li>MultiHeader Table</li>
+                    <li>MultiSelect Dropdown</li>
+                    <li>Diagram</li>
+                    <li>Colorpicker</li>
+                    <li>Dynamic Form</li>
+                </ul>
+            </div>
+
+
+
+            <div><h2>Upcoming Components</h2>
+                <ul>
+                    <li>MultiHeader Table</li>
+                    <li>MultiSelect Dropdown</li>
+                    <li>Diagram</li>
+                    <li>Colorpicker</li>
+                    <li>Dynamic Form</li>
+                </ul></div>
         </div>
     );
 }
