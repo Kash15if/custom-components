@@ -26,20 +26,91 @@ const Tables = ({ upDateData, data, expandableTableData, colmns }) => {
 
             console.log(tempDataFromDB)
 
-            let tempCols = Object.keys(tempDataFromDB[0]).map((colName) =>
-            ({
-                column: colName, sortable: true, editable: true, filterable: true,
-                formInputDetails: { defaultVal: "abcd", inputType: "text", radioLabel: "Please select your favorite Web language:", data: [{ label: "xyz", value: "abc" }, { label: "uvw", value: "def" }], min: 0, max: 5 }
-                // if inut type is dropdown then [{ label: "xyz", value: "abc" }] 
-                // if it it text then {placeholder: "xyz" , name: "name"}
-                // if checkbox {label: "label" }
-                // if date {min: "" , max: "" }
-                // if int {min: "" , max: "" }
-                // if textarea  {placeholder: "xyz" , name: "name" , lines: 2}
+            // let tempCols = Object.keys(tempDataFromDB[0]).map((colName) =>
+            // ({
+            //     column: colName, sortable: true, editable: true, filterable: true,
+            //     formInputDetails: { defaultVal: "abcd", inputType: "text", radioLabel: "Please select your favorite Web language:", data: [{ label: "xyz", value: "abc" }, { label: "uvw", value: "def" }], min: 0, max: 5 }
+            //     // if inut type is dropdown then [{ label: "xyz", value: "abc" }] 
+            //     // if it it text then {placeholder: "xyz" , name: "name"}
+            //     // if checkbox {label: "label" }
+            //     // if date {min: "" , max: "" }
+            //     // if int {min: "" , max: "" }
+            //     // if textarea  {placeholder: "xyz" , name: "name" , lines: 2}
 
 
-            }));
+            // }));
 
+
+            let tempCols = [
+                {
+                    column: "_id",
+                    columnLabel: "Id",
+                    sortable: true,
+                    filterable: true,
+                    editable: false,
+                    createOnce: false,
+                    formInputDetails: {
+                        defaultVal: "",
+                        inputType: "text"
+                    }
+                },
+                {
+                    column: "first_name",
+                    columnLabel: "First Name",
+                    sortable: true,
+                    filterable: true,
+                    editable: true,
+                    createOnce: false,
+                    formInputDetails: {
+                        defaultVal: "",
+                        inputType: "text"
+                    }
+                }, {
+                    column: "last_name",
+                    columnLabel: "Last Name",
+                    sortable: true,
+                    filterable: true,
+                    editable: true,
+                    createOnce: false,
+                    formInputDetails: {
+                        defaultVal: "",
+                        inputType: "text"
+                    }
+                }, {
+                    column: "email",
+                    columnLabel: "Email",
+                    sortable: true,
+                    filterable: true,
+                    editable: false,
+                    createOnce: true,
+                    formInputDetails: {
+                        defaultVal: "",
+                        inputType: "text"
+                    }
+                }, {
+                    column: "gender",
+                    columnLabel: "Gender",
+                    sortable: true,
+                    filterable: true,
+                    editable: true,
+                    createOnce: false,
+                    formInputDetails: {
+                        defaultVal: "",
+                        inputType: "text"
+                    }
+                }, {
+                    column: "ip_address",
+                    columnLabel: "Ip Address",
+                    sortable: false,
+                    filterable: true,
+                    editable: true,
+                    createOnce: false,
+                    formInputDetails: {
+                        defaultVal: "",
+                        inputType: "text"
+                    }
+                }
+            ]
             tempCols.innerColumns = [
                 {
                     column: "current_address", sortable: true, filterable: true,
@@ -210,7 +281,7 @@ const Tables = ({ upDateData, data, expandableTableData, colmns }) => {
         }
 
         {/* Crud and Import Export */}
-        {dummyData && columns && (
+        {columns && (
             <CRUDIE
                 data={data}
                 columns={columns}
@@ -221,6 +292,12 @@ const Tables = ({ upDateData, data, expandableTableData, colmns }) => {
                 defaultRecordPerPage={5}
                 uniqueId="_id"
                 upDateData={upDateData}
+                getDataApi={process.env.REACT_APP_TEST_API}
+                createApi={process.env.REACT_APP_TEST_API}
+                uploadBulkApi={process.env.REACT_APP_TEST_API + "/bulkData"}
+                editApi={process.env.REACT_APP_TEST_API}
+                deleteOneApi={process.env.REACT_APP_TEST_API}
+                deleteMultipleApi={process.env.REACT_APP_TEST_API + "/delete-multiple"}
             />
         )}
 

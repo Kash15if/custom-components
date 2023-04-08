@@ -14,25 +14,25 @@ const CRUDIE = ({
     tableHeader,
     recordsPerPageOption,
     defaultRecordPerPage,
-    uniqueId
+    uniqueId,
+    getDataApi,
+    createApi,
+    uploadBulkApi,
+    editApi,
+    deleteOneApi,
+    deleteMultipleApi,
 }) => {
 
     const [tabData, setTabData] = useState();
     const [sortedColumn, setSortedColumn] = useState("");
     const [sortedAsc, setSortedAsc] = useState(0);
     const [valuesToBeFiltered, setValuesToBeFiltered] = useState();
-    // const [filterableColumn, setFilterableColumn] = useState(
-    //     columns.filter((col) => col.filterable)
-    // );
-
     const [recordsPerPage, setRecordsPerPage] = useState(defaultRecordPerPage);
-
     const [pages, setPages] = useState(1);
     const [pageNo, setPageNo] = useState(1);
     const [pageStartIndex, setPageStartIndex] = useState(0);
     const [pageEndIndex, setPageEndIndex] = useState(recordsPerPage - 1);
     const [datainPage, setDatainPage] = useState()
-
     const [selectedOneRowForEdit, setSelectedOneRowForEdit] = useState();
     const [selectedOneRowForDelete, setSelectedOneRowForDelete] = useState();
     const [createNewRecordFormOpen, setCreateNewRecordFormOpen] = useState(false);
@@ -42,13 +42,164 @@ const CRUDIE = ({
 
 
 
+    /* ---------------------------------------Dependant  Code------------------------------------------------------------ */
+    /* ---------------------------------------Needs to be customized according to users req.------------------------------- */
+
+
+    /* -------------------------!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!------------------------------- */
+
+
+
+
+
+    // Add api to get data from the table everytime page loads
+    // @dependant
     useEffect(() => {
-        axios.get(process.env.REACT_APP_TEST_API).then((response) => {
+        axios.get(getDataApi ? getDataApi : process.env.REACT_APP_TEST_API).then((response) => {
             const tempDataFromDB = response.data
             setTabData(tempDataFromDB);
             paginator(null, null, recordsPerPage, null, tempDataFromDB)
         })
     }, []);
+
+
+
+    // @dependant
+    const getDataFromDb = async () => {
+        let response = await axios.get(getDataApi ? getDataApi : process.env.REACT_APP_TEST_API);
+        let tempDataFromDB = response.data;
+        setTabData(tempDataFromDB);
+        return tempDataFromDB;
+    }
+
+
+
+
+    // @dependant
+    const onUpdateConfirm = async () => {
+        try {
+            await axios.patch((editApi ? editApi : process.env.REACT_APP_TEST_API) + "/" + selectedOneRowForEdit[uniqueId], selectedOneRowForEdit)
+        } catch (e) {
+            console.log(e)
+        }
+        let tempUpdatedData = await getDataFromDb()
+        paginator(pageStartIndex, pageEndIndex, recordsPerPage, pageNo, tempUpdatedData)
+        setSelectedOneRowForEdit(null);
+    };
+
+
+
+    // @dependant
+    const onDeleteConfirm = async (selectedRow) => {
+
+        try {
+            await axios.delete((deleteOneApi ? deleteOneApi : process.env.REACT_APP_TEST_API) + "/" + selectedRow[uniqueId])
+        } catch (e) {
+            console.log(e)
+        }
+        let tempDataArr = await getDataFromDb()
+        let pagesLeftNow = Math.ceil(tempDataArr.length / recordsPerPage);
+        let pageNumber = (pagesLeftNow < pageNo) ? pagesLeftNow : pageNo;
+        paginator(null, null, recordsPerPage, pageNumber, tempDataArr);
+        setSelectedOneRowForDelete(null);
+    };
+
+
+
+
+    // @dependant
+    const onAddNewRecord = async () => {
+        try {
+            await axios.post(createApi ? createApi : process.env.REACT_APP_TEST_API, selectedOneRowForEdit)
+        } catch (e) {
+            console.log(e)
+        }
+        let tempDataArr = await getDataFromDb();
+        paginator(pageStartIndex, pageEndIndex, recordsPerPage, pageNo, tempDataArr)
+        setSelectedOneRowForEdit(null);
+    };
+
+
+
+
+    // @dependant
+    const deleteAllSelected = async () => {
+        try {
+            await axios.post(deleteMultipleApi ? deleteMultipleApi : (process.env.REACT_APP_TEST_API + "/delete-multiple"), Object.keys(multiSelectForDeleteList))
+            let tempDataArr = await getDataFromDb();
+            let pagesLeftNow = Math.ceil(tempDataArr.length / recordsPerPage);
+            let pageNumber = (pagesLeftNow < pageNo) ? pagesLeftNow : pageNo;
+            paginator(null, null, recordsPerPage, pageNumber, tempDataArr);
+        }
+        catch (error) {
+            console.log(error);
+        }
+        // setTabData(tempDataArr);
+        setMultiSelectForDeleteList({});
+        setSelectedMultipleRowForDeletePopup(false);
+        setAllRowsOfTableSelected(false)
+    }
+
+
+
+
+    // @dependant
+    const onExcelImport = (e) => {
+        const files = e.target.files;
+        if (files.length) {
+            const file = files[0];
+            const reader = new FileReader();
+            reader.onload = async (e) => {
+                const workbook = read(e.target.result);
+                const sheets = workbook.SheetNames;
+                if (sheets.length) {
+                    try {
+                        const rows = utils.sheet_to_json(workbook.Sheets[sheets[0]]);
+                        await axios.post(uploadBulkApi ? uploadBulkApi : (process.env.REACT_APP_TEST_API + "/bulkData"), rows);
+                        let tempDataArr = await getDataFromDb();
+                        paginator(null, null, recordsPerPage, null, tempDataArr);
+                    }
+                    catch (e) {
+                        console.log(e);
+                    }
+                }
+            }
+            reader.readAsArrayBuffer(file);
+        }
+    }
+
+    // @dependant
+    const onJsonImport = async (e) => {
+
+        const files = e.target.files;
+        if (files.length) {
+            const file = files[0];
+            const reader = new FileReader();
+            reader.onload = async (e) => {
+                const content = e.target.result;
+                const newDataSetFromJSON = JSON.parse(content); // parse json 
+                try {
+                    await axios.post(uploadBulkApi ? uploadBulkApi : (process.env.REACT_APP_TEST_API + "/bulkData"), newDataSetFromJSON);
+                    let tempDataArr = await getDataFromDb();
+                    paginator(null, null, recordsPerPage, null, tempDataArr);
+                }
+                catch (e) {
+                    console.log(e)
+                }
+            }
+            reader.readAsText(file);
+        }
+    }
+
+
+    /* --------------------------!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!---------------------------- */
+
+    /* ---------------------------------------Dependant Code Ends----------------------------------------------------------- */
+
+
+
+
+    /* ---------------------------------------These code doenot have any dependency on APi or anything----------------------------------------------------------- */
 
 
 
@@ -63,26 +214,15 @@ const CRUDIE = ({
     }, [columns]);
 
 
-    const getDataFromDb = async () => {
-
-        let response = await axios.get(process.env.REACT_APP_TEST_API);
-        let tempDataFromDB = response.data;
-        setTabData(tempDataFromDB);
-        return tempDataFromDB;
-    }
-
 
     const changeFilterableInputs = (e) => {
         const { name, value } = e.target;
-
         let tempFilteredStringObject = { ...valuesToBeFiltered, [name]: value };
-
         let filteredData = tabData.filter((itemRow) => {
             let dataPresentInRow = true;
             columns.forEach((cols, index) => {
                 let columnName = cols.column;
                 let columnData = itemRow[columnName].toString().toLowerCase();
-
                 if (
                     cols.filterable &&
                     tempFilteredStringObject[columnName] !== "" &&
@@ -94,9 +234,7 @@ const CRUDIE = ({
 
             return dataPresentInRow;
         });
-
         setValuesToBeFiltered(tempFilteredStringObject);
-
         paginator(null, null, recordsPerPage, 1, filteredData)
     };
 
@@ -106,41 +244,8 @@ const CRUDIE = ({
         setSelectedOneRowForEdit({ ...selectedOneRowForEdit, [name]: value });
     };
 
-    const onUpdateConfirm = async () => {
-        try {
-            await axios.patch(process.env.REACT_APP_TEST_API + "/" + selectedOneRowForEdit[uniqueId], selectedOneRowForEdit)
-        } catch (e) {
-            console.log(e)
-        }
-
-        let tempUpdatedData = await getDataFromDb()
-        paginator(pageStartIndex, pageEndIndex, recordsPerPage, pageNo, tempUpdatedData)
-
-        setSelectedOneRowForEdit(null);
-    };
-
     const onUpdateCancel = () => {
         setSelectedOneRowForEdit(null);
-    };
-
-    const onDeleteConfirm = async (selectedRow) => {
-
-        try {
-            await axios.delete(process.env.REACT_APP_TEST_API + "/" + selectedRow[uniqueId])
-
-        } catch (e) {
-            console.log(e)
-        }
-
-
-        let tempDataArr = await getDataFromDb()
-
-        let pagesLeftNow = Math.ceil(tempDataArr.length / recordsPerPage);
-        let pageNumber = (pagesLeftNow < pageNo) ? pagesLeftNow : pageNo;
-
-        paginator(null, null, recordsPerPage, pageNumber, tempDataArr);
-
-        setSelectedOneRowForDelete(null);
     };
 
     const onDeleteCancel = () => {
@@ -167,7 +272,6 @@ const CRUDIE = ({
 
         setPageNo(page);
         paginator(null, null, recordsPerPage, page, null);
-
     };
 
     const sortColumn = (col, asc) => {
@@ -190,20 +294,16 @@ const CRUDIE = ({
             );
 
         setTabData([...sortedData]);
-
         paginator(pageStartIndex, pageEndIndex, recordsPerPage, pageNo, sortedData)
-
     };
 
     const recordSelectionPerPageChange = (noOfRecords) => {
         let start = 0;
         let end = Math.min(noOfRecords - 1, tabData.length - 1);
-
         let tempDataArray = [];
         for (let index = start; index <= end; index++) {
             tempDataArray.push(tabData[index]);
         }
-
         setPageStartIndex(start);
         setPageEndIndex(end);
         setRecordsPerPage(noOfRecords);
@@ -220,21 +320,8 @@ const CRUDIE = ({
                     ? col.formInputDetails.defaultVal
                     : "";
         });
-
         setSelectedOneRowForEdit({ ...inputFormData });
         setCreateNewRecordFormOpen(true);
-    };
-
-    const onAddNewRecord = async () => {
-        try {
-            await axios.post(process.env.REACT_APP_TEST_API, selectedOneRowForEdit)
-        } catch (e) {
-            console.log(e)
-        }
-
-        let tempDataArr = getDataFromDb();
-        paginator(pageStartIndex, pageEndIndex, recordsPerPage, pageNo, tempDataArr)
-        setSelectedOneRowForEdit(null);
     };
 
 
@@ -242,7 +329,6 @@ const CRUDIE = ({
         // const checkedVal = e.target.checked;
 
         if (e.target.name === "selectAllCheckBox") {
-
             if (Object.keys(multiSelectForDeleteList).length || allRowsOfTableSelected) {
                 setMultiSelectForDeleteList({});
                 setAllRowsOfTableSelected(false)
@@ -255,11 +341,8 @@ const CRUDIE = ({
                 setMultiSelectForDeleteList(tempMultiDeleteList);
                 setAllRowsOfTableSelected(true)
             }
-
             return;
         }
-
-
         let rowId = selectedRow[uniqueId]
         if (multiSelectForDeleteList[rowId]) {
             let tempMultiDeleteList = multiSelectForDeleteList;
@@ -274,28 +357,6 @@ const CRUDIE = ({
         }
     }
 
-    const deleteAllSelected = async () => {
-        try {
-            await axios.post(process.env.REACT_APP_TEST_API + "/delete-multiple", Object.keys(multiSelectForDeleteList))
-            let tempDataArr = await getDataFromDb();
-            let pagesLeftNow = Math.ceil(tempDataArr.length / recordsPerPage);
-
-            let pageNumber = (pagesLeftNow < pageNo) ? pagesLeftNow : pageNo;
-
-            paginator(null, null, recordsPerPage, pageNumber, tempDataArr);
-        }
-        catch (error) {
-            console.log(error);
-        }
-
-
-        // setTabData(tempDataArr);
-        setMultiSelectForDeleteList({});
-        setSelectedMultipleRowForDeletePopup(false);
-        setAllRowsOfTableSelected(false)
-    }
-
-
     const paginator = (recordStartIndex, recordEndIndex, noOfRecords, currrPageNo, sortedArrayData) => {
         currrPageNo = currrPageNo ? currrPageNo : 1;
         noOfRecords = noOfRecords ? noOfRecords : defaultRecordPerPage;
@@ -304,39 +365,11 @@ const CRUDIE = ({
         recordEndIndex = recordEndIndex ? recordEndIndex : Math.min(currrPageNo * noOfRecords - 1, sortedArrayData.length - 1);
 
         let tempDataArray = sortedArrayData.slice(recordStartIndex, recordEndIndex + 1);
-
         setPages(Math.ceil(sortedArrayData.length / noOfRecords));
         setPageStartIndex(recordStartIndex);
         setPageEndIndex(recordEndIndex)
         setPageNo(currrPageNo);
         setDatainPage([...tempDataArray]);
-    }
-
-
-
-    const onExcelImport = (e) => {
-        const files = e.target.files;
-        if (files.length) {
-            const file = files[0];
-            const reader = new FileReader();
-            reader.onload = async (e) => {
-                const workbook = read(e.target.result);
-                const sheets = workbook.SheetNames;
-
-                if (sheets.length) {
-                    try {
-                        const rows = utils.sheet_to_json(workbook.Sheets[sheets[0]]);
-                        await axios.post(process.env.REACT_APP_TEST_API + "/bulkData", rows);
-                        let tempDataArr = await getDataFromDb();
-                        paginator(null, null, recordsPerPage, null, tempDataArr);
-                    }
-                    catch (e) {
-                        console.log(e);
-                    }
-                }
-            }
-            reader.readAsArrayBuffer(file);
-        }
     }
 
 
@@ -359,30 +392,6 @@ const CRUDIE = ({
         link.download = tableHeader + ".json";
         link.click();
     };
-
-
-    const onJsonImport = async (e) => {
-
-        const files = e.target.files;
-        if (files.length) {
-            const file = files[0];
-            const reader = new FileReader();
-            reader.onload = async (e) => {
-                const content = e.target.result;
-                const newDataSetFromJSON = JSON.parse(content); // parse json 
-
-                try {
-                    await axios.post(process.env.REACT_APP_TEST_API + "/bulkData", newDataSetFromJSON);
-                    let tempDataArr = await getDataFromDb();
-                    paginator(null, null, recordsPerPage, null, tempDataArr);
-                }
-                catch (e) {
-                    console.log(e)
-                }
-            }
-            reader.readAsText(file);
-        }
-    }
 
     return <div className={CrudieStyle.MainBody}>
         <div className={CrudieStyle.frame}>
@@ -473,7 +482,7 @@ const CRUDIE = ({
                     {columns.map((col, index) => (
                         <th>
                             {col.sortable ? <button onClick={() => sortColumn(col.column, (sortedColumn === col.column && sortedAsc === 1) ? false : true)}>
-                                {col.column}{" "}
+                                {col.columnLabel}{" "}
                                 {
                                     col.column === sortedColumn && <span>
                                         {sortedAsc === -1 && <i>&#8595;</i>}
@@ -481,7 +490,7 @@ const CRUDIE = ({
                                     </span>
                                 }
                             </button>
-                                : col.column
+                                : col.columnLabel
 
 
                             }
