@@ -96,7 +96,12 @@ const Tables = ({ upDateData, data, expandableTableData, colmns }) => {
                     createOnce: false,
                     formInputDetails: {
                         defaultVal: "",
-                        inputType: "text"
+                        inputType: "radio",
+                        label: "Please select your gender:",
+                        data: [{ label: "Male", value: "Male" },
+                        { label: "Female", value: "Female" },
+                        { label: "Prefer Not to say", value: "NA" }
+                        ]
                     }
                 }, {
                     column: "ip_address",
@@ -109,7 +114,26 @@ const Tables = ({ upDateData, data, expandableTableData, colmns }) => {
                         defaultVal: "",
                         inputType: "text"
                     }
-                }
+                }, {
+                    column: "country",
+                    columnLabel: "Country",
+                    sortable: true,
+                    filterable: true,
+                    editable: true,
+                    createOnce: false,
+                    formInputDetails: {
+                        defaultVal: "Nepal",
+                        inputType: "dropdown",
+                        label: "Please select your Country:",
+                        data: [{ label: "India", value: "India" },
+                        { label: "Nepal", value: "Nepal" },
+                        { label: "Sri Lanka", value: "Sri Lanka" },
+                        { label: "Malaysia", value: "Malaysia" },
+                        { label: "Japan", value: "Japan" }
+                        ]
+                    }
+                },
+
             ]
             tempCols.innerColumns = [
                 {
