@@ -7,7 +7,10 @@ const Editable = ({ data,
   tableHeader,
   recordsPerPageOption,
   defaultRecordPerPage,
-  uniqueId }) => {
+  uniqueId,
+  editApi,
+  deleteOneApi,
+}) => {
 
   const [recordsPerPage, setRecordsPerPage] = useState(defaultRecordPerPage);
   const [tabData, setTabData] = useState();
@@ -23,12 +26,15 @@ const Editable = ({ data,
   const [selectedOneRowForEdit, setSelectedOneRowForEdit] = useState();
   const [selectedOneRowForDelete, setSelectedOneRowForDelete] = useState();
 
-  // useEffect(() => {
-  //   setTabData([...data]);
-  //   sortColumn("", true);
-  // }, [pageStartIndex , pageEndIndex , ]);
 
 
+  /* -----------------------------------API dependant code----------------------------------------------- */
+
+  /* -------------------------------------------May modify according to users need------------------------ */
+
+
+
+  // gettting data from the dp using api provided and adding it to thier respective page
   useEffect(() => {
     axios.get(process.env.REACT_APP_TEST_API).then((response) => {
       const tempDataFromDB = response.data
@@ -38,18 +44,71 @@ const Editable = ({ data,
   }, []);
 
 
+  // method to update data wrt provided unique id using rest api
+  const onUpdateConfirm = async () => {
+    try {
+      await axios.patch((editApi ? editApi : process.env.REACT_APP_TEST_API) + "/" + selectedOneRowForEdit[uniqueId], selectedOneRowForEdit)
+    } catch (e) {
+      console.log(e)
+    }
+
+    // again getting update data after operation from the db
+    let tempUpdatedData = await getDataFromDb()
+    // setting paginator to put data to their respective page
+    paginator(pageStartIndex, pageEndIndex, recordsPerPage, pageNo, tempUpdatedData)
+    // closing the popup and clearing saved data to update
+    setSelectedOneRowForEdit(null);
+  };
+
+  // method to delete data wrt provided unique id using rest api
+  const onDeleteConfirm = async (selectedRow) => {
+    try {
+      await axios.delete((deleteOneApi ? deleteOneApi : process.env.REACT_APP_TEST_API) + "/" + selectedRow[uniqueId])
+    } catch (e) {
+      console.log(e)
+    }
+
+    // again getting update data after operation from the db
+    let tempDataArr = await getDataFromDb()
+    // since data is being delete , calculating again total pages and setting it to state
+    let pagesLeftNow = Math.ceil(tempDataArr.length / recordsPerPage);
+    let pageNumber = (pagesLeftNow < pageNo) ? pagesLeftNow : pageNo;
+    paginator(null, null, recordsPerPage, pageNumber, tempDataArr);
+    // clearing data selected for delete
+    setSelectedOneRowForDelete(null);
+  };
 
 
-  const paginator = (recordStartIndex, recordEndIndex, noOfRecords, currrPageNo, sortedArrayData) => {
-    currrPageNo = currrPageNo ? currrPageNo : 1;
-    noOfRecords = noOfRecords ? noOfRecords : defaultRecordPerPage;
-    sortedArrayData = sortedArrayData ? sortedArrayData : tabData;
+
+  // method to get data from database , eerytime any operation occurs
+  const getDataFromDb = async () => {
+    let response = await axios.get(process.env.REACT_APP_TEST_API);
+    let tempDataFromDB = response.data;
+    setTabData(tempDataFromDB);
+    return tempDataFromDB;
+  }
+
+
+  /* -----------------------------------API dependant code ends----------------------------------------------- */
+
+  /* -------------------------------------------May modify according to users need------------------------ */
+
+
+
+  // method for setting paginator
+  const paginator = (recordStartIndex, recordEndIndex, noOfRecords, currrPageNo, updatedDataSet) => {
+
+    //checking parameter is null or not, if null it means unchanged and get it from state
+    currrPageNo = currrPageNo ? currrPageNo : 1;//curr page no
+    noOfRecords = noOfRecords ? noOfRecords : defaultRecordPerPage;//records per page if null get default
+    updatedDataSet = updatedDataSet ? updatedDataSet : tabData; //new data array, 
     recordStartIndex = recordStartIndex ? recordStartIndex : Math.max((currrPageNo - 1) * noOfRecords, 0);
-    recordEndIndex = recordEndIndex ? recordEndIndex : Math.min(currrPageNo * noOfRecords - 1, sortedArrayData.length - 1);
+    recordEndIndex = recordEndIndex ? recordEndIndex : Math.min(currrPageNo * noOfRecords - 1, updatedDataSet.length - 1);
 
-    let tempDataArray = sortedArrayData.slice(recordStartIndex, recordEndIndex + 1);
-
-    setPages(Math.ceil(sortedArrayData.length / noOfRecords));
+    // putting data into the current page no
+    let tempDataArray = updatedDataSet.slice(recordStartIndex, recordEndIndex + 1);
+    // setting various states
+    setPages(Math.ceil(updatedDataSet.length / noOfRecords));
     setPageStartIndex(recordStartIndex);
     setPageEndIndex(recordEndIndex)
     setPageNo(currrPageNo);
@@ -57,7 +116,7 @@ const Editable = ({ data,
   }
 
 
-
+  // method to set page , add respective data to visible page
   const changePage = (next) => {
     let page = next
       ? pageNo + 1 > pages
@@ -69,28 +128,24 @@ const Editable = ({ data,
 
     let start = Math.max((page - 1) * recordsPerPage, 0);
     let end = Math.min(page * recordsPerPage - 1, tabData.length - 1);
-
-    console.log(start, end, pages, page);
-    console.log(tabData.length);
     let tempDataArray = [];
     for (let index = start; index <= end; index++) {
       tempDataArray.push(tabData[index]);
     }
-
     setPageNo(page);
     setPageStartIndex(start);
     setPageEndIndex(end);
     setDatainPage(tempDataArray);
-
   };
 
+
+  // sorting selected columns 
   const sortColumn = (col, asc) => {
     if (asc) {
       setSortedAsc(1);
     } else {
       setSortedAsc(-1);
     }
-
     if (sortedColumn !== col) {
       setSortedAsc(1);
       setSortedColumn(col);
@@ -102,9 +157,7 @@ const Editable = ({ data,
       : data.sort((row1, row2) =>
         row1[col] > row2[col] ? -1 : row1[col] < row2[col] ? 1 : 0
       );
-
     setTabData([...sortedData]);
-
     let tempDataArray = [];
     for (let index = pageStartIndex; index <= pageEndIndex; index++) {
       tempDataArray.push(sortedData[index]);
@@ -112,24 +165,21 @@ const Editable = ({ data,
     setDatainPage(tempDataArray);
   };
 
-
-
+  // changing total no of records per page from the aoption passed in the props
   const recordSelectionPerPageChange = (noOfRecords) => {
     let start = 0;
     let end = Math.min(noOfRecords - 1, tabData.length - 1);
-
     let tempDataArray = [];
     for (let index = start; index <= end; index++) {
       tempDataArray.push(tabData[index]);
     }
-
     setRecordsPerPage(noOfRecords);
     setPages(Math.ceil(data.length / noOfRecords));
     setPageNo(1);
     setDatainPage(tempDataArray);
   };
 
-
+  // select row to edit and open popup
   const editRow = (selectedOneRow) => {
     // EditOneRowPopUp
     // call edit popup form here
@@ -137,7 +187,7 @@ const Editable = ({ data,
     setSelectedOneRowForEdit(selectedOneRow)
   }
 
-
+  //select row to be deleted and open popup for confirmation
   const deleteRow = (selectedOneRow) => {
     // Call confirmation popup here
     // DeleteOneRowPopUp
@@ -145,86 +195,20 @@ const Editable = ({ data,
     console.log(selectedOneRow)
   }
 
-
-  // const EditOneRowPopUp = ({ selectedRow }) => {
-  // console.log("popv b", filterableColumns)
-  // filterableCols.forEach(element => {
-  //   console.log(element)
-  // });
-  // return <div className={"popup " + true ? "showpopup" : "hidepopup"}>
-  //   <button onClick={() => closePopup()}>close</button>
-  //   <div>        {
-  //     filterableColumns.map((oneCol) =>
-  //       <div><span>{oneCol.column} : </span><input value={oneCol.column} /></div>
-  //     )
-  //   }</div>
-  // </div>
-
-  // }
-
-
-  // const DeleteOneRowPopUp = ({ selectedRow }) => {
-
-  // }
-
-
-  const getDataFromDb = async () => {
-
-    let response = await axios.get(process.env.REACT_APP_TEST_API);
-    let tempDataFromDB = response.data;
-    setTabData(tempDataFromDB);
-    return tempDataFromDB;
-  }
-
-
-
-  const onUpdateConfirm = async () => {
-    try {
-      await axios.patch(process.env.REACT_APP_TEST_API + "/" + selectedOneRowForEdit[uniqueId], selectedOneRowForEdit)
-    } catch (e) {
-      console.log(e)
-    }
-
-    let tempUpdatedData = await getDataFromDb()
-    paginator(pageStartIndex, pageEndIndex, recordsPerPage, pageNo, tempUpdatedData)
-
-    setSelectedOneRowForEdit(null);
-  };
-
-
-
+  // close the popup on cancel
   const onUpdateCancel = () => {
+    // clearing selected row for update
     setSelectedOneRowForEdit(null)
   }
 
-
-
-  const onDeleteConfirm = async (selectedRow) => {
-
-    try {
-      await axios.delete(process.env.REACT_APP_TEST_API + "/" + selectedRow[uniqueId])
-
-    } catch (e) {
-      console.log(e)
-    }
-
-
-    let tempDataArr = await getDataFromDb()
-
-    let pagesLeftNow = Math.ceil(tempDataArr.length / recordsPerPage);
-    let pageNumber = (pagesLeftNow < pageNo) ? pagesLeftNow : pageNo;
-
-    paginator(null, null, recordsPerPage, pageNumber, tempDataArr);
-
-    setSelectedOneRowForDelete(null);
-  };
-
+  // close the popup on cancel
   const onDeleteCancel = () => {
+    // clearing selected row for delete
     setSelectedOneRowForDelete(null)
   }
 
+  // method to update data if anything changed in update data popup
   const editFormContentChange = (e) => {
-
     const { name, value } = e.target
     setSelectedOneRowForEdit({ ...selectedOneRowForEdit, [name]: value })
   }
@@ -232,17 +216,13 @@ const Editable = ({ data,
   return (
     <div>
       {tableHeader && <h2 className="tableHeader">{tableHeader}</h2>}
-
       <>
         {selectedOneRowForEdit &&
-
           <div>
             Popup Form
             {
               columns.map((col, index) => getInputBoxFromType(col, selectedOneRowForEdit, editFormContentChange, index))}
-
             <button onClick={() => onUpdateConfirm()}>Update</button>
-
             <button onClick={() => onUpdateCancel()}>Cancel</button>
           </div>
         }
@@ -251,7 +231,6 @@ const Editable = ({ data,
       <>
         {
           selectedOneRowForDelete &&
-
           <div>
             Popup Delete , Are you sure want to delete id : {selectedOneRowForDelete[uniqueId]}
             <button onClick={() => onDeleteConfirm(selectedOneRowForDelete)}>Delete</button>
@@ -259,8 +238,6 @@ const Editable = ({ data,
           </div>
         }
       </>
-
-
 
       <table>
         <tr>

@@ -273,6 +273,13 @@ const Tables = ({ upDateData, data, expandableTableData, colmns }) => {
                             <li>If it is text then it doesnot require any data or label but if it is dropdown or radio then it require parameter data and label</li>
                             <li>data:- data is array of objects containing 2 parameters label and value</li>
                             <li>label : Label for radio and dropdown</li>
+                            {/* if inut type is dropdown then [{ label: "xyz", value: "abc" }] 
+      if it it text then {placeholder: "xyz" , name: "name"}
+      if checkbox {label: "label" }
+      if date {min: "" , max: "" }
+      if int {min: "" , max: "" }
+      if textarea  {placeholder: "xyz" , name: "name" , lines: 2} */}
+
                         </ol>
                     </li>
                 </ul>
@@ -347,9 +354,11 @@ const Tables = ({ upDateData, data, expandableTableData, colmns }) => {
                 uniqueId={"_id"}
                 recordsPerPageOption={[5, 10, 20]}
                 defaultRecordPerPage={5}
+                editApi={process.env.REACT_APP_TEST_API}
+                deleteOneApi={process.env.REACT_APP_TEST_API}
             />)}
 
-        <h4>Columns structure for the above table:- <button>Open Popup</button></h4>
+        <h4>Props structure for the above table:- <button>Open Popup</button></h4>
         <h3>Link to code:-  <a
             href="https://github.com/Kash15if/custom-components/tree/main/src/CustomComponents/Tables/Sortable"
             target="_blank"
@@ -358,6 +367,10 @@ const Tables = ({ upDateData, data, expandableTableData, colmns }) => {
 
 
 
+        <h1>All Sort Filter and Edit together Table</h1>
+
+        <h2>Parameters</h2>
+        <h4>Required Field</h4>
 
         {/* Sort Filter and Edit */}
         {dummyData && columns && (
@@ -369,6 +382,12 @@ const Tables = ({ upDateData, data, expandableTableData, colmns }) => {
                 recordsPerPageOption={[5, 10, 20]}
                 defaultRecordPerPage={5}
             />)}
+        <h4>Props structure for the above table:- <button>Open Popup</button></h4>
+        <h3>Link to code:-  <a
+            href="https://github.com/Kash15if/custom-components/tree/main/src/CustomComponents/Tables/Sortable"
+            target="_blank"
+            rel="noopener noreferrer">Editable Table</a></h3>
+
 
 
         {/* Expandable table */}
@@ -383,6 +402,13 @@ const Tables = ({ upDateData, data, expandableTableData, colmns }) => {
                 defaultRecordPerPage={5}
                 uniqueId="id"
             />)}
+        <h4>Props structure for the above table:- <button>Open Popup</button></h4>
+        <h3>Link to code:-  <a
+            href="https://github.com/Kash15if/custom-components/tree/main/src/CustomComponents/Tables/Sortable"
+            target="_blank"
+            rel="noopener noreferrer">Editable Table</a></h3>
+
+
 
 
         {expandableTableData && colmns && (
@@ -399,6 +425,13 @@ const Tables = ({ upDateData, data, expandableTableData, colmns }) => {
             </ExpandableWithComponent>
         )
         }
+        <h4>Props structure for the above table:- <button>Open Popup</button></h4>
+        <h3>Link to code:-  <a
+            href="https://github.com/Kash15if/custom-components/tree/main/src/CustomComponents/Tables/Sortable"
+            target="_blank"
+            rel="noopener noreferrer">Editable Table</a></h3>
+
+
 
         {/* Crud and Import Export */}
         {columns && (
@@ -420,6 +453,13 @@ const Tables = ({ upDateData, data, expandableTableData, colmns }) => {
                 deleteMultipleApi={process.env.REACT_APP_TEST_API + "/delete-multiple"}
             />
         )}
+        <h4>Props structure for the above table:- <button>Open Popup</button></h4>
+        <h3>Link to code:-  <a
+            href="https://github.com/Kash15if/custom-components/tree/main/src/CustomComponents/Tables/Sortable"
+            target="_blank"
+            rel="noopener noreferrer">Editable Table</a></h3>
+
+
 
 
         {/* Multi Header Table Table */}

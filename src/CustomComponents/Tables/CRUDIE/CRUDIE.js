@@ -222,7 +222,7 @@ const CRUDIE = ({
             let dataPresentInRow = true;
             columns.forEach((cols, index) => {
                 let columnName = cols.column;
-                let columnData = itemRow[columnName].toString().toLowerCase();
+                let columnData = itemRow && itemRow[columnName] ? itemRow[columnName].toString().toLowerCase() : "";
                 if (
                     cols.filterable &&
                     tempFilteredStringObject[columnName] !== "" &&
@@ -357,15 +357,20 @@ const CRUDIE = ({
         }
     }
 
-    const paginator = (recordStartIndex, recordEndIndex, noOfRecords, currrPageNo, sortedArrayData) => {
-        currrPageNo = currrPageNo ? currrPageNo : 1;
-        noOfRecords = noOfRecords ? noOfRecords : defaultRecordPerPage;
-        sortedArrayData = sortedArrayData ? sortedArrayData : tabData;
-        recordStartIndex = recordStartIndex ? recordStartIndex : Math.max((currrPageNo - 1) * noOfRecords, 0);
-        recordEndIndex = recordEndIndex ? recordEndIndex : Math.min(currrPageNo * noOfRecords - 1, sortedArrayData.length - 1);
+    // method for setting paginator
+    const paginator = (recordStartIndex, recordEndIndex, noOfRecords, currrPageNo, updatedDataSet) => {
 
-        let tempDataArray = sortedArrayData.slice(recordStartIndex, recordEndIndex + 1);
-        setPages(Math.ceil(sortedArrayData.length / noOfRecords));
+        //checking parameter is null or not, if null it means unchanged and get it from state
+        currrPageNo = currrPageNo ? currrPageNo : 1;//curr page no
+        noOfRecords = noOfRecords ? noOfRecords : defaultRecordPerPage;//records per page if null get default
+        updatedDataSet = updatedDataSet ? updatedDataSet : tabData; //new data array, 
+        recordStartIndex = recordStartIndex ? recordStartIndex : Math.max((currrPageNo - 1) * noOfRecords, 0);
+        recordEndIndex = recordEndIndex ? recordEndIndex : Math.min(currrPageNo * noOfRecords - 1, updatedDataSet.length - 1);
+
+        // putting data into the current page no
+        let tempDataArray = updatedDataSet.slice(recordStartIndex, recordEndIndex + 1);
+        // setting various states
+        setPages(Math.ceil(updatedDataSet.length / noOfRecords));
         setPageStartIndex(recordStartIndex);
         setPageEndIndex(recordEndIndex)
         setPageNo(currrPageNo);
