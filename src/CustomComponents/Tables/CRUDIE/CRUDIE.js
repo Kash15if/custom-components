@@ -15,6 +15,10 @@ const CRUDIE = ({
     recordsPerPageOption,
     defaultRecordPerPage,
     uniqueId,
+    excelImport,
+    excelExport,
+    jsonImport,
+    jsonExport,
     getDataApi,
     createApi,
     uploadBulkApi,
@@ -406,22 +410,26 @@ const CRUDIE = ({
             </>
 
             <>
-                <div>
+                {excelImport && <div>
                     <input id="excelImportBtn" type="file" onChange={onExcelImport} name="excel import" />
                     <label className="" htmlFor="excelImportBtn">Choose Excel</label>
                 </div>
-                <div>
+                }
+                {jsonImport && <div>
                     <input type="file" id="jsonImportBtn" onChange={onJsonImport} />
                     <label className="" htmlFor="jsonImportBtn">Choose JSOn</label>
-
                 </div>
+                }
                 <div>
-                    <button onClick={onExcelExport} className="btn">
-                        Export Excel<i className="fa fa-download"></i>
-                    </button>
-                    <button onClick={onJsonExport} className="btn">
+                    {
+                        excelExport && <button onClick={onExcelExport} className="btn">
+                            Export Excel<i className="fa fa-download"></i>
+                        </button>
+                    }
+                    {jsonExport && <button onClick={onJsonExport} className="btn">
                         Export JSON
                     </button>
+                    }
                 </div>
             </>
 

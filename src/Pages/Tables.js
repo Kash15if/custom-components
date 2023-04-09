@@ -445,6 +445,10 @@ const Tables = ({ upDateData, data, expandableTableData, colmns }) => {
                 defaultRecordPerPage={5}
                 uniqueId="_id"
                 upDateData={upDateData}
+                excelImport={true}
+                excelExport={true}
+                jsonImport={true}
+                jsonExport={true}
                 getDataApi={process.env.REACT_APP_TEST_API}
                 createApi={process.env.REACT_APP_TEST_API}
                 uploadBulkApi={process.env.REACT_APP_TEST_API + "/bulkData"}
@@ -458,7 +462,7 @@ const Tables = ({ upDateData, data, expandableTableData, colmns }) => {
             href="https://github.com/Kash15if/custom-components/tree/main/src/CustomComponents/Tables/Sortable"
             target="_blank"
             rel="noopener noreferrer">Editable Table</a></h3>
-
+        <h4>Dependencies :- <a>Axios</a> and <a>xlsx</a></h4>
 
 
 
