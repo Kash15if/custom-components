@@ -9,6 +9,9 @@ import axios from "axios";
 import ExpandableWithComponent from "../CustomComponents/Tables/ExpanedTable/ExpandableWithComponent";
 
 
+
+import Popup from "../CustomComponents/PopUps/Popup";
+
 import InnerCard from "../CustomComponents/Tables/ExpanedTable/InnerCard";
 
 
@@ -17,6 +20,18 @@ const Tables = ({ upDateData, data, expandableTableData, colmns }) => {
     // const [data , setData] = useState();
     const [dummyData, setDummyData] = useState();
     const [columns, setColumns] = useState();
+
+    const [sortableParaeterStructurePopup, setSortableParaeterStructurePopup] = useState(false);
+    const [sortableRealPropPopup, setSortableRealPropPopup] = useState(false);
+
+    const [editableParaeterStructurePopup, setEditableParaeterStructurePopup] = useState(false);
+    const [editableRealPropPopup, setEditableRealPropPopup] = useState(false);
+
+    const [sortEditFilterParaeterStructurePopup, setSortEditFilterParaeterStructurePopup] = useState(false);
+    const [sortEditFilterRealPropPopup, setSortEditFilterRealPropPopup] = useState(false);
+
+    const [crudieParaeterStructurePopup, setCrudieParaeterStructurePopup] = useState(false);
+    const [crudieRealPropPopup, setCrudieRealPropPopup] = useState(false);
 
     useEffect(() => {
 
@@ -166,28 +181,11 @@ const Tables = ({ upDateData, data, expandableTableData, colmns }) => {
     return (<div>
 
 
+        {/* ------------------------------------------------------------------Sortable------------------------------------------- */}
 
         {/* Sortable */}
         <h1>Sortable Table</h1>
 
-        <h2>Parameters</h2>
-        <h4>Required Field</h4>
-        <ul>
-            <li>data:- data for table should be in json format , array of object</li>
-            <li>columns :- array of objects having
-                <ol>
-                    <li>{'[{column: colName1, sortable: true},{column: colName2, sortable: true},...]'}]
-                    </li>
-                </ol>
-            </li>
-
-            <li> recordsPerPageOption:- It is the options for no of records present in a page. It will be an array of integers</li>
-            <li>defaultRecordPerPage: It is the no of records present in page by default. It will be an integer</li>
-        </ul>
-        <h4>Optional</h4>
-        <ul>
-            <li>tableHeader:- It is the header of the table. It will be of type String</li>
-        </ul>
 
         <h2>Features</h2>
         <ul>
@@ -205,33 +203,81 @@ const Tables = ({ upDateData, data, expandableTableData, colmns }) => {
         />
         }
 
+        <button onClick={() => setSortableRealPropPopup(true)}>Show Props Strucutre</button>
+        <Popup visible={sortableRealPropPopup} onClose={() => setSortableRealPropPopup(false)} >
+            <div><h2>Parameters</h2>
+                <h4>Required Field</h4>
+                <ul>
+                    <li>data:- data for table should be in json format , array of object</li>
+                    <li>columns :- array of objects having
+                        <ol>
+                            <li>{'[{column: colName1, sortable: true},{column: colName2, sortable: true},...]'}]
+                            </li>
+                        </ol>
+                    </li>
+
+                    <li> recordsPerPageOption:- It is the options for no of records present in a page. It will be an array of integers</li>
+                    <li>defaultRecordPerPage: It is the no of records present in page by default. It will be an integer</li>
+                </ul>
+                <h4>Optional</h4>
+                <ul>
+                    <li>tableHeader:- It is the header of the table. It will be of type String</li>
+                </ul>
+
+            </div></Popup>
+
+
+        <button onClick={() => setSortableParaeterStructurePopup(true)}>Show Props</button>
+        <Popup visible={sortableParaeterStructurePopup} onClose={() => setSortableParaeterStructurePopup(false)} >
+            <div> data
+                <ul>
+                    <li><pre>{JSON.stringify(dummyData)}</pre></li>
+                </ul>
+                columns
+                <ul>
+                    <li><pre>{JSON.stringify(columns)}</pre></li>
+                </ul>tableHeader
+                <ul>
+                    <li><pre>{JSON.stringify("Sortable Table")}</pre></li>
+                </ul>uniqueId
+                <ul>
+                    <li><pre>{JSON.stringify("_id")}</pre></li>
+                </ul>recordsPerPageOption
+                <ul>
+                    <li><pre>{JSON.stringify([5, 10, 20])}</pre></li>
+                </ul>defaultRecordPerPage
+                <ul>
+                    <li><pre>{JSON.stringify(5)}</pre></li>
+                </ul>
+            </div></Popup>
+
+
+
+
         <h3>Link to code:-  <a
             href="https://github.com/Kash15if/custom-components/tree/main/src/CustomComponents/Tables/Sortable"
             target="_blank"
             rel="noopener noreferrer">Sortable Table</a></h3>
 
 
+
+
+        {/* ------------------------------------------------------------------Sortable------------------------------------------- */}
+
+
+
+
+
+
+
+
+
+        {/* ------------------------------------------------------------------Filterable------------------------------------------- */}
+
+
         {/* Filterable */}
         <h1>Filterable Table</h1>
 
-        <h2>Parameters</h2>
-        <h4>Required Field</h4>
-        <ul>
-            <li>data:- data for table should be in json format , array of object</li>
-            <li>columns :- array of objects having
-                <ol>
-                    <li>{'[{column: colName1, filterable: true},{column: colName2, filterable: true},...]'}]
-                    </li>
-                </ol>
-            </li>
-
-            <li> recordsPerPageOption:- It is the options for no of records present in a page. It will be an array of integers</li>
-            <li>defaultRecordPerPage: It is the no of records present in page by default. It will be an integer</li>
-        </ul>
-        <h4>Optional</h4>
-        <ul>
-            <li>tableHeader:- It is the header of the table. It will be of type String</li>
-        </ul>
 
         <h2>Features</h2>
         <ul>
@@ -250,93 +296,55 @@ const Tables = ({ upDateData, data, expandableTableData, colmns }) => {
                 defaultRecordPerPage={5}
             />)}
 
+
+        <button onClick={() => setSortableRealPropPopup(true)}>Show Props Strucutre</button>
+        <Popup visible={sortableRealPropPopup} onClose={() => setSortableRealPropPopup(false)} >
+            <div>
+                <h2>Parameters</h2>
+                <h4>Required Field</h4>
+                <ul>
+                    <li>data:- data for table should be in json format , array of object</li>
+                    <li>columns :- array of objects having
+                        <ol>
+                            <li>{'[{column: colName1, filterable: true},{column: colName2, filterable: true},...]'}]
+                            </li>
+                        </ol>
+                    </li>
+
+                    <li> recordsPerPageOption:- It is the options for no of records present in a page. It will be an array of integers</li>
+                    <li>defaultRecordPerPage: It is the no of records present in page by default. It will be an integer</li>
+                </ul>
+                <h4>Optional</h4>
+                <ul>
+                    <li>tableHeader:- It is the header of the table. It will be of type String</li>
+                </ul>
+            </div></Popup>
+
+
+        <button onClick={() => setSortableParaeterStructurePopup(true)}>Show Props</button>
+
+
         <h3>Link to code:-  <a
             href="https://github.com/Kash15if/custom-components/tree/main/src/CustomComponents/Tables/Sortable"
             target="_blank"
             rel="noopener noreferrer">Filterable Table</a></h3>
 
 
+        {/* ------------------------------------------------------------------Filterable------------------------------------------- */}
+
+
+
+
+
+
+
+        {/* ------------------------------------------------------------------Editable------------------------------------------- */}
 
         <h1>Editable Table</h1>
 
         <h2>Parameters</h2>
         <h4>Required Field</h4>
-        <ul>
-            <li>data:- data for table should be in json format , array of object</li>
-            <li> Property:-
-                <ul>
-                    <li>column:- It is the column name in the db</li>
-                    <li>column:- It is the column alias name</li>
-                    <li>editable:-True, if this column is editable. Also we have to justify each column property in  formInputDetails
-                        <ol>Form Input details:-
-                            <li>input type:- Type of the input. i.e. text , dropdown , radio, number, textarea,checkbox,datetime, password </li>
-                            <li>If it is text then it doesnot require any data or label but if it is dropdown or radio then it require parameter data and label</li>
-                            <li>data:- data is array of objects containing 2 parameters label and value</li>
-                            <li>label : Label for radio and dropdown</li>
-                            {/* if inut type is dropdown then [{ label: "xyz", value: "abc" }] 
-      if it it text then {placeholder: "xyz" , name: "name"}
-      if checkbox {label: "label" }
-      if date {min: "" , max: "" }
-      if int {min: "" , max: "" }
-      if textarea  {placeholder: "xyz" , name: "name" , lines: 2} */}
 
-                        </ol>
-                    </li>
-                </ul>
-            </li>
-            <li>Complete structure :- array of objects having
-                <ol>
-                    <li><pre>{JSON.stringify([
-                        {
-                            column: "colName1",
-                            columnLabel: "Column Label 1",
-                            editable: true,
-                            formInputDetails: {
-                                defaultVal: "",
-                                inputType: "dropdown",
-                                label: "Please select from dropdown:",
-                                data: [{ label: "X", value: "A" },
-                                { label: "Y", value: "B" },
-                                { label: "Z", value: "C" }
-                                ]
-                            }
-                        },
-                        {
-                            column: "colName2",
-                            columnLabel: "Column Label 1",
-                            editable: true,
-                            formInputDetails: {
-                                defaultVal: "",
-                                inputType: "radio",
-                                label: "Please select one radio button:",
-                                data: [{ label: "X", value: "A" },
-                                { label: "Y", value: "B" },
-                                { label: "Z", value: "C" }
-                                ]
-                            }
-                        }, {
-                            column: "colName2",
-                            columnLabel: "Column Label 1",
-                            editable: true,
-                            createOnce: false,
-                            formInputDetails: {
-                                defaultVal: "",
-                                inputType: "text"
-                            }
-                        },
-                    ], null, 2)}</pre>
-
-                    </li>
-                </ol>
-            </li>
-
-            <li> recordsPerPageOption:- It is the options for no of records present in a page. It will be an array of integers</li>
-            <li>defaultRecordPerPage: It is the no of records present in page by default. It will be an integer</li>
-        </ul>
-        <h4>Optional</h4>
-        <ul>
-            <li>tableHeader:- It is the header of the table. It will be of type String</li>
-        </ul>
 
         <h2>Features</h2>
         <ul>
@@ -349,7 +357,6 @@ const Tables = ({ upDateData, data, expandableTableData, colmns }) => {
         {dummyData && columns && (
             <Editable data={dummyData}
                 columns={columns}
-                filterableCols={columns}
                 tableHeader="Editable Table"
                 uniqueId={"_id"}
                 recordsPerPageOption={[5, 10, 20]}
@@ -357,6 +364,118 @@ const Tables = ({ upDateData, data, expandableTableData, colmns }) => {
                 editApi={process.env.REACT_APP_TEST_API}
                 deleteOneApi={process.env.REACT_APP_TEST_API}
             />)}
+
+
+
+
+        <button onClick={() => setSortableRealPropPopup(true)}>Show Props Strucutre</button>
+        <Popup visible={sortableRealPropPopup} onClose={() => setSortableRealPropPopup(false)} >
+            <div><ul>
+                <li>data:- data for table should be in json format , array of object</li>
+                <li> Property:-
+                    <ul>
+                        <li>column:- It is the column name in the db</li>
+                        <li>column:- It is the column alias name</li>
+                        <li>editable:-True, if this column is editable. Also we have to justify each column property in  formInputDetails
+                            <ol>Form Input details:-
+                                <li>input type:- Type of the input. i.e. text , dropdown , radio, number, textarea,checkbox,datetime, password </li>
+                                <li>If it is text then it doesnot require any data or label but if it is dropdown or radio then it require parameter data and label</li>
+                                <li>data:- data is array of objects containing 2 parameters label and value</li>
+                                <li>label : Label for radio and dropdown</li>
+                                <li>date {`{min: "" , max: "" }`}</li>
+                                <li>textarea:-  {`{placeholder: "xyz" , name: "name" , lines: 2}`}</li>
+
+                            </ol>
+                        </li>
+                    </ul>
+                </li>
+                <li>Complete structure :- array of objects having
+                    <ol>
+                        <li><pre>{JSON.stringify([
+                            {
+                                column: "colName1",
+                                columnLabel: "Column Label 1",
+                                editable: true,
+                                formInputDetails: {
+                                    defaultVal: "",
+                                    inputType: "dropdown",
+                                    label: "Please select from dropdown:",
+                                    data: [{ label: "X", value: "A" },
+                                    { label: "Y", value: "B" },
+                                    { label: "Z", value: "C" }
+                                    ]
+                                }
+                            },
+                            {
+                                column: "colName2",
+                                columnLabel: "Column Label 1",
+                                editable: true,
+                                formInputDetails: {
+                                    defaultVal: "",
+                                    inputType: "radio",
+                                    label: "Please select one radio button:",
+                                    data: [{ label: "X", value: "A" },
+                                    { label: "Y", value: "B" },
+                                    { label: "Z", value: "C" }
+                                    ]
+                                }
+                            }, {
+                                column: "colName2",
+                                columnLabel: "Column Label 1",
+                                editable: true,
+                                createOnce: false,
+                                formInputDetails: {
+                                    defaultVal: "",
+                                    inputType: "text"
+                                }
+                            },
+                        ], null, 2)}</pre>
+
+                        </li>
+                    </ol>
+                </li>
+
+                <li> recordsPerPageOption:- It is the options for no of records present in a page. It will be an array of integers</li>
+                <li>defaultRecordPerPage: It is the no of records present in page by default. It will be an integer</li>
+            </ul>
+                <h4>Optional</h4>
+                <ul>
+                    <li>tableHeader:- It is the header of the table. It will be of type String</li>
+                </ul>
+            </div></Popup>
+
+
+        <button onClick={() => setSortableParaeterStructurePopup(true)}>Show Props</button>
+        <Popup visible={sortableParaeterStructurePopup} onClose={() => setSortableParaeterStructurePopup(false)} >
+            <div>
+                data
+                <ul>
+                    <li><pre>{JSON.stringify(dummyData)}</pre></li>
+                </ul>
+                columns
+                <ul>
+                    <li><pre>{JSON.stringify(columns)}</pre></li>
+                </ul>tableHeader
+                <ul>
+                    <li><pre>{JSON.stringify("Editable Table")}</pre></li>
+                </ul>uniqueId
+                <ul>
+                    <li><pre>{JSON.stringify("_id")}</pre></li>
+                </ul>recordsPerPageOption
+                <ul>
+                    <li><pre>{JSON.stringify([5, 10, 20])}</pre></li>
+                </ul>defaultRecordPerPage
+                <ul>
+                    <li><pre>{JSON.stringify(5)}</pre></li>
+                </ul>editApi
+                <ul>
+                    <li><pre>{JSON.stringify("dummyAPI")}</pre></li>
+                </ul>
+                <ul>
+                    <li><pre>{JSON.stringify("dummyAPIdummyAPI")}</pre></li>
+                </ul>
+
+            </div></Popup>
 
         <h4>Props structure for the above table:- <button>Open Popup</button></h4>
         <h3>Link to code:-  <a
@@ -366,13 +485,24 @@ const Tables = ({ upDateData, data, expandableTableData, colmns }) => {
 
 
 
+        {/* ------------------------------------------------------------------Editable------------------------------------------- */}
+
+
+
+
+
+
+
+
+
+        {/* ------------------------------------------------------------------SortFilterEdit------------------------------------------- */}
+        {/* Sort Filter and Edit */}
+
 
         <h1>All Sort Filter and Edit together Table</h1>
 
         <h2>Parameters</h2>
         <h4>Required Field</h4>
-
-        {/* Sort Filter and Edit */}
         {dummyData && columns && (
             <SortFilterEdit data={dummyData}
                 columns={columns}
@@ -387,6 +517,17 @@ const Tables = ({ upDateData, data, expandableTableData, colmns }) => {
             href="https://github.com/Kash15if/custom-components/tree/main/src/CustomComponents/Tables/Sortable"
             target="_blank"
             rel="noopener noreferrer">Editable Table</a></h3>
+
+
+        {/* ---------------------------------------------------------------SortFilterEdit------------------------------------------- */}
+
+
+
+
+
+
+
+        {/* --------------------------------------------------------------- Expandable table----------------------------------------- */}
 
 
 
@@ -408,7 +549,22 @@ const Tables = ({ upDateData, data, expandableTableData, colmns }) => {
             target="_blank"
             rel="noopener noreferrer">Editable Table</a></h3>
 
+        {/* ------------------------------------------------------------- Expandable table ------------------------------------------- */}
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+        {/* ------------------------------------------------------------------ExpandableWithComponent------------------------------------------- */}
 
 
         {expandableTableData && colmns && (
@@ -432,6 +588,26 @@ const Tables = ({ upDateData, data, expandableTableData, colmns }) => {
             rel="noopener noreferrer">Editable Table</a></h3>
 
 
+        {/* ------------------------------------------------------------------ExpandableWithComponent------------------------------------------- */}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        {/* ------------------------------------------------------------------CRDUIE------------------------------------------- */}
 
         {/* Crud and Import Export */}
         {columns && (
@@ -464,9 +640,35 @@ const Tables = ({ upDateData, data, expandableTableData, colmns }) => {
             rel="noopener noreferrer">Editable Table</a></h3>
         <h4>Dependencies :- <a>Axios</a> and <a>xlsx</a></h4>
 
+        {/* ------------------------------------------------------------------CRDUIE------------------------------------------- */}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        {/* ------------------------------------------------------------------ Multi Header Table Table------------------------------------------- */}
+
+
+
 
 
         {/* Multi Header Table Table */}
+
+
+
+        {/* ------------------------------------------------------------------ Multi Header Table Table------------------------------------------- */}
+
+
 
 
 
