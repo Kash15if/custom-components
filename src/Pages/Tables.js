@@ -27,10 +27,10 @@ const Tables = ({ upDateData, data, expandableTableData, colmns }) => {
     const [editableParaeterStructurePopup, setEditableParaeterStructurePopup] = useState(false);
     const [editableRealPropPopup, setEditableRealPropPopup] = useState(false);
 
-    const [sortEditFilterParaeterStructurePopup, setSortEditFilterParaeterStructurePopup] = useState(false);
     const [sortEditFilterRealPropPopup, setSortEditFilterRealPropPopup] = useState(false);
 
-    const [crudieParaeterStructurePopup, setCrudieParaeterStructurePopup] = useState(false);
+    const [expandableWithCompRealPropPopup, setExpandableWithCompRealPropPopup] = useState(false);
+
     const [crudieRealPropPopup, setCrudieRealPropPopup] = useState(false);
 
     useEffect(() => {
@@ -236,18 +236,6 @@ const Tables = ({ upDateData, data, expandableTableData, colmns }) => {
                 columns
                 <ul>
                     <li><pre>{JSON.stringify(columns)}</pre></li>
-                </ul>tableHeader
-                <ul>
-                    <li><pre>{JSON.stringify("Sortable Table")}</pre></li>
-                </ul>uniqueId
-                <ul>
-                    <li><pre>{JSON.stringify("_id")}</pre></li>
-                </ul>recordsPerPageOption
-                <ul>
-                    <li><pre>{JSON.stringify([5, 10, 20])}</pre></li>
-                </ul>defaultRecordPerPage
-                <ul>
-                    <li><pre>{JSON.stringify(5)}</pre></li>
                 </ul>
             </div></Popup>
 
@@ -322,7 +310,16 @@ const Tables = ({ upDateData, data, expandableTableData, colmns }) => {
 
 
         <button onClick={() => setSortableParaeterStructurePopup(true)}>Show Props</button>
-
+        <Popup visible={sortableParaeterStructurePopup} onClose={() => setSortableParaeterStructurePopup(false)} >
+            <div> data
+                <ul>
+                    <li><pre>{JSON.stringify(dummyData)}</pre></li>
+                </ul>
+                columns
+                <ul>
+                    <li><pre>{JSON.stringify(columns)}</pre></li>
+                </ul>
+            </div></Popup>
 
         <h3>Link to code:-  <a
             href="https://github.com/Kash15if/custom-components/tree/main/src/CustomComponents/Tables/Sortable"
@@ -445,9 +442,21 @@ const Tables = ({ upDateData, data, expandableTableData, colmns }) => {
             </div></Popup>
 
 
-        <button onClick={() => setSortableParaeterStructurePopup(true)}>Show Props</button>
-        <Popup visible={sortableParaeterStructurePopup} onClose={() => setSortableParaeterStructurePopup(false)} >
+        <button onClick={() => setSortEditFilterRealPropPopup(true)}>Show Props</button>
+        <Popup visible={sortEditFilterRealPropPopup} onClose={() => setSortEditFilterRealPropPopup(false)} >
             <div>
+                Props
+                <ul>
+                    <li>{`  <SortFilterEdit data={dummyData}
+                columns={columns}
+                filterableCols={columns}
+                tableHeader="Sort Filter and Edit Table"
+                uniqueId={"id"}
+                recordsPerPageOption={[5, 10, 20]}
+                defaultRecordPerPage={5}
+            />`}</li>
+                </ul>
+
                 data
                 <ul>
                     <li><pre>{JSON.stringify(dummyData)}</pre></li>
@@ -455,26 +464,7 @@ const Tables = ({ upDateData, data, expandableTableData, colmns }) => {
                 columns
                 <ul>
                     <li><pre>{JSON.stringify(columns)}</pre></li>
-                </ul>tableHeader
-                <ul>
-                    <li><pre>{JSON.stringify("Editable Table")}</pre></li>
-                </ul>uniqueId
-                <ul>
-                    <li><pre>{JSON.stringify("_id")}</pre></li>
-                </ul>recordsPerPageOption
-                <ul>
-                    <li><pre>{JSON.stringify([5, 10, 20])}</pre></li>
-                </ul>defaultRecordPerPage
-                <ul>
-                    <li><pre>{JSON.stringify(5)}</pre></li>
-                </ul>editApi
-                <ul>
-                    <li><pre>{JSON.stringify("dummyAPI")}</pre></li>
                 </ul>
-                <ul>
-                    <li><pre>{JSON.stringify("dummyAPIdummyAPI")}</pre></li>
-                </ul>
-
             </div></Popup>
 
         <h4>Props structure for the above table:- <button>Open Popup</button></h4>
@@ -512,6 +502,29 @@ const Tables = ({ upDateData, data, expandableTableData, colmns }) => {
                 recordsPerPageOption={[5, 10, 20]}
                 defaultRecordPerPage={5}
             />)}
+
+        <button onClick={() => setSortableParaeterStructurePopup(true)}>Show Props</button>
+        <Popup visible={sortableParaeterStructurePopup} onClose={() => setSortableParaeterStructurePopup(false)} >
+            <div>
+                Props<ul>
+                    <li>{`  <SortFilterEdit data={dummyData}
+                columns={columns}
+                filterableCols={columns}
+                tableHeader="Sort Filter and Edit Table"
+                uniqueId={"id"}
+                recordsPerPageOption={[5, 10, 20]}
+                defaultRecordPerPage={5}
+            />`}</li>
+                </ul>
+                data
+                <ul>
+                    <li><pre>{JSON.stringify(dummyData)}</pre></li>
+                </ul>
+                columns
+                <ul>
+                    <li><pre>{JSON.stringify(columns)}</pre></li>
+                </ul>
+            </div></Popup>
         <h4>Props structure for the above table:- <button>Open Popup</button></h4>
         <h3>Link to code:-  <a
             href="https://github.com/Kash15if/custom-components/tree/main/src/CustomComponents/Tables/Sortable"
@@ -541,6 +554,31 @@ const Tables = ({ upDateData, data, expandableTableData, colmns }) => {
                 defaultRecordPerPage={5}
                 uniqueId="_id"
             />)}
+
+        <button onClick={() => setSortableParaeterStructurePopup(true)}>Show Props</button>
+        <Popup visible={sortableParaeterStructurePopup} onClose={() => setSortableParaeterStructurePopup(false)} >
+            <div>
+                Props<ul>
+                    <li>{`<Expandable
+                data={expandableTableData}
+                columns={columns}
+                tableHeader="Recursive Expandable Table"
+                recordsPerPageOption={[5, 10, 20]}
+                defaultRecordPerPage={5}
+                uniqueId="_id"
+            />`}</li>
+                </ul>
+                data
+                <ul>
+                    <li><pre>{JSON.stringify(expandableTableData)}</pre></li>
+                </ul>
+                columns
+                <ul>
+                    <li><pre>{JSON.stringify(columns)}</pre></li>
+                </ul>
+            </div></Popup>
+
+
         <h4>Props structure for the above table:- <button>Open Popup</button></h4>
         <h3>Link to code:-  <a
             href="https://github.com/Kash15if/custom-components/tree/main/src/CustomComponents/Tables/Sortable"
@@ -579,6 +617,36 @@ const Tables = ({ upDateData, data, expandableTableData, colmns }) => {
             </ExpandableWithComponent>
         )
         }
+
+
+        <button onClick={() => setExpandableWithCompRealPropPopup(true)}>Show Props</button>
+        <Popup visible={expandableWithCompRealPropPopup} onClose={() => setExpandableWithCompRealPropPopup(false)} >
+            <div>
+                Code
+                <ul>
+                    <li>{`<ExpandableWithComponent data={expandableTableData}
+                columns={colmns}
+                filterableCols={colmns}
+                sortableCols={colmns}
+                tableHeader="Expandable Table with components"
+                recordsPerPageOption={[5, 10, 20]}
+                defaultRecordPerPage={5}
+                uniqueId="id"
+                InnerComponent={InnerCard}
+            >
+            </ExpandableWithComponent>
+`}</li>
+                </ul>
+                data
+                <ul>
+                    <li><pre>{JSON.stringify(expandableTableData)}</pre></li>
+                </ul>
+                columns
+                <ul>
+                    <li><pre>{JSON.stringify(columns)}</pre></li>
+                </ul>
+
+            </div></Popup>
         <h4>Props structure for the above table:- <button>Open Popup</button></h4>
         <h3>Link to code:-  <a
             href="https://github.com/Kash15if/custom-components/tree/main/src/CustomComponents/Tables/Sortable"
@@ -631,12 +699,53 @@ const Tables = ({ upDateData, data, expandableTableData, colmns }) => {
                 deleteMultipleApi={process.env.REACT_APP_TEST_API + "/delete-multiple"}
             />
         )}
+
+
+
+        <button onClick={() => setCrudieRealPropPopup(true)}>Show Props</button>
+        <Popup visible={crudieRealPropPopup} onClose={() => setCrudieRealPropPopup(false)} >
+            <div>
+                Code
+                <ul>
+                    <li>{` <CRUDIE
+                data={data}
+                columns={columns}
+                filterableCols={columns}
+                sortableCols={columns}
+                tableHeader="CRUD Import Export Table"
+                recordsPerPageOption={[5, 10, 20]}
+                defaultRecordPerPage={5}
+                uniqueId="_id"
+                upDateData={upDateData}
+                excelImport={true}
+                excelExport={true}
+                jsonImport={true}
+                jsonExport={true}
+                getDataApi={process.env.REACT_APP_TEST_API}
+                createApi={process.env.REACT_APP_TEST_API}
+                uploadBulkApi={process.env.REACT_APP_TEST_API + "/bulkData"}
+                editApi={process.env.REACT_APP_TEST_API}
+                deleteOneApi={process.env.REACT_APP_TEST_API}
+                deleteMultipleApi={process.env.REACT_APP_TEST_API + "/delete-multiple"}
+            />`}</li>
+                </ul>
+                data
+                <ul>
+                    <li><pre>{JSON.stringify(data)}</pre></li>
+                </ul>
+                columns
+                <ul>
+                    <li><pre>{JSON.stringify(columns)}</pre></li>
+                </ul>
+            </div></Popup>
+
+
         <h4>Props structure for the above table:- <button>Open Popup</button></h4>
         <h3>Link to code:-  <a
             href="https://github.com/Kash15if/custom-components/tree/main/src/CustomComponents/Tables/Sortable"
             target="_blank"
             rel="noopener noreferrer">Editable Table</a></h3>
-        <h4>Dependencies :- <a>Axios</a> and <a>xlsx</a></h4>
+        <h4>Dependencies :- <a href="https://www.npmjs.com/package/axios">Axios</a> and <a href="https://www.npmjs.com/package/xlsx">xlsx</a></h4>
 
         {/* ------------------------------------------------------------------CRDUIE------------------------------------------- */}
 
