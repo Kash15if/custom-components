@@ -22,18 +22,22 @@ const Concave = () => {
 
 
 
-    return (<div className={sliderStyles.bottle} >
-        {imagesDataSet && imagesDataSet.length && <img className={sliderStyles.convexMirror} src={imagesDir(`./${imagesDataSet[page].image}`)} alt="Italian Trulli" />
-        }
+    return (
 
-        <button onClick={() => changePage(-1)}>&#x2190;</button>
+        <div className={sliderStyles.bottle} >
+            {imagesDataSet && imagesDataSet.length && <img className={sliderStyles.convexMirror} src={imagesDir(`./${imagesDataSet[page].image}`)} alt="Italian Trulli" />
+            }
 
-        {imagesDataSet && imagesDataSet.length &&
-            imagesDataSet.map((img, index) =>
-                <span className={`${sliderStyles.dot} ${page === index ? sliderStyles.active : ""}`}></span>)
-        }
-        <button onClick={() => changePage(1)}>&#x2192;</button>
-    </div >);
+            <button onClick={() => changePage(-1)}>&#x2190;</button>
+
+            {imagesDataSet && imagesDataSet.length &&
+                imagesDataSet.map((img, index) =>
+                    <span className={`${sliderStyles.dot} ${page === index ? sliderStyles.active : ""}`}></span>)
+            }
+
+            <button onClick={() => changePage(1)}>&#x2192;</button>
+        </div >
+    );
 }
 
 export default Concave;

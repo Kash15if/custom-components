@@ -5,13 +5,13 @@ import ConvexSlider from "../CustomComponents/Slider/CurveCarousel/ConvexSlider"
 const Sliders = () => {
     return (<div>
 
-        <ConcaveSlider />
+        {/* <ConcaveSlider /> */}
 
 
         <ConvexSlider />
 
 
-        <HorizontalSlider />
+        {/* <HorizontalSlider /> */}
 
 
     </div>);
