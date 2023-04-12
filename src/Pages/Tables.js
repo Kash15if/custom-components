@@ -536,12 +536,10 @@ const Tables = ({ upDateData, data, expandableTableData, colmns }) => {
             <Expandable
                 data={expandableTableData}
                 columns={columns}
-                filterableCols={columns}
-                sortableCols={columns}
                 tableHeader="Recursive Expandable Table"
                 recordsPerPageOption={[5, 10, 20]}
                 defaultRecordPerPage={5}
-                uniqueId="id"
+                uniqueId="_id"
             />)}
         <h4>Props structure for the above table:- <button>Open Popup</button></h4>
         <h3>Link to code:-  <a

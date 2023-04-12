@@ -2,8 +2,6 @@ import { useState, useEffect } from "react";
 
 const ExpandedTable = ({ data,
     columns,
-    filterableCols,
-    sortableCols,
     tableHeader,
     recordsPerPageOption,
     defaultRecordPerPage,
@@ -35,7 +33,7 @@ const ExpandedTable = ({ data,
 
     useEffect(() => {
         let filteredTempObj = {};
-        filterableCols.forEach((elemt) => {
+        columns.forEach((elemt) => {
             if (elemt.filterable) {
                 filteredTempObj[elemt.column] = "";
             }
@@ -60,7 +58,7 @@ const ExpandedTable = ({ data,
 
                 let columnName = cols.column;
 
-                let columnData = itemRow[columnName].toString();
+                let columnData = itemRow && itemRow[columnName] ? itemRow[columnName].toString() : "";
 
 
                 if (cols.filterable && tempFilteredStringObject[columnName] !== "" && !columnData.includes(tempFilteredStringObject[columnName])) {
@@ -220,8 +218,6 @@ const ExpandedTable = ({ data,
                                 <ExpandedTable
                                     data={row.expandableData}
                                     columns={columns.innerColumns}
-                                    filterableCols={[]}
-                                    sortableCols={[]}
                                     tableHeader="Inner Table"
                                     recordsPerPageOption={recordsPerPageOption}
                                     defaultRecordPerPage={defaultRecordPerPage}
