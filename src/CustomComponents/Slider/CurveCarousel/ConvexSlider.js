@@ -1,8 +1,23 @@
+import { useState } from "react";
 import imagesDataSet from "../../../data/imageData";
 import sliderStyles from "./CurveSlider.module.css"
 const imagesDir = require.context("../../../storage/images/", true);
 
-const Convex = () => {
+const Convex = ({ noOfComponentsInPage, data }) => {
+
+    const [pageNo, setPageNo] = useState(1);
+    const [componentStartIndex, setComponentStartIndex] = useState(0);
+    const [componentEndIndex, setComponentEndIndex] = useState(Math.min((data.length / noOfComponentsInPage) - 1, noOfComponentsInPage))
+
+
+    const changePage = (next) => {
+
+        let tempPageNo = next ? Math.min(Math.ceil((data.length / noOfComponentsInPage), pageNo + 1)) : Math.max(1, pageNo - 1)
+        let tempStartIndex = (tempPageNo - 1) * noOfComponentsInPage);
+        let tempEndIndex = Math.min((tempPageNo * noOfComponentsInPage), data.length) - 1;
+
+        console.log(tempEndIndex, tempStartIndex, tempPageNo)
+    }
     return (<div style={{
         display: "flex",
     }}>
