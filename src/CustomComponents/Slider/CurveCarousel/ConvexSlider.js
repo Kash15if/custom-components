@@ -9,6 +9,7 @@ const Convex = ({ noOfComponentsInPage, data }) => {
     // const [componentStartIndex, setComponentStartIndex] = useState(0);
     // const [componentEndIndex, setComponentEndIndex] = useState(Math.min(data.length, noOfComponentsInPage) - 1)
     const [imageIndexesInSlide, setImageIndexesInSlide] = useState();
+    const [dynamicClipPath, setDynamicClipPath] = useState()
 
 
     useEffect(() => {
@@ -23,7 +24,33 @@ const Convex = ({ noOfComponentsInPage, data }) => {
         for (let ind = 0; ind < tempNoOfComponent; ind++) {
             tempArray.push(ind);
         }
-        setImageIndexesInSlide([...tempArray])
+        setImageIndexesInSlide([...tempArray]);
+
+        // ---------------------------------------------------
+
+
+        let tempClipPathArray = [];
+        let percentIndexCurve = 0;
+        let valToBeAdded = 50 / noOfComponentsInPage;
+        for (let i = 0; i < noOfComponentsInPage; i++) {
+
+            if (i < Math.floor(noOfComponentsInPage / 2)) {
+                tempClipPathArray.push(`polygon( 0% ${percentIndexCurve}% , 100% ${percentIndexCurve + valToBeAdded}%  , 100% 100%, 0% 100% )`)
+                percentIndexCurve += valToBeAdded;
+            }
+            else if (i === Math.floor(noOfComponentsInPage / 2)) {
+                tempClipPathArray.push(`polygon( 0% ${percentIndexCurve}% , 100% ${percentIndexCurve}%  , 100% 100% , 0% 100% )`)
+            }
+            else {
+                tempClipPathArray.push(`polygon( 0% ${percentIndexCurve}% , 100% ${percentIndexCurve - valToBeAdded}%  , 100% 100% , 0% 100% )`)
+                percentIndexCurve -= valToBeAdded;
+            }
+        }
+        console.log(tempClipPathArray)
+        setDynamicClipPath(tempClipPathArray);
+
+
+
     }, [])
 
 
@@ -54,12 +81,9 @@ const Convex = ({ noOfComponentsInPage, data }) => {
                 display: "flex",
             }}>
 
-                {imageIndexesInSlide && imageIndexesInSlide.map(item =>
-                    <img style={{ clipPath: "polygon(0 10%, 100% 0, 100% 100%, 0% 100%)", margin: "10px", width: "60%" }} src={imagesDir(`./${data[item].image}`)} />
+                {imageIndexesInSlide && imageIndexesInSlide.map((item, index) =>
+                    <img style={{ clipPath: dynamicClipPath[index], margin: "10px", width: "60%" }} src={imagesDir(`./${data[item].image}`)} />
                 )}
-                {/* <img style={{ clipPath: "polygon(0 0, 100% 10%, 100% 100%, 0% 100%)", margin: "10px", width: "60%" }} src={imagesDir(`./${imagesDataSet[0].image}`)} />
-            <img style={{ clipPath: "polygon(0 10%, 100% 10%, 100% 100%, 0% 100%)", margin: "10px", margin: "10px", width: "80%" }} src={imagesDir(`./${imagesDataSet[1].image}`)} />
-            <img style={{ clipPath: "polygon(0 10%, 100% 0, 100% 100%, 0% 100%)", margin: "10px", width: "60%" }} src={imagesDir(`./${imagesDataSet[2].image}`)} /> */}
 
             </div>
 
