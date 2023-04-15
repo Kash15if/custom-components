@@ -2,13 +2,15 @@ import HorizontalSlider from "../CustomComponents/Slider/HorizontalCarousel/Hori
 import ConcaveSlider from "../CustomComponents/Slider/CurveCarousel/ConcaveSlider";
 import ConvexSlider from "../CustomComponents/Slider/CurveCarousel/ConvexSlider";
 
+import imagesDataSet from "../data/imageData";
+
 const Sliders = () => {
     return (<div>
 
         {/* <ConcaveSlider /> */}
 
 
-        <ConvexSlider />
+        <ConvexSlider noOfComponentsInPage={5} data={imagesDataSet} />
 
 
         {/* <HorizontalSlider /> */}

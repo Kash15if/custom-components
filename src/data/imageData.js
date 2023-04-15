@@ -9,6 +9,16 @@ const imagesList = [
         image: "imageD.jpg",
     }, {
         image: "imageE.jpg",
+    }, {
+        image: "imageA.jpg",
+    }, {
+        image: "imageB.jpg",
+    }, {
+        image: "imageC.jpg",
+    }, {
+        image: "imageD.jpg",
+    }, {
+        image: "imageE.jpg",
     }]
 
 
