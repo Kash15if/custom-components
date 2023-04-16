@@ -13,7 +13,7 @@ const Sliders = () => {
         <ConvexSlider noOfComponentsInPage={3} data={imagesDataSet} />
 
 
-        {/* <HorizontalSlider /> */}
+        <HorizontalSlider />
 
 
     </div>);

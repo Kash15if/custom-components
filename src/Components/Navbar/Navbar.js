@@ -1,8 +1,25 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import './Navbar.css';
 
 function Navbar() {
+
+    const [menu, setMenu] = useState();
+
+    const addUrlToMenu = (inputData) => {
+
+        let htmlComp;
+
+        inputData.links.length && inputData.links.map((item) => {
+            htmlComp += <li> <Link to={item.link}>Home</Link></li>
+        })
+
+        if (inputData.dropdown) {
+            htmlComp += <ul>{addUrlToMenu(inputData.dropdown)}</ul>
+        }
+    }
+
+
     return (
         <nav>
             <ul>
