@@ -19,7 +19,7 @@
   left: 50%;
   transform: translate(-50%, -50%);
   text-align: center;
-  color: #40b27e;
+  color: #61dafb;
 }
 
 .hero-content h1 {
@@ -60,6 +60,6 @@
     border-color: transparent;
   }
   50% {
-    border-color: #40b27e;
+    border-color: #61dafb;
   }
 }

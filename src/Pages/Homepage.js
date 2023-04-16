@@ -11,15 +11,14 @@ const Home = () => {
             <div>
 
 
-                <h1>Elevate Your React experience with our Custom build Components</h1>
 
-                <h4>
-                    Our website offers a wide range of custom-built components designed to enhance your
+                <div style={{ padding: " 5vh 15vw", backgroundColor: "#61dafb", color: "#1e1e2e", fontSize: "22px" }}>
+                    We offer a wide range of custom-built components designed to enhance your
                     web development experience. From tables with advanced sorting, filtering , import and export features,
                     to carousels, cards, forms, popups, popovers, and collapse panels, our components are
                     user-centric and easy to customize. Browse our library to take your project
                     to the next level and easily customisable.
-                </h4>
+                </div>
 
 
                 <h3></h3>
