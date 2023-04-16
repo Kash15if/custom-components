@@ -30,6 +30,8 @@ import Home from "./Pages/Homepage";
 import Cards from "./Pages/Cards";
 import { Route, Routes } from "react-router-dom";
 
+import Navbar from "./Components/Navbar/Navbar";
+
 function App() {
 
 
@@ -144,6 +146,9 @@ function App() {
             uniqueId="id"
           />)}
       </div> */}
+
+      <Navbar />
+
       <Routes>
 
 
