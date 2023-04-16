@@ -675,39 +675,40 @@ const Tables = ({ upDateData, data, expandableTableData, colmns }) => {
 
         {/* ------------------------------------------------------------------CRDUIE------------------------------------------- */}
 
-        {/* Crud and Import Export */}
-        {columns && (
-            <CRUDIE
-                data={data}
-                columns={columns}
-                filterableCols={columns}
-                sortableCols={columns}
-                tableHeader="CRUD Import Export Table"
-                recordsPerPageOption={[5, 10, 20]}
-                defaultRecordPerPage={5}
-                uniqueId="_id"
-                upDateData={upDateData}
-                excelImport={true}
-                excelExport={true}
-                jsonImport={true}
-                jsonExport={true}
-                getDataApi={process.env.REACT_APP_TEST_API}
-                createApi={process.env.REACT_APP_TEST_API}
-                uploadBulkApi={process.env.REACT_APP_TEST_API + "/bulkData"}
-                editApi={process.env.REACT_APP_TEST_API}
-                deleteOneApi={process.env.REACT_APP_TEST_API}
-                deleteMultipleApi={process.env.REACT_APP_TEST_API + "/delete-multiple"}
-            />
-        )}
+        <div id="crudie">
+            {/* Crud and Import Export */}
+            {columns && (
+                <CRUDIE
+                    data={data}
+                    columns={columns}
+                    filterableCols={columns}
+                    sortableCols={columns}
+                    tableHeader="CRUD Import Export Table"
+                    recordsPerPageOption={[5, 10, 20]}
+                    defaultRecordPerPage={5}
+                    uniqueId="_id"
+                    upDateData={upDateData}
+                    excelImport={true}
+                    excelExport={true}
+                    jsonImport={true}
+                    jsonExport={true}
+                    getDataApi={process.env.REACT_APP_TEST_API}
+                    createApi={process.env.REACT_APP_TEST_API}
+                    uploadBulkApi={process.env.REACT_APP_TEST_API + "/bulkData"}
+                    editApi={process.env.REACT_APP_TEST_API}
+                    deleteOneApi={process.env.REACT_APP_TEST_API}
+                    deleteMultipleApi={process.env.REACT_APP_TEST_API + "/delete-multiple"}
+                />
+            )}
 
 
 
-        <button onClick={() => setCrudieRealPropPopup(true)}>Show Props</button>
-        <Popup visible={crudieRealPropPopup} onClose={() => setCrudieRealPropPopup(false)} >
-            <div>
-                Code
-                <ul>
-                    <li>{` <CRUDIE
+            <button onClick={() => setCrudieRealPropPopup(true)}>Show Props</button>
+            <Popup visible={crudieRealPropPopup} onClose={() => setCrudieRealPropPopup(false)} >
+                <div>
+                    Code
+                    <ul>
+                        <li>{` <CRUDIE
                 data={data}
                 columns={columns}
                 filterableCols={columns}
@@ -728,24 +729,26 @@ const Tables = ({ upDateData, data, expandableTableData, colmns }) => {
                 deleteOneApi={process.env.REACT_APP_TEST_API}
                 deleteMultipleApi={process.env.REACT_APP_TEST_API + "/delete-multiple"}
             />`}</li>
-                </ul>
-                data
-                <ul>
-                    <li><pre>{JSON.stringify(data)}</pre></li>
-                </ul>
-                columns
-                <ul>
-                    <li><pre>{JSON.stringify(columns)}</pre></li>
-                </ul>
-            </div></Popup>
+                    </ul>
+                    data
+                    <ul>
+                        <li><pre>{JSON.stringify(data)}</pre></li>
+                    </ul>
+                    columns
+                    <ul>
+                        <li><pre>{JSON.stringify(columns)}</pre></li>
+                    </ul>
+                </div></Popup>
 
 
-        <h4>Props structure for the above table:- <button>Open Popup</button></h4>
-        <h3>Link to code:-  <a
-            href="https://github.com/Kash15if/custom-components/tree/main/src/CustomComponents/Tables/Sortable"
-            target="_blank"
-            rel="noopener noreferrer">Editable Table</a></h3>
-        <h4>Dependencies :- <a href="https://www.npmjs.com/package/axios">Axios</a> and <a href="https://www.npmjs.com/package/xlsx">xlsx</a></h4>
+            <h4>Props structure for the above table:- <button>Open Popup</button></h4>
+            <h3>Link to code:-  <a
+                href="https://github.com/Kash15if/custom-components/tree/main/src/CustomComponents/Tables/Sortable"
+                target="_blank"
+                rel="noopener noreferrer">Editable Table</a></h3>
+            <h4>Dependencies :- <a href="https://www.npmjs.com/package/axios">Axios</a> and <a href="https://www.npmjs.com/package/xlsx">xlsx</a></h4>
+
+        </div>
 
         {/* ------------------------------------------------------------------CRDUIE------------------------------------------- */}
 

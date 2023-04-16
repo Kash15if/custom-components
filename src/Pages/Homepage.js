@@ -1,10 +1,27 @@
+
+import { Link } from 'react-router-dom';
+
+
 const Home = () => {
     return (
         <div>
 
             <div>
-                <h1></h1>
-                <h2>Tables</h2>
+
+
+                <h1>Elevate Your React experience with our Custom build Components</h1>
+
+                <h4>
+                    Our website offers a wide range of custom-built components designed to enhance your
+                    web development experience. From tables with advanced sorting, filtering , import and export features,
+                    to carousels, cards, forms, popups, popovers, and collapse panels, our components are
+                    user-centric and easy to customize. Browse our library to take your project
+                    to the next level and easily customisable.
+                </h4>
+
+
+                <h3></h3>
+                <h3>Tables</h3>
 
                 <p>
                     Tables are one of the most commonly used components in dashboard and reporting systems.
@@ -22,7 +39,7 @@ const Home = () => {
                     <br /><br />
 
                     <ol>
-                        <li>Sorting</li>
+                        <li>Sorting : - <Link to="/forms#2nd">Go to Sortable Table</Link></li>
                         <li>Filtering</li>
                         <li>Editing</li>
                         <li>Sorting-Editing-Filtering</li>
@@ -34,7 +51,7 @@ const Home = () => {
 
 
             <div>
-                <h2>Carousel</h2>
+                <h3>Carousel</h3>
 
                 <p>
 
@@ -49,7 +66,7 @@ const Home = () => {
 
 
             <div>
-                <h2>Popups</h2>
+                <h3>Popups</h3>
                 <p>
                     <ol>
                         <li>Info/Form</li>
@@ -61,7 +78,9 @@ const Home = () => {
 
 
 
-            <div>
+            <div id="cards">
+
+
                 <h2>Cards</h2>
                 <p>
                     <ol>

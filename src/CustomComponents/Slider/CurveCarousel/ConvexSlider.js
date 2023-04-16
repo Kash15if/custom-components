@@ -32,20 +32,20 @@ const Convex = ({ noOfComponentsInPage, data }) => {
         let tempClipPathArray = [];
         let percentIndexCurve = 0;
         let valToBeAdded = 50 / noOfComponentsInPage;
-        for (let i = 0; i < noOfComponentsInPage; i++) {
+        // for (let i = 0; i < noOfComponentsInPage; i++) {
 
-            if (i < Math.floor(noOfComponentsInPage / 2)) {
-                tempClipPathArray.push(`polygon( 0% ${percentIndexCurve}% , 100% ${percentIndexCurve + valToBeAdded}%  , 100% 100%, 0% 100% )`)
-                percentIndexCurve += valToBeAdded;
-            }
-            else if (i === Math.floor(noOfComponentsInPage / 2)) {
-                tempClipPathArray.push(`polygon( 0% ${percentIndexCurve}% , 100% ${percentIndexCurve}%  , 100% 100% , 0% 100% )`)
-            }
-            else {
-                tempClipPathArray.push(`polygon( 0% ${percentIndexCurve}% , 100% ${percentIndexCurve - valToBeAdded}%  , 100% 100% , 0% 100% )`)
-                percentIndexCurve -= valToBeAdded;
-            }
-        }
+        //     if (i < Math.floor(noOfComponentsInPage / 2)) {
+        //         tempClipPathArray.push(`polygon( 0% ${percentIndexCurve}% , 100% ${percentIndexCurve + valToBeAdded}%  , 100% 100%, 0% 100% )`)
+        //         percentIndexCurve += valToBeAdded;
+        //     }
+        //     else if (i === Math.floor(noOfComponentsInPage / 2)) {
+        //         tempClipPathArray.push(`polygon( 0% ${percentIndexCurve}% , 100% ${percentIndexCurve}%  , 100% 100% , 0% 100% )`)
+        //     }
+        //     else {
+        //         tempClipPathArray.push(`polygon( 0% ${percentIndexCurve}% , 100% ${percentIndexCurve - valToBeAdded}%  , 100% 100% , 0% 100% )`)
+        //         percentIndexCurve -= valToBeAdded;
+        //     }
+        // }
         console.log(tempClipPathArray)
         setDynamicClipPath(tempClipPathArray);
 
@@ -76,19 +76,22 @@ const Convex = ({ noOfComponentsInPage, data }) => {
     return (
 
         <div>
+            {
+                data && <div style={{
+                    display: "flex",
+                }}>
 
-            <div style={{
-                display: "flex",
-            }}>
 
-                {imageIndexesInSlide && imageIndexesInSlide.map((item, index) =>
-                    <img style={{ clipPath: dynamicClipPath[index], margin: "10px", width: "60%" }} src={imagesDir(`./${data[item].image}`)} />
-                )}
+                    <img style={{ clipPath: "polygon(0 10%, 100% 0, 100% 100%, 0% 100%)", margin: "10px", width: "60%" }} src={imagesDir(`./${data[0].image}`)} />
+                    <img style={{ clipPath: "polygon(0 0%, 100% 0, 100% 100%, 0% 100%)", margin: "10px", width: "60%" }} src={imagesDir(`./${data[1].image}`)} />
+                    <img style={{ clipPath: "polygon(0 0%, 100% 10%, 100% 100%, 0% 100%)", margin: "10px", width: "60%" }} src={imagesDir(`./${data[2].image}`)} />
 
-            </div>
 
-            <button onClick={() => changePage(false)}>Prev</button>
-            <button onClick={() => changePage(true)}>Next</button>
+
+                </div>
+            }
+            {/* <button onClick={() => changePage(false)}>Prev</button>
+            <button onClick={() => changePage(true)}>Next</button> */}
         </div>);
 }
 

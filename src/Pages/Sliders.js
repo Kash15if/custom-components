@@ -7,7 +7,7 @@ import imagesDataSet from "../data/imageData";
 const Sliders = () => {
     return (<div>
 
-        {/* <ConcaveSlider /> */}
+        {/* <ConcaveSlider noOfComponentsInPage={3} data={imagesDataSet} /> */}
 
 
         <ConvexSlider noOfComponentsInPage={3} data={imagesDataSet} />
