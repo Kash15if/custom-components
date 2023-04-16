@@ -1,11 +1,13 @@
 
 import { Link } from 'react-router-dom';
-
+import HomeHeader from '../Components/Home/HomeHeader';
 
 const Home = () => {
     return (
         <div>
 
+
+            <HomeHeader />
             <div>
 
 
