@@ -85,7 +85,7 @@ function App() {
 
       <Navbar data={navData} />
 
-      {/* <Routes>
+      <Routes>
 
 
         <Route path="/" element={<Home />} />
@@ -105,7 +105,7 @@ function App() {
         <Route path="/popovers" element={<Popover />} />
         <Route path="/alerts" element={<Alerts />} />
         <Route path="/forms" element={<Forms />} />
-      </Routes> */}
+      </Routes>
 
     </div>
 

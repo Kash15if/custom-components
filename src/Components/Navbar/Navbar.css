@@ -44,6 +44,7 @@ a:hover {
   top: 100%;
   left: 0;
   padding: 10px 0;
+  z-index: 10;
 }
 
 .dropdown:hover .dropdown-menu {
