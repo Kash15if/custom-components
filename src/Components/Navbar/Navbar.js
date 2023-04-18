@@ -4,7 +4,10 @@ import './Navbar.css';
 
 function Navbar() {
 
-    const [menu, setMenu] = useState();
+    const [menu, setMenu] = useState({
+        links: { url: "", label: "" },
+        dropdown: []
+    });
 
     const addUrlToMenu = (inputData) => {
 
