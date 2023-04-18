@@ -15,6 +15,7 @@ import dummyData from "./data/data1";
 import expandableTableDataForComp from "./data/expandableWithComponent";
 import expandableTableData from "./data/expandableData";
 import { useEffect, useState } from "react";
+import navData from "./data/NavbarData";
 // import CRUDIE from "./CustomComponents/Tables/CRUDIE/CRUDIE";
 
 // import HorizontalSLider from "./CustomComponents/Slider/HorizontalCarousel/HorizontalSlider"
@@ -81,75 +82,10 @@ function App() {
   return (
     <div>
 
-      {/* <div className="frame">
-        {dummyData && columns && (
-          <Sortable
-            data={dummyData}
-            columns={columns}
-            tableHeader="Sortable Table"
-            recordsPerPageOption={[5, 10, 20]}
-            defaultRecordPerPage={5}
-          />
-        )}
-      </div> */}
-      {/* 
-      <div className="frame blue">
-        {dummyData && columns && (
-          <Filterable data={dummyData}
-            columns={columns}
-            filterableCols={columns}
-            tableHeader="Filter Table"
-            recordsPerPageOption={[5, 10, 20]}
-            defaultRecordPerPage={5}
-          />)}
-      </div>
- */}
-      {/* <div className="frame gray">
-        {dummyData && columns && (
-          <Editable
-            data={dummyData}
-            columns={columns}
-            sortableCols={columns}
-            tableHeader="Editable Table"
-            recordsPerPageOption={[5, 10, 20]}
-            defaultRecordPerPage={5}
-            uniqueId="id"
-          />
-        )}
-      </div> */}
 
-      {/* <div className="frame red">
-        {dummyData && columns && (
-          <CRUDIE
-            data={data}
-            columns={columns}
-            filterableCols={columns}
-            sortableCols={columns}
-            tableHeader="Editable Table"
-            recordsPerPageOption={[5, 10, 20]}
-            defaultRecordPerPage={5}
-            uniqueId="id"
-            upDateData={upDateData}
-          />
-        )}
-      </div>
-      <div className="frame black">
-        {dummyData && columns && (
-          <Expandable
-            data={expandableTableData}
-            columns={columns}
-            filterableCols={columns}
-            sortableCols={columns}
-            tableHeader="Editable Table"
-            recordsPerPageOption={[5, 10, 20]}
-            defaultRecordPerPage={5}
-            uniqueId="id"
-          />)}
-      </div> */}
+      <Navbar data={navData} />
 
-      <Navbar />
-
-      <Routes>
+      {/* <Routes>
 
 
         <Route path="/" element={<Home />} />
@@ -169,7 +105,7 @@ function App() {
         <Route path="/popovers" element={<Popover />} />
         <Route path="/alerts" element={<Alerts />} />
         <Route path="/forms" element={<Forms />} />
-      </Routes>
+      </Routes> */}
 
     </div>
 
