@@ -1,23 +1,16 @@
 import { useEffect, useState } from "react";
-import sliderStyles from "./CurveSlider.module.css"
+import sliderStyles from "./CurveSlider.module.css";
 const imagesDir = require.context("../../../storage/images/", true);
 
 const Convex = ({ noOfComponentsInPage, data }) => {
-
-    // const [pageNo, setPageNo] = useState(1);
-    // const [noOfCompInASlide , SetNoOfCompInASlide] = useState()
-    // const [componentStartIndex, setComponentStartIndex] = useState(0);
-    // const [componentEndIndex, setComponentEndIndex] = useState(Math.min(data.length, noOfComponentsInPage) - 1)
     const [imageIndexesInSlide, setImageIndexesInSlide] = useState();
-    const [dynamicClipPath, setDynamicClipPath] = useState()
-
+    const [dynamicClipPath, setDynamicClipPath] = useState();
 
     useEffect(() => {
         let tempNoOfComponent = noOfComponentsInPage;
         let tempArray = [];
         for (let ind = 0; ind < data.length; ind++) {
-            if (tempNoOfComponent <= 0)
-                break;
+            if (tempNoOfComponent <= 0) break;
             tempArray.push(ind);
             tempNoOfComponent--;
         }
@@ -26,33 +19,33 @@ const Convex = ({ noOfComponentsInPage, data }) => {
         }
         setImageIndexesInSlide([...tempArray]);
 
-        // ---------------------------------------------------
+        // ---------------------------------------------------for clip path to make it curve------------------
 
-
-        let tempClipPathArray = [];
-        let percentIndexCurve = 0;
+        let tempClipPathArray = new Array(noOfComponentsInPage);
         let valToBeAdded = 50 / noOfComponentsInPage;
-        // for (let i = 0; i < noOfComponentsInPage; i++) {
+        let mid = Math.ceil(noOfComponentsInPage / 2);
+        let percentIndexCurve = 0;
+        let midIndex = mid - 1;
 
-        //     if (i < Math.floor(noOfComponentsInPage / 2)) {
-        //         tempClipPathArray.push(`polygon( 0% ${percentIndexCurve}% , 100% ${percentIndexCurve + valToBeAdded}%  , 100% 100%, 0% 100% )`)
-        //         percentIndexCurve += valToBeAdded;
-        //     }
-        //     else if (i === Math.floor(noOfComponentsInPage / 2)) {
-        //         tempClipPathArray.push(`polygon( 0% ${percentIndexCurve}% , 100% ${percentIndexCurve}%  , 100% 100% , 0% 100% )`)
-        //     }
-        //     else {
-        //         tempClipPathArray.push(`polygon( 0% ${percentIndexCurve}% , 100% ${percentIndexCurve - valToBeAdded}%  , 100% 100% , 0% 100% )`)
-        //         percentIndexCurve -= valToBeAdded;
-        //     }
-        // }
-        console.log(tempClipPathArray)
-        setDynamicClipPath(tempClipPathArray);
+        tempClipPathArray[
+            midIndex
+        ] = `polygon( 0% ${0}% , 100% ${0}%  , 100% 100%, 0% 100% )`;
 
+        for (let i = midIndex - 1; i >= 0; i--) {
+            tempClipPathArray[i] = `polygon( 0% ${percentIndexCurve + valToBeAdded
+                }% , 100% ${percentIndexCurve}%  , 100% 100%, 0% 100% )`;
+            percentIndexCurve += valToBeAdded;
+        }
 
+        percentIndexCurve = 0;
+        for (let i = midIndex + 1; i < noOfComponentsInPage; i++) {
+            tempClipPathArray[i] = `polygon( 0% ${percentIndexCurve}% , 100% ${percentIndexCurve + valToBeAdded
+                }%  , 100% 100%, 0% 100% )`;
+            percentIndexCurve += valToBeAdded;
+        }
 
-    }, [])
-
+        setDynamicClipPath([...tempClipPathArray]);
+    }, []);
 
     const changePage = (next) => {
         let tempArray = imageIndexesInSlide;
@@ -60,39 +53,50 @@ const Convex = ({ noOfComponentsInPage, data }) => {
         if (tempArray.length > 0) {
             if (next) {
                 let newElementIndexToBeAdded = tempArray[tempArray.length - 1] + 1;
-                tempArray.push((newElementIndexToBeAdded >= lengthOfData) ? 0 : newElementIndexToBeAdded)
+                tempArray.push(
+                    newElementIndexToBeAdded >= lengthOfData
+                        ? 0
+                        : newElementIndexToBeAdded
+                );
                 tempArray.shift();
-            }
-            else {
+            } else {
                 let newElementIndexToBeAdded = tempArray[0] - 1;
-                tempArray.unshift((newElementIndexToBeAdded <= 0) ? lengthOfData - 1 : newElementIndexToBeAdded)
+                tempArray.unshift(
+                    newElementIndexToBeAdded <= 0
+                        ? lengthOfData - 1
+                        : newElementIndexToBeAdded
+                );
                 tempArray.pop();
             }
         }
-        setImageIndexesInSlide([...tempArray])
-    }
-
+        setImageIndexesInSlide([...tempArray]);
+    };
 
     return (
-
         <div>
-            {
-                data && <div style={{
-                    display: "flex",
-                }}>
-
-
-                    <img style={{ clipPath: "polygon(0 10%, 100% 0, 100% 100%, 0% 100%)", margin: "10px", width: "60%" }} src={imagesDir(`./${data[0].image}`)} />
-                    <img style={{ clipPath: "polygon(0 0%, 100% 0, 100% 100%, 0% 100%)", margin: "10px", width: "60%" }} src={imagesDir(`./${data[1].image}`)} />
-                    <img style={{ clipPath: "polygon(0 0%, 100% 10%, 100% 100%, 0% 100%)", margin: "10px", width: "60%" }} src={imagesDir(`./${data[2].image}`)} />
-
-
-
+            {data && (
+                <div
+                    style={{
+                        display: "flex",
+                    }}
+                >
+                    {imageIndexesInSlide &&
+                        imageIndexesInSlide.map((item, index) => (
+                            <img
+                                style={{
+                                    clipPath: dynamicClipPath[index],
+                                    margin: "10px",
+                                    width: "60%",
+                                }}
+                                src={imagesDir(`./${data[item].image}`)}
+                            />
+                        ))}
                 </div>
-            }
-            {/* <button onClick={() => changePage(false)}>Prev</button>
-            <button onClick={() => changePage(true)}>Next</button> */}
-        </div>);
-}
+            )}
+            <button onClick={() => changePage(false)}>Prev</button>
+            <button onClick={() => changePage(true)}>Next</button>
+        </div>
+    );
+};
 
 export default Convex;
