@@ -18,16 +18,16 @@ const navs = [
                 link: { url: "/tables#editable", label: "Editable" },
             },
             {
-                link: { url: "/tables#sortFilterEdit", label: "SortFilterEdit" },
-            },
-            {
-                link: { url: "/tables#CRUDIE", label: "CRUDIE" },
+                link: { url: "/tables#sortEditFilter", label: "SortFilterEdit" },
             },
             {
                 link: { url: "/tables#expandable", label: "Expandable with Component" },
             },
+            // {
+            //     link: { url: "/tables#recursiveExpandable", label: "Recursive Expandable" },
+            // },
             {
-                link: { url: "/tables#recursiveExpandable", label: "Recursive Expandable" },
+                link: { url: "/tables#CRUDIE", label: "CRUDIE" },
             },
         ]
     },
