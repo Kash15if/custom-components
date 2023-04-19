@@ -10,3 +10,7 @@
 .container {
   padding: 2px 16px;
 }
+.ImageSize {
+  width: 10rem;
+  height: 5rem;
+}

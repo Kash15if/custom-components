@@ -1,8 +1,5 @@
-
-
 import { useEffect, useState } from "react";
-import "./FilterableTable.module.css"
-
+import FilterTableStyle from "../Filterable/FilterableTable.module.css";
 
 const FilterableTable = ({ data, columns, filterableCols, tableHeader,
   recordsPerPageOption,
@@ -116,13 +113,16 @@ const FilterableTable = ({ data, columns, filterableCols, tableHeader,
 
   return (
     <div>
-
-      {tableHeader && <h2 className="tableHeader">{tableHeader}</h2>}
-      <table>
-        <tr>
-          {columns.map((col, index) => (
-            <th>
-              {/* {col.sortable ? <button onClick={() => sortColumn(col.column, (sortedColumn === col.column && sortedAsc === 1) ? false : true)}>
+      <div className={FilterTableStyle.MainBody}>
+        <div className={FilterTableStyle.frame}>
+          {tableHeader && (
+            <h2 className={FilterTableStyle.MainHeader}>{tableHeader}</h2>
+          )}
+          <table>
+            <tr>
+              {columns.map((col, index) => (
+                <th className={FilterTableStyle.TableHeaderFont}>
+                  {/* {col.sortable ? <button onClick={() => sortColumn(col.column, (sortedColumn === col.column && sortedAsc === 1) ? false : true)}>
                 {col.column}{" "}
                 {
                   col.column === sortedColumn && <span>
@@ -132,58 +132,73 @@ const FilterableTable = ({ data, columns, filterableCols, tableHeader,
                 }
               </button>
                 : col.column
-
-
               } */}
-              {col.column}
-            </th>
-          ))}
-        </tr>
+                  {col.column}
+                </th>
+              ))}
+            </tr>
 
-        <tr>
-          {columns && valuesToBeFiltered && columns.map((col, index) => (
-            <th>
-              {col.filterable ?
-                <input placeholder={col.column} value={valuesToBeFiltered[col.column]}
-                  name={col.column}
-                  onChange={(e) => changeFilterableInputs(e)}
-                />
-                : <input disabled />
+            <tr>
+              {columns &&
+                valuesToBeFiltered &&
+                columns.map((col, index) => (
+                  <th className={FilterTableStyle.FilterSection}>
+                    {col.filterable ? (
+                      <input
+                        className={FilterTableStyle.FilterInput}
+                        placeholder={col.column}
+                        value={valuesToBeFiltered[col.column]}
+                        name={col.column}
+                        onChange={(e) => changeFilterableInputs(e)}
+                      />
+                    ) : (
+                      <input disabled />
+                    )}
+                  </th>
+                ))}
+            </tr>
 
-
-              }
-            </th>
-          ))}
-        </tr>
-
-        {datainPage &&
-          datainPage.map((row) => {
-            return (
-              <tr>
-                {" "}
-                {columns.map((col) => (
-                  <td>{row[col.column]}</td>
-                ))}{" "}
-              </tr>
-            );
-          })}
-      </table>  <button onClick={() => changePage(true)}>Next</button>
-      <span>PageNo:- {pageNo}</span>
-      <button onClick={() => changePage(false)}>Prev</button>
-
-      <select
-        name="recordsPerPage"
-        onChange={(e) => recordSelectionPerPageChange(e.target.value)}
-        value={recordsPerPage}
-      >
-        {recordsPerPageOption.map((item) => (
-          <option value={item}>{item}</option>
-        ))}
-      </select>
-
+            {datainPage &&
+              datainPage.map((row) => {
+                return (
+                  <tr>
+                    {" "}
+                    {columns.map((col) => (
+                      <td>{row[col.column]}</td>
+                    ))}{" "}
+                  </tr>
+                );
+              })}
+          </table>{" "}
+          <div className={FilterTableStyle.TablePagination}>
+            <button
+              className={FilterTableStyle.PAgebtn}
+              onClick={() => changePage(false)}
+            >
+              &lt;
+            </button>
+            <span className={FilterTableStyle.PageNo}>{pageNo}</span>
+            <button
+              className={FilterTableStyle.PAgebtn}
+              onClick={() => changePage(true)}
+            >
+              &#62;
+            </button>
+            <select
+              name="recordsPerPage"
+              className={FilterTableStyle.PageOption}
+              onChange={(e) => recordSelectionPerPageChange(e.target.value)}
+              value={recordsPerPage}
+            >
+              {recordsPerPageOption.map((item) => (
+                <option value={item}>{item}</option>
+              ))}
+            </select>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };
 
 export default FilterableTable;
-

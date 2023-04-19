@@ -1,12 +1,17 @@
-
-
 import { useEffect, useState } from "react";
 import axios from "axios"
 
+import { getInputBoxFromType } from "../../../services/editTable";
+import AllOneTable from "../Sort-Filter-Edit/SortFilterEditTableStyle.module.css";
 
-import { getInputBoxFromType } from "../../../services/editTable"
+import { FaPen } from "react-icons/fa";
+import { FaPrescriptionBottleAlt } from "react-icons/fa";
 
-
+//Icon
+import { FaPlus } from "react-icons/fa";
+import { FaRegTrashAlt } from "react-icons/fa";
+import { FaUpload } from "react-icons/fa";
+import { FaDownload } from "react-icons/fa";
 
 const SortFilterEdit = ({
   columns,
@@ -138,6 +143,7 @@ const SortFilterEdit = ({
   // @dependant
   const onDeleteConfirm = async (selectedRow) => {
 
+    console.log(selectedRow, uniqueId, selectedRow[uniqueId])
     try {
       await axios.delete((deleteOneApi ? deleteOneApi : process.env.REACT_APP_TEST_API) + "/" + selectedRow[uniqueId])
     } catch (e) {
@@ -218,118 +224,180 @@ const SortFilterEdit = ({
   };
 
 
-
-
   return (
-    <div>
-      <>
-        {selectedOneRowForEdit &&
+    <div className={AllOneTable.MainBody}>
+      <div className={AllOneTable.frame}>
+        <>
+          {selectedOneRowForEdit && (
+            <div className={AllOneTable.modal}>
+              <div className={AllOneTable.modalcontent}>
+                <h3 className={AllOneTable.PopupHeader}>Popup Form</h3>
+                <div className={AllOneTable.Tdata}>
+                  {columns.map((col, index) =>
+                    getInputBoxFromType(
+                      col,
+                      selectedOneRowForEdit,
+                      editFormContentChange,
+                      index
+                    )
+                  )}
+                </div>
+                <div className={AllOneTable.PopupFooter}>
+                  <button
+                    className={AllOneTable.button33}
+                    onClick={() => onUpdateConfirm()}
+                  >
+                    Update
+                  </button>
+                  <button
+                    className={AllOneTable.button34}
+                    onClick={() => onUpdateCancel()}
+                  >
+                    Cancel
+                  </button>
+                </div>
+              </div>
+            </div>
+          )}
+        </>
 
-          <div>
-            Popup Form
-            {
-              columns.map((col, index) => getInputBoxFromType(col, selectedOneRowForEdit, editFormContentChange, index))}
+        <>
+          {selectedOneRowForDelete && (
+            <div className={AllOneTable.modal}>
+              <div className={AllOneTable.modalcontent}>
+                Popup Delete , Are you sure want to delete id :{" "}
+                {selectedOneRowForDelete[uniqueId]}
+                <div className={AllOneTable.DeleteBtnAlign}>
+                  <button
+                    className={AllOneTable.PopupDelBtn} onClick={() => onDeleteConfirm(selectedOneRowForDelete)}
+                  >
+                    Delete
+                  </button>
+                  <button className={AllOneTable.PopupCancelBtn} onClick={() => onDeleteCancel(selectedOneRowForDelete)}>
+                    Cancel
+                  </button>
+                </div>
+              </div>
+            </div>
+          )}
+        </>
 
-            <button onClick={() => onUpdateConfirm()}>Update</button>
-
-            <button onClick={() => onUpdateCancel()}>Cancel</button>
-          </div>
-        }
-      </>
-
-      <>
-        {
-          selectedOneRowForDelete &&
-
-          <div>
-            Popup Delete , Are you sure want to delete id : {selectedOneRowForDelete[uniqueId]}
-            <button onClick={() => onDeleteConfirm(selectedOneRowForDelete)}>Delete</button>
-            <button onClick={() => onDeleteCancel(selectedOneRowForDelete)}>Cancel</button>
-          </div>
-        }
-      </>
-
-
-
-      {tableHeader && <h2 className="tableHeader">{tableHeader}</h2>}
-      <table>
-        <tr>
-          {columns.map((col, index) => (
-            <th>
-              {col.sortable ? <button onClick={() => sortColumn(col.column, (sortedColumn === col.column && sortedAsc === 1) ? false : true)}>
-                {col.column}{" "}
-                {
-                  col.column === sortedColumn && <span>
-                    {sortedAsc === -1 && <i>&#8595;</i>}
-                    {sortedAsc === 1 && <i >&#8593;</i>}
-                  </span>
-                }
-              </button>
-                : col.column
-
-
-              }
-            </th>
-          ))}
-          <th>Edit</th>
-          <th>Delete</th>
-
-        </tr>
-
-        <tr>
-          {columns &&
-            valuesToBeFiltered &&
-            columns.map((col, index) => (
-
+        {tableHeader && (
+          <h2 className={AllOneTable.MainHeader}>{tableHeader}</h2>
+        )}
+        <table>
+          <tr>
+            {columns.map((col, index) => (
               <th>
-                {col.filterable ? (
-                  <input
-                    placeholder={col.column}
-                    value={valuesToBeFiltered[col.column]}
-                    name={col.column}
-                    onChange={(e) => changeFilterableInputs(e)}
-                  />
+                {col.sortable ? (
+                  <button
+                    className={AllOneTable.TableHeaderText}
+                    onClick={() =>
+                      sortColumn(
+                        col.column,
+                        sortedColumn === col.column && sortedAsc === 1
+                          ? false
+                          : true
+                      )
+                    }
+                  >
+                    {col.column}{" "}
+                    {col.column === sortedColumn && (
+                      <span>
+                        {sortedAsc === -1 && <i>&#8595;</i>}
+                        {sortedAsc === 1 && <i>&#8593;</i>}
+                      </span>
+                    )}
+                  </button>
                 ) : (
-                  <input disabled />
+                  col.column
                 )}
               </th>
             ))}
-        </tr>
+            <th className={AllOneTable.TableHeaderText}>Edit</th>
+            <th className={AllOneTable.TableHeaderText}>Delete</th>
+          </tr>
 
-        {datainPage &&
-          datainPage.map((row) => {
-            return (
-              <tr>
-                {columns.map((col) => (
-                  <td>{row[col.column]}</td>
-                ))}
-                <td><button onClick={() => editRow(row)}>Edit</button></td>
+          <tr>
+            {columns &&
+              valuesToBeFiltered &&
+              columns.map((col, index) => (
+                <th className={AllOneTable.FilterSection}>
+                  {col.filterable ? (
+                    <input
+                      className={AllOneTable.FilterInput}
+                      placeholder={col.column}
+                      value={valuesToBeFiltered[col.column]}
+                      name={col.column}
+                      onChange={(e) => changeFilterableInputs(e)}
+                    />
+                  ) : (
+                    <input disabled />
+                  )}
+                </th>
+              ))}
+            <th></th>
+            <th></th>
+          </tr>
 
-                <td><button onClick={() => deleteRow(row)}>Delete</button></td>
+          {datainPage &&
+            datainPage.map((row) => {
+              return (
+                <tr>
+                  {columns.map((col) => (
+                    <td>{row[col.column]}</td>
+                  ))}
+                  <td>
+                    <button
+                      className={AllOneTable.EditBtn}
+                      onClick={() => editRow(row)}
+                    >
+                      {" "}
+                      <div className={AllOneTable.EditBtn}>< FaPen /></div>
+                    </button>
+                  </td>
 
-              </tr>
-            );
-          })}
+                  <td>
+                    <button
+                      className={AllOneTable.delbtn}
+                      onClick={() => deleteRow(row)}
+                    >
+                      <div className={AllOneTable.DelBtn}><FaPrescriptionBottleAlt /></div>
+                    </button>
+                  </td>
+                </tr>
+              );
+            })}
+        </table>
 
-      </table>
-
-      <button onClick={() => changePage(true)}>Next</button>
-      <span>PageNo:- {pageNo}</span>
-      <button onClick={() => changePage(false)}>Prev</button>
-
-      <select
-        name="recordsPerPage"
-        onChange={(e) => recordSelectionPerPageChange(e.target.value)}
-        value={recordsPerPage}
-      >
-        {recordsPerPageOption.map((item) => (
-          <option value={item}>{item}</option>
-        ))}
-      </select>
-
+        <div className={AllOneTable.TablePagination}>
+          <button
+            className={AllOneTable.PreNext_btn}
+            onClick={() => changePage(false)}
+          >
+            &lt;
+          </button>
+          <span className={AllOneTable.PageNo}>{pageNo}</span>
+          <button
+            className={AllOneTable.PreNext_btn}
+            onClick={() => changePage(true)}
+          >
+            &#62;
+          </button>
+          <select
+            name="recordsPerPage"
+            className={AllOneTable.PageOption}
+            onChange={(e) => recordSelectionPerPageChange(e.target.value)}
+            value={recordsPerPage}
+          >
+            {recordsPerPageOption.map((item) => (
+              <option value={item}>{item}</option>
+            ))}
+          </select>
+        </div>
+      </div>
     </div>
   );
 };
 
 export default SortFilterEdit;
-

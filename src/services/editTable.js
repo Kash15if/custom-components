@@ -7,7 +7,7 @@ const getDefaultValFromInputType = () => {
 
 
 
-const getInputBoxFromType = (col, selectedOneRowForEdit, editFormContentChange, index) => {
+const getInputBoxFromType = (col, selectedOneRowForEdit, editFormContentChange, index, creatingNew) => {
 
 
 
@@ -85,7 +85,7 @@ const getInputBoxFromType = (col, selectedOneRowForEdit, editFormContentChange, 
     else {
         return (<>
             <label for={col.column}>{col.column}</label>
-            <input disabled={!((col.createOnce && !selectedOneRowForEdit[col.column].length) || col.editable)} name={col.column} id={col.column} value={selectedOneRowForEdit[col.column]} onChange={editFormContentChange} />
+            <input disabled={!((col.createOnce && creatingNew) || col.editable)} name={col.column} id={col.column} value={selectedOneRowForEdit[col.column]} onChange={editFormContentChange} />
         </>)
     }
 }

@@ -1,0 +1,9 @@
+.selectedRow{
+    background-color: #EDF4FF !important;
+    border-left: 4px solid #2633e4;
+    
+  }
+  .rowNotSelected{
+    background-color: #ffffff !important;
+    
+  }

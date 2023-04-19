@@ -145,8 +145,6 @@ const Expanded = ({ data,
               }
             </button>
               : col.column
-
-
             } */}
                         {col.column}
                     </th>

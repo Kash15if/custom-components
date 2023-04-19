@@ -1,12 +1,8 @@
-.MainBody {
-  margin: 2%;
-}
-
 .frame {
   overflow-y: auto;
-  padding: 1.3%;
+  padding: 1.1%;
   background-color: white;
-  border-radius: 1.2rem;
+  border-radius: 0.7rem;
 }
 
 .MainHeader {
@@ -277,4 +273,6 @@ button {
   display: grid;
 }
 
-/*  ImportExcelBtn CSS */ /*# sourceMappingURL=Crudie.module.css.map */
+.ExIcon {
+  width: 0.6rem;
+}
