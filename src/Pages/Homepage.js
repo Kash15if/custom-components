@@ -191,6 +191,12 @@ const Home = () => {
                     {/* <li>Colorpicker</li> */}
                     {/* <li>Dynamic Form</li> */}
                 </ul></div>
+
+
+            <div id='footerHomepage'>
+                footer
+
+            </div>
         </div>
     );
 }

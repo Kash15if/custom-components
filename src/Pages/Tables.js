@@ -335,7 +335,7 @@ const Tables = ({ upDateData, data, expandableTableData, colmns }) => {
                 </div></Popup>
 
             <h3>Link to code:-  <a
-                href="https://github.com/Kash15if/custom-components/tree/main/src/CustomComponents/Tables/Sortable"
+                href="https://github.com/Kash15if/custom-components/tree/main/src/CustomComponents/Tables/Filterable"
                 target="_blank"
                 rel="noopener noreferrer">Filterable Table</a></h3>
 
@@ -464,13 +464,14 @@ const Tables = ({ upDateData, data, expandableTableData, colmns }) => {
                 <div>
                     Props
                     <ul>
-                        <li>{`  <SortFilterEdit data={dummyData}
-                columns={columns}
-                filterableCols={columns}
-                tableHeader="Sort Filter and Edit Table"
-                uniqueId={"id"}
-                recordsPerPageOption={[5, 10, 20]}
-                defaultRecordPerPage={5}
+                        <li>{`  <Editable data={dummyData}
+                    columns={columns}
+                    tableHeader="Editable Table"
+                    uniqueId={"_id"}
+                    recordsPerPageOption={[5, 10, 20]}
+                    defaultRecordPerPage={5}
+                    editApi={process.env.REACT_APP_TEST_API}
+                    deleteOneApi={process.env.REACT_APP_TEST_API}
             />`}</li>
                     </ul>
 
@@ -486,7 +487,7 @@ const Tables = ({ upDateData, data, expandableTableData, colmns }) => {
 
             <h4>Props structure for the above table:- <button>Open Popup</button></h4>
             <h3>Link to code:-  <a
-                href="https://github.com/Kash15if/custom-components/tree/main/src/CustomComponents/Tables/Sortable"
+                href="https://github.com/Kash15if/custom-components/tree/main/src/CustomComponents/Tables/Editable"
                 target="_blank"
                 rel="noopener noreferrer">Editable Table</a></h3>
 
@@ -506,7 +507,7 @@ const Tables = ({ upDateData, data, expandableTableData, colmns }) => {
         {/* Sort Filter and Edit */}
 
         <div id="sortEditFilter">
-            <h1>All Sort Filter and Edit together Table</h1>
+            <h1>Sort Filter and Edit together Table</h1>
 
             <h2>Parameters</h2>
             <h4>Required Field</h4>
@@ -515,7 +516,7 @@ const Tables = ({ upDateData, data, expandableTableData, colmns }) => {
 
                     data={data}
                     columns={columns}
-                    tableHeader="CRUD Import Export Table"
+                    tableHeader="Sort Edit and Filter"
                     recordsPerPageOption={[5, 10, 20]}
                     defaultRecordPerPage={5}
                     uniqueId="_id"
@@ -549,9 +550,9 @@ const Tables = ({ upDateData, data, expandableTableData, colmns }) => {
                 </div></Popup>
             <h4>Props structure for the above table:- <button>Open Popup</button></h4>
             <h3>Link to code:-  <a
-                href="https://github.com/Kash15if/custom-components/tree/main/src/CustomComponents/Tables/Sortable"
+                href="https://github.com/Kash15if/custom-components/tree/main/src/CustomComponents/Tables/Sort-Filter-Edit"
                 target="_blank"
-                rel="noopener noreferrer">Editable Table</a></h3>
+                rel="noopener noreferrer">Sort Edit Filter Table</a></h3>
         </div>
 
         {/* ---------------------------------------------------------------SortFilterEdit------------------------------------------- */}
@@ -603,9 +604,9 @@ const Tables = ({ upDateData, data, expandableTableData, colmns }) => {
 
             <h4>Props structure for the above table:- <button>Open Popup</button></h4>
             <h3>Link to code:-  <a
-                href="https://github.com/Kash15if/custom-components/tree/main/src/CustomComponents/Tables/Sortable"
+                href="https://github.com/Kash15if/custom-components/tree/main/src/CustomComponents/Tables/ExpanedTable"
                 target="_blank"
-                rel="noopener noreferrer">Editable Table</a></h3>
+                rel="noopener noreferrer">Expanable Table</a></h3>
         </div>
 
         {/* ------------------------------------------------------------- Expandable table ------------------------------------------- */}
@@ -672,9 +673,9 @@ const Tables = ({ upDateData, data, expandableTableData, colmns }) => {
                 </div></Popup>
             <h4>Props structure for the above table:- <button>Open Popup</button></h4>
             <h3>Link to code:-  <a
-                href="https://github.com/Kash15if/custom-components/tree/main/src/CustomComponents/Tables/Sortable"
+                href="https://github.com/Kash15if/custom-components/tree/main/src/CustomComponents/Tables/ExpanedTable"
                 target="_blank"
-                rel="noopener noreferrer">Editable Table</a></h3>
+                rel="noopener noreferrer">Expandable With Component Table</a></h3>
         </div>
 
 
@@ -767,9 +768,9 @@ const Tables = ({ upDateData, data, expandableTableData, colmns }) => {
 
             <h4>Props structure for the above table:- <button>Open Popup</button></h4>
             <h3>Link to code:-  <a
-                href="https://github.com/Kash15if/custom-components/tree/main/src/CustomComponents/Tables/Sortable"
+                href="https://github.com/Kash15if/custom-components/tree/main/src/CustomComponents/Tables/CRUDIE"
                 target="_blank"
-                rel="noopener noreferrer">Editable Table</a></h3>
+                rel="noopener noreferrer">CRUD Import Export (Excel and JSON) Table</a></h3>
             <h4>Dependencies :- <a href="https://www.npmjs.com/package/axios">Axios</a> and <a href="https://www.npmjs.com/package/xlsx">xlsx</a></h4>
 
         </div>
