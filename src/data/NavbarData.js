@@ -1,6 +1,9 @@
 const navs = [
     {
-        link: { url: "#", label: "Tables" },
+        link: { url: "/", label: "Custom Components" },
+    },
+    {
+        link: { url: "/tables", label: "Tables" },
         dropdown: [
             {
                 link: { url: "/tables#sortable", label: "Sortable" },
@@ -29,7 +32,7 @@ const navs = [
         ]
     },
     {
-        link: { url: "#", label: "Carousels" },
+        link: { url: "/sliders", label: "Carousels" },
         dropdown: [
             {
                 link: { url: "/sliders#horizontal", label: "Horizontal" },
@@ -46,7 +49,7 @@ const navs = [
         ]
     },
     {
-        link: { url: "#", label: "Popups" },
+        link: { url: "popups", label: "Popups" },
         dropdown: [
             {
                 link: { url: "Confirmation", label: "Confirmation Popup" },

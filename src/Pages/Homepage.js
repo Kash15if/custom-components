@@ -17,7 +17,7 @@ const Home = () => {
                     web development experience. From tables with advanced sorting, filtering , import and export features,
                     to carousels, cards, forms, popups, popovers, and collapse panels, our components are
                     user-centric and easy to customize. Browse our library to take your project
-                    to the next level and easily customisable.
+                    to the next level and easily customisable. Just copy, paste our component and use.
                 </div>
 
 
@@ -40,7 +40,7 @@ const Home = () => {
                     <br /><br />
 
                     <ol>
-                        <li>Sorting : - <Link to="/forms#2nd">Go to Sortable Table</Link></li>
+                        <li>Sorting : - <Link to="/tables#sorting">Go to Sortable Table</Link></li>
                         <li>Filtering</li>
                         <li>Editing</li>
                         <li>Sorting-Editing-Filtering</li>
@@ -51,7 +51,7 @@ const Home = () => {
             </div>
 
 
-            <div>
+            {/* <div>
                 <h3>Carousel</h3>
 
                 <p>
@@ -63,10 +63,10 @@ const Home = () => {
                         <li>Concave curve carousel</li>
                     </ol>
                 </p>
-            </div>
+            </div> */}
 
 
-            <div>
+            {/* <div>
                 <h3>Popups</h3>
                 <p>
                     <ol>
@@ -76,10 +76,10 @@ const Home = () => {
                     </ol>
                 </p>
             </div>
+ */}
 
 
-
-            <div id="cards">
+            {/* <div id="cards">
 
 
                 <h2>Cards</h2>
@@ -89,36 +89,37 @@ const Home = () => {
                         <li>E-commerce Card</li>
                     </ol>
                 </p>
-            </div>
+            </div> */}
 
 
 
 
-            <div>
+            {/* <div>
                 <h2>Collapsible</h2>
                 <p>
                     <ol>
                         <li>Collapsible Card</li>
                     </ol>
                 </p>
-            </div>
+            </div> */}
 
 
 
 
-            <div>
+            {/* <div>
                 <h2>Popover</h2>
                 <p>
                     <ol>
                         <li>Popover</li>
                     </ol>
                 </p>
-            </div>
+            </div> */}
 
 
 
 
-            <div>            <h2>Our Journey</h2>
+            <div>
+                <h2>Our Journey</h2>
                 <p>Building a dashboard and reporting system can be a challenging task, especially when it comes to
                     designing and creating tables. As a developer, I have faced many difficulties while building such
                     systems, and I'm sure many of you can relate.
@@ -164,11 +165,17 @@ const Home = () => {
             <div>
                 <h2>Newly Added components</h2>
                 <ul>
-                    <li>MultiHeader Table</li>
+                    <li>Sortable Table</li>
+                    <li>Filterable Table</li>
+                    <li>Editable Table</li>
+                    <li>Expandable Table</li>
+                    <li>CRUD Import Export</li>
+
+                    {/* <li>MultiHeader Table</li>
                     <li>MultiSelect Dropdown</li>
                     <li>Diagram</li>
                     <li>Colorpicker</li>
-                    <li>Dynamic Form</li>
+                    <li>Dynamic Form</li> */}
                 </ul>
             </div>
 
@@ -177,10 +184,12 @@ const Home = () => {
             <div><h2>Upcoming Components</h2>
                 <ul>
                     <li>MultiHeader Table</li>
-                    <li>MultiSelect Dropdown</li>
-                    <li>Diagram</li>
-                    <li>Colorpicker</li>
-                    <li>Dynamic Form</li>
+                    <li>Carousels</li>
+                    <li>Collapsible</li>
+                    <li>Dynamic Navbar</li>
+                    {/* <li>Diagram</li> */}
+                    {/* <li>Colorpicker</li> */}
+                    {/* <li>Dynamic Form</li> */}
                 </ul></div>
         </div>
     );
