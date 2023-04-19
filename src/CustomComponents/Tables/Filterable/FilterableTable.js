@@ -53,13 +53,14 @@ const FilterableTable = ({ data, columns, filterableCols, tableHeader,
       columns.forEach((cols, index) => {
 
         let columnName = cols.column;
+        let columnData = itemRow && itemRow[columnName] ? itemRow[columnName].toString().toLowerCase() : "";
 
-        let columnData = itemRow[columnName].toString();
-
-
-        if (cols.filterable && tempFilteredStringObject[columnName] !== "" && !columnData.includes(tempFilteredStringObject[columnName])) {
-          console.log(tempFilteredStringObject[columnName], columnData)
-          dataPresentInRow = false
+        if (
+          cols.filterable &&
+          tempFilteredStringObject[columnName] !== "" &&
+          !columnData.includes(tempFilteredStringObject[columnName].toLowerCase())
+        ) {
+          dataPresentInRow = false;
         }
       })
 

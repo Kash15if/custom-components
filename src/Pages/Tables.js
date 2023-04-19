@@ -511,13 +511,18 @@ const Tables = ({ upDateData, data, expandableTableData, colmns }) => {
             <h2>Parameters</h2>
             <h4>Required Field</h4>
             {dummyData && columns && (
-                <SortFilterEdit data={dummyData}
+                <SortFilterEdit
+
+                    data={data}
                     columns={columns}
-                    filterableCols={columns}
-                    tableHeader="Sort Filter and Edit Table"
-                    uniqueId={"id"}
+                    tableHeader="CRUD Import Export Table"
                     recordsPerPageOption={[5, 10, 20]}
                     defaultRecordPerPage={5}
+                    uniqueId="_id"
+                    getDataApi={process.env.REACT_APP_TEST_API}
+                    editApi={process.env.REACT_APP_TEST_API}
+                    deleteOneApi={process.env.REACT_APP_TEST_API}
+
                 />)}
 
             <button onClick={() => setSortableParaeterStructurePopup(true)}>Show Props</button>
