@@ -19,13 +19,15 @@ const VerticalCarousel = () => {
         {imagesDataSet && imagesDataSet.length && <img className={sliderStyles.images} src={imagesDir(`./${imagesDataSet[page].image}`)} alt="Italian Trulli" />
         }
 
-        <button onClick={() => changePage(-1)}>&#x2190;</button>
 
-        {imagesDataSet && imagesDataSet.length &&
-            imagesDataSet.map((img, index) =>
-                <span className={`${sliderStyles.dot} ${page === index ? sliderStyles.active : ""}`}></span>)
-        }
-        <button onClick={() => changePage(1)}>&#x2192;</button>
+        <div className={sliderStyles.pageDots}>
+            <span onClick={() => changePage(-1)}>&#x2191;</span>
+            {imagesDataSet && imagesDataSet.length &&
+                imagesDataSet.map((img, index) =>
+                    <span className={`${sliderStyles.dot} ${page === index ? sliderStyles.active : ""}`}></span>)
+            }
+            <span onClick={() => changePage(1)}>&#x2193;</span>
+        </div>
     </div >);
 }
 
