@@ -1,0 +1,57 @@
+/* The Modal (background) */
+.modal {
+  position: fixed; /* Stay in place */
+  z-index: 100; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0, 0, 0); /* Fallback color */
+  background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+  transition: opacity 0.25s, transform 0.25s;
+}
+
+/* Modal Content */
+.modalcontent {
+  background-color: #fefefe;
+  margin: auto;
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border: 1px solid #888;
+  width: 40%;
+  padding: 1rem;
+  border-radius: 8px;
+  overflow: auto;
+}
+.modalcontent2 {
+  background-color: #fefefe;
+  margin: auto;
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border: 1px solid #888;
+  width: 40%;
+  padding: 0.6rem;
+  border-radius: 8px;
+  height: 70%;
+  overflow: auto;
+}
+.CloseBtnAlign {
+  display: flex;
+  justify-content: flex-end;
+}
+.CloseBtn {
+  cursor: pointer;
+  color: #454141;
+  border: 1px solid #5a5555f0;
+  border-radius: 50%;
+  width: 1.55rem;
+  height: 1.45rem;
+  font-weight: bold;
+}
