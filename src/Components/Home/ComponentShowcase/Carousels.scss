@@ -1,0 +1,93 @@
+// @keyframes title {
+// 	0% { top: 10px; opacity: 0; }
+// 	50% { top: -10px; opacity: 0.5; }
+// 	100% { top: 0; opacity: 1; }
+// }
+
+// .container { 
+//   width: 80%;
+//   margin: 25px auto; 
+// }
+
+// /** Video Section **/
+// .main-video.active-jq.show-video { display: block; opacity: 1; }
+// .videos.active-jq { display: block; }
+
+// .video-wrapper {
+// 	position: relative;
+// 	padding-bottom: 56.25%; /* 16:9 */
+// 	margin-top: 10px;
+// 	height: 0;
+//   iframe {
+//     position: absolute;
+//     top: 0;
+//     left: 0;
+//     width: 100%;
+//     height: 100%;
+//   }
+//   img {
+//     width: 100%;
+//   }
+// }
+
+// .main-video.active-jq { display: none; }
+// .main-video { padding: 0 1em; }
+// .secondary-videos { 
+//   padding: 3em 1em; 
+//   &::after {
+//     content: "";
+//     display: table;
+//     clear: both;
+//   }
+// }
+
+// .videos {
+//     width: 23.1%;
+//     float: left;
+//     margin-right: 2.5%;
+//     text-align: center;
+//     opacity: 0.5;
+//     transition: opacity 0.5s;
+//     -webkit-transition: opacity 0.5s;
+//     cursor: pointer;
+//     display: none;
+//     position: relative;
+//     &:last-of-type { margin: 0; }
+//     &:hover {
+//       .information{
+//         // animation: title 0.75s ease forwards;
+//         opacity: 1;
+//         top: 0;
+//       }        
+//     }
+//     &.selected-video .information {
+//       opacity: 1;
+//       top: 0;
+//     }
+//     .information {
+//       background-color: #282828;
+//       padding: 8px;
+//       font-size: 11px;
+//       color: #F6F6F0;
+//       top: 20px;
+//       transition: all 0.5s cubic-bezier(.29,2.08,.73,1.75);
+//       -webkit-transition: all 0.5s cubic-bezier(.29,2.08,.73,1.75);
+//       opacity: 0;
+//       position: relative;
+//     }
+// }
+// .videos.selected-video,
+// .videos:hover { opacity: 1; }
+
+// /* Mobile Styles */
+// @media only screen and (max-width: 500px) {
+//   .secondary-videos {
+//     padding: 2em 1em;
+//   }
+//   .videos {
+//     width: 100%;
+//     float: none;
+//     padding: 1em 0;
+//     margin: 0;
+//   }
+// }

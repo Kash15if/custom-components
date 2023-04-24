@@ -15,20 +15,24 @@ const VerticalCarousel = () => {
         setPage(tempPage)
     }
 
-    return (<div className={sliderStyles.container} >
-        {imagesDataSet && imagesDataSet.length && <img className={sliderStyles.images} src={imagesDir(`./${imagesDataSet[page].image}`)} alt="Italian Trulli" />
-        }
+    return (
+
+        <div className={sliderStyles.container} >
 
 
-        <div className={sliderStyles.pageDots}>
-            <span onClick={() => changePage(-1)}>&#x2191;</span>
-            {imagesDataSet && imagesDataSet.length &&
-                imagesDataSet.map((img, index) =>
-                    <span className={`${sliderStyles.dot} ${page === index ? sliderStyles.active : ""}`}></span>)
+            {imagesDataSet && imagesDataSet.length && <img className={sliderStyles.images} src={imagesDir(`./${imagesDataSet[page].image}`)} alt="Italian Trulli" />
             }
-            <span onClick={() => changePage(1)}>&#x2193;</span>
-        </div>
-    </div >);
+
+
+            <div className={sliderStyles.pageDots}>
+                <span onClick={() => changePage(-1)}>&#x2191;</span>
+                {imagesDataSet && imagesDataSet.length &&
+                    imagesDataSet.map((img, index) =>
+                        <span className={`${sliderStyles.dot} ${page === index ? sliderStyles.active : ""}`}></span>)
+                }
+                <span onClick={() => changePage(1)}>&#x2193;</span>
+            </div>
+        </div >);
 }
 
 export default VerticalCarousel;
