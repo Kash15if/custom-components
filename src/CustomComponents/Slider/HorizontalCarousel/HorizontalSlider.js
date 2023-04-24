@@ -1,32 +1,63 @@
 import { useState } from "react";
-import sliderStyles from "./HorizontalSlider.module.css"
+import sliderStyles from "./HorizontalSlider.module.css";
 import imagesDataSet from "../../../data/imageData";
 const imagesDir = require.context("../../../storage/images/", true);
 
 const Horizontal = () => {
-
     const [page, setPage] = useState(0);
 
     const changePage = (val) => {
+        let tempPage =
+            val === 1
+                ? page >= imagesDataSet.length - 1
+                    ? 0
+                    : page + 1
+                : page <= 0
+                    ? imagesDataSet.length - 1
+                    : page - 1;
 
-        let tempPage = val === 1 ? (page >= imagesDataSet.length - 1 ? 0 : page + 1) : (page <= 0 ? imagesDataSet.length - 1 : page - 1)
+        setPage(tempPage);
+    };
 
+    return (
+        <div className={sliderStyles.container}>
+            <div className={sliderStyles.Sliderbody}>
+                {imagesDataSet && imagesDataSet.length && (
+                    <img
+                        className={sliderStyles.ImageData}
+                        src={imagesDir(`./${imagesDataSet[page].image}`)}
+                        alt="Italian Trulli"
+                    />
+                )}
 
-        setPage(tempPage)
-    }
+                <div className={sliderStyles.PreNextBtn}>
+                    <button
+                        className={sliderStyles.Prebtn}
+                        onClick={() => changePage(-1)}
+                    >
+                        &#10094;
+                    </button>
 
-    return (<div className={sliderStyles.container} >
-        {imagesDataSet && imagesDataSet.length && <img src={imagesDir(`./${imagesDataSet[page].image}`)} alt="Italian Trulli" />
-        }
-
-        <button onClick={() => changePage(-1)}>&#x2190;</button>
-
-        {imagesDataSet && imagesDataSet.length &&
-            imagesDataSet.map((img, index) =>
-                <span className={`${sliderStyles.dot} ${page === index ? sliderStyles.active : ""}`}></span>)
-        }
-        <button onClick={() => changePage(1)}>&#x2192;</button>
-    </div >);
-}
+                    <button
+                        className={sliderStyles.Nextbtn}
+                        onClick={() => changePage(1)}
+                    >
+                        &#10095;
+                    </button>
+                </div>
+                <div className={sliderStyles.ActiveBtn}>
+                    {imagesDataSet &&
+                        imagesDataSet.length &&
+                        imagesDataSet.map((img, index) => (
+                            <span
+                                className={`${sliderStyles.dot} ${page === index ? sliderStyles.active : ""
+                                    }`}
+                            ></span>
+                        ))}
+                </div>
+            </div>
+        </div>
+    );
+};
 
 export default Horizontal;

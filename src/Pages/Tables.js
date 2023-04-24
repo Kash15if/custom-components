@@ -231,25 +231,29 @@ const Tables = ({ upDateData, data, expandableTableData, colmns }) => {
                     />
                 )}
 
-                <button
-                    className={TableStyle.Btn1}
-                    onClick={() => setSortableRealPropPopup(true)}
-                >
-                    Show Props Strucutre
-                </button>
+                <div className={TableStyle.propsButton}>
+                    <button
+                        className={TableStyle.Btn1}
+                        onClick={() => setSortableRealPropPopup(true)}
+                    >
+                        Show Props Strucutre
+                    </button>
+
+                    <button
+                        className={TableStyle.Btn2}
+                        onClick={() => setSortableParaeterStructurePopup(true)}
+                    >
+                        Show Props
+                    </button>
+                </div>
+
+
                 <Popup
                     visible={sortableRealPropPopup}
                     onClose={() => setSortableRealPropPopup(false)}
                 >
                     <div></div>
                 </Popup>
-
-                <button
-                    className={TableStyle.Btn2}
-                    onClick={() => setSortableParaeterStructurePopup(true)}
-                >
-                    Show Props
-                </button>
                 <Popup
                     visible={sortableParaeterStructurePopup}
                     onClose={() => setSortableParaeterStructurePopup(false)}

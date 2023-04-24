@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import sliderStyles from "./CurveSlider.module.css";
+import ConcaveSliderStyle from "./ConvexSliderStyle.module.css";
 const imagesDir = require.context("../../../storage/images/", true);
 
 const Convex = ({ noOfComponentsInPage, data }) => {
@@ -73,28 +73,37 @@ const Convex = ({ noOfComponentsInPage, data }) => {
     };
 
     return (
-        <div>
+        <div className={ConcaveSliderStyle.MainBody}>
             {data && (
-                <div
-                    style={{
-                        display: "flex",
-                    }}
-                >
+                <div className={ConcaveSliderStyle.container}>
                     {imageIndexesInSlide &&
                         imageIndexesInSlide.map((item, index) => (
                             <img
                                 style={{
                                     clipPath: dynamicClipPath[index],
-                                    margin: "10px",
-                                    width: "60%",
+                                    margin: "0.5rem",
+                                    width: "30%",
                                 }}
                                 src={imagesDir(`./${data[item].image}`)}
                             />
                         ))}
                 </div>
             )}
-            <button onClick={() => changePage(false)}>Prev</button>
-            <button onClick={() => changePage(true)}>Next</button>
+            <div className={ConcaveSliderStyle.PreNextBtn}>
+                <button
+                    className={ConcaveSliderStyle.Prebtn}
+                    onClick={() => changePage(-1)}
+                >
+                    &#10094;
+                </button>
+
+                <button
+                    className={ConcaveSliderStyle.Nextbtn}
+                    onClick={() => changePage(1)}
+                >
+                    &#10095;
+                </button>
+            </div>
         </div>
     );
 };

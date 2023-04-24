@@ -78,3 +78,7 @@
   background: rgb(32 60 197);
   font-size: 1rem;
 }
+
+.propsButton {
+  display: flex;
+}
