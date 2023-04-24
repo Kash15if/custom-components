@@ -16,6 +16,14 @@ import InnerCard from "../CustomComponents/Tables/ExpanedTable/InnerCard";
 
 import TableStyle from "./TableStyle.module.css";
 
+import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
+import { dark } from 'react-syntax-highlighter/dist/esm/styles/prism';
+
+
+import beautify from 'js-beautify';
+
+
+
 const Tables = ({ upDateData, data, expandableTableData, colmns }) => {
     // const [data , setData] = useState();
     const [dummyData, setDummyData] = useState();
@@ -24,6 +32,13 @@ const Tables = ({ upDateData, data, expandableTableData, colmns }) => {
     const [sortableParaeterStructurePopup, setSortableParaeterStructurePopup] =
         useState(false);
     const [sortableRealPropPopup, setSortableRealPropPopup] = useState(false);
+
+
+    const [filterParaeterStructurePopup, setFilterParaeterStructurePopup] =
+        useState(false);
+    const [filterRealPropPopup, setFilterRealPropPopup] = useState(false);
+
+
 
     const [editableParaeterStructurePopup, setEditableParaeterStructurePopup] =
         useState(false);
@@ -261,18 +276,13 @@ const Tables = ({ upDateData, data, expandableTableData, colmns }) => {
                     <div>
                         {" "}
                         data
-                        <ul>
-                            <li>
-                                <pre>{JSON.stringify(dummyData)}</pre>
-                            </li>
-                        </ul>
+                        <SyntaxHighlighter language="javascript" style={dark}>
+                            {beautify(JSON.stringify(dummyData), { indent_size: 2 })}
+                        </SyntaxHighlighter>
                         columns
-                        <ul>
-                            <li>
-                                <pre>{JSON.stringify(columns)}</pre>
-                            </li>
-                        </ul>
-                    </div>
+                        <SyntaxHighlighter language="javascript" style={dark}>
+                            {beautify(JSON.stringify(colmns), { indent_size: 2 })}
+                        </SyntaxHighlighter>                    </div>
                 </Popup>
 
                 <h3>
@@ -325,13 +335,13 @@ const Tables = ({ upDateData, data, expandableTableData, colmns }) => {
 
                 <button
                     className={TableStyle.Btn1}
-                    onClick={() => setSortableRealPropPopup(true)}
+                    onClick={() => setFilterParaeterStructurePopup(true)}
                 >
                     Show Props Strucutre
                 </button>
                 <Popup
-                    visible={sortableRealPropPopup}
-                    onClose={() => setSortableRealPropPopup(false)}
+                    // visible={sortableRealPropPopup}
+                    onClose={() => setFilterParaeterStructurePopup(false)}
                 >
                     <div>
                         <h2>Parameters</h2>
@@ -374,13 +384,13 @@ const Tables = ({ upDateData, data, expandableTableData, colmns }) => {
 
                 <button
                     className={TableStyle.Btn2}
-                    onClick={() => setSortableParaeterStructurePopup(true)}
+                    onClick={() => setFilterRealPropPopup(true)}
                 >
                     Show Props
                 </button>
                 <Popup
-                    visible={sortableParaeterStructurePopup}
-                    onClose={() => setSortableParaeterStructurePopup(false)}
+                    // visible={sortableParaeterStructurePopup}
+                    onClose={() => setFilterRealPropPopup(false)}
                 >
                     <div>
                         {" "}
@@ -453,12 +463,12 @@ const Tables = ({ upDateData, data, expandableTableData, colmns }) => {
 
                 <button
                     className={TableStyle.Btn1}
-                    onClick={() => setSortableRealPropPopup(true)}
+                // onClick={() => setSortableRealPropPopup(true)}
                 >
                     Show Props Strucutre
                 </button>
                 <Popup
-                    visible={sortableRealPropPopup}
+                    // visible={sortableRealPropPopup}
                     onClose={() => setSortableRealPropPopup(false)}
                 >
                     <div>
@@ -659,7 +669,7 @@ const Tables = ({ upDateData, data, expandableTableData, colmns }) => {
                     Show Props
                 </button>
                 <Popup
-                    visible={sortableParaeterStructurePopup}
+                    // visible={sortableParaeterStructurePopup}
                     onClose={() => setSortableParaeterStructurePopup(false)}
                 >
                     <div>
@@ -726,7 +736,7 @@ const Tables = ({ upDateData, data, expandableTableData, colmns }) => {
                     Show Props
                 </button>
                 <Popup
-                    visible={sortableParaeterStructurePopup}
+                    // visible={sortableParaeterStructurePopup}
                     onClose={() => setSortableParaeterStructurePopup(false)}
                 >
                     <div>

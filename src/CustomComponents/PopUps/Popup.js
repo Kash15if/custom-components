@@ -3,6 +3,7 @@ import PopupStyle from "./PopUpStyle.module.css";
 
 const Popup = ({ children, visible, onClose }) => {
     const closePopup = () => {
+        console.log("lclose")
         onClose();
     };
 
