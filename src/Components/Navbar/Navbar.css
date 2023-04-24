@@ -18,12 +18,12 @@ nav {
   margin-left: 20px;
 }
 
-.a-link {
+.nav-link {
   color: #fff;
   text-decoration: none;
 }
 
-a:hover {
+.nav-link:hover {
   color: #ff5c97;
 }
 
@@ -31,7 +31,7 @@ a:hover {
   position: relative;
 }
 
-.dropdown a {
+.dropdown .nav-link {
   display: flex;
   align-items: center;
 }
@@ -57,12 +57,12 @@ a:hover {
   padding: 0;
 }
 
-.dropdown-menu .li-nav a {
+.dropdown-menu .li-nav .nav-link {
   display: block;
   padding: 10px;
 }
 
-.dropdown-menu .li-nav a:hover {
+.dropdown-menu .li-nav .nav-link:hover {
   background-color: #d6c7cd38;
   color: white;
 }

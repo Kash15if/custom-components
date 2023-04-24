@@ -11,12 +11,12 @@ function Navbar({ data }) {
             inputData.map((item, index) => {
                 let resMenu = item.dropdown ? (
                     <li className="dropdown li-nav">
-                        <a className="a-link" href={item.link.url}>{item.link.label}</a>
+                        <a className="nav-link" href={item.link.url}>{item.link.label}</a>
                         <ul className="dropdown-menu ul-nav">{addUrlToMenu(item.dropdown)}</ul>
                     </li>
                 ) : (
                     <li className="li-nav">
-                        <Link to={item.link.url}>{item.link.label}</Link>
+                        <Link className="nav-link" to={item.link.url}>{item.link.label}</Link>
                     </li>
                 );
 
@@ -34,12 +34,12 @@ function Navbar({ data }) {
                     menu.map((item, index) => {
                         let resMenu = item.dropdown ? (
                             <li className="dropdown li-nav">
-                                <a className="a-link" href={item.link.url}>{item.link.label}</a>
+                                <a className="nav-link" href={item.link.url}>{item.link.label}</a>
                                 <ul className="dropdown-menu ul-nav">{addUrlToMenu(item.dropdown)}</ul>
                             </li>
                         ) : (
                             <li className="li-nav">
-                                <Link to={item.link.url}>{item.link.label}</Link>
+                                <Link className="nav-link" to={item.link.url}>{item.link.label}</Link>
                             </li>
                         );
 
