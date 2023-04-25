@@ -47,6 +47,7 @@ const Tables = ({ upDateData, data, expandableTableData, colmns }) => {
     const [sortEditFilterRealPropPopup, setSortEditFilterRealPropPopup] =
         useState(false);
 
+    const [expandableTableRealProp, setExpandableTableRealProp] = useState(false);
     const [expandableWithCompRealPropPopup, setExpandableWithCompRealPropPopup] =
         useState(false);
 
@@ -221,21 +222,7 @@ const Tables = ({ upDateData, data, expandableTableData, colmns }) => {
                 {/* Sortable */}
                 <h1>Sortable Table</h1>
 
-                <h2>Features</h2>
-                <ul>
-                    <li>
-                        Sortable:- By clicking of the particular column of the table, It
-                        will sort the table wrt. clicked column{" "}
-                    </li>
-                    <li>
-                        Pagination:- There are two buttons next and prev to navigate to
-                        different pages
-                    </li>
-                    <li>
-                        No of Records per page:- It is a dropown, On selecting value no of
-                        records will be changed as selected
-                    </li>
-                </ul>
+
                 {dummyData && columns && (
                     <Sortable
                         data={dummyData}
@@ -248,18 +235,12 @@ const Tables = ({ upDateData, data, expandableTableData, colmns }) => {
 
                 <div className={TableStyle.propsButton}>
                     <button
-                        className={TableStyle.Btn1}
-                        onClick={() => setSortableRealPropPopup(true)}
-                    >
-                        Show Props Strucutre
-                    </button>
-
-                    <button
                         className={TableStyle.Btn2}
-                        onClick={() => setSortableParaeterStructurePopup(true)}
+                        onClick={() => setSortableRealPropPopup(true)}
                     >
                         Show Props
                     </button>
+
                 </div>
 
 
@@ -267,14 +248,21 @@ const Tables = ({ upDateData, data, expandableTableData, colmns }) => {
                     visible={sortableRealPropPopup}
                     onClose={() => setSortableRealPropPopup(false)}
                 >
-                    <div></div>
-                </Popup>
-                <Popup
-                    visible={sortableParaeterStructurePopup}
-                    onClose={() => setSortableParaeterStructurePopup(false)}
-                >
                     <div>
+
+                        <h2>Props for Sortable Table</h2>
                         {" "}
+                        Props:-
+                        <SyntaxHighlighter language="javascript" style={dark}>
+                            {`<Sortable
+                        data={dummyData}
+                        columns={columns}
+                        tableHeader="Sortable Table"
+                        recordsPerPageOption={[5, 10, 20]}
+                        defaultRecordPerPage={5}
+                    />`}
+                        </SyntaxHighlighter>
+
                         data
                         <SyntaxHighlighter language="javascript" style={dark}>
                             {beautify(JSON.stringify(dummyData), { indent_size: 2 })}
@@ -306,21 +294,7 @@ const Tables = ({ upDateData, data, expandableTableData, colmns }) => {
                 {/* Filterable */}
                 <h1>Filterable Table</h1>
 
-                <h2>Features</h2>
-                <ul>
-                    <li>
-                        Filter:- By typing/selecting in the input field , It will filter
-                        column accordingly{" "}
-                    </li>
-                    <li>
-                        Pagination:- There are two buttons next and prev to navigate to
-                        different pages
-                    </li>
-                    <li>
-                        No of Records per page:- It is a dropown, On selecting value no of
-                        records will be changed as selected
-                    </li>
-                </ul>
+
 
                 {dummyData && columns && (
                     <Filterable
@@ -333,14 +307,24 @@ const Tables = ({ upDateData, data, expandableTableData, colmns }) => {
                     />
                 )}
 
-                <button
-                    className={TableStyle.Btn1}
-                    onClick={() => setFilterParaeterStructurePopup(true)}
-                >
-                    Show Props Strucutre
-                </button>
+                <div className={TableStyle.propsButton}>
+                    <button
+                        className={TableStyle.Btn1}
+                        onClick={() => setFilterParaeterStructurePopup(true)}
+                    >
+                        Show Props Strucutre
+                    </button>
+                    <button
+                        className={TableStyle.Btn2}
+                        onClick={() => setFilterRealPropPopup(true)}
+                    >
+                        Show Props
+                    </button>
+                </div>
+
+
                 <Popup
-                    // visible={sortableRealPropPopup}
+                    visible={filterParaeterStructurePopup}
                     onClose={() => setFilterParaeterStructurePopup(false)}
                 >
                     <div>
@@ -357,7 +341,6 @@ const Tables = ({ upDateData, data, expandableTableData, colmns }) => {
                                         {
                                             "[{column: colName1, filterable: true},{column: colName2, filterable: true},...]"
                                         }
-                                        ]
                                     </li>
                                 </ol>
                             </li>
@@ -382,30 +365,36 @@ const Tables = ({ upDateData, data, expandableTableData, colmns }) => {
                     </div>
                 </Popup>
 
-                <button
-                    className={TableStyle.Btn2}
-                    onClick={() => setFilterRealPropPopup(true)}
-                >
-                    Show Props
-                </button>
+
                 <Popup
-                    // visible={sortableParaeterStructurePopup}
+                    visible={filterRealPropPopup}
                     onClose={() => setFilterRealPropPopup(false)}
                 >
                     <div>
                         {" "}
+                        <h2>Props for Filterable Table</h2>
+                        Props:-
+                        <SyntaxHighlighter language="javascript" style={dark}>
+                            {
+                                `<Filterable
+                                data={dummyData}
+                                columns={columns}
+                                filterableCols={columns}
+                                tableHeader="Filter Table"
+                                recordsPerPageOption={[5, 10, 20]}
+                                defaultRecordPerPage={5}
+                            />`
+                            }
+                        </SyntaxHighlighter>
+
                         data
-                        <ul>
-                            <li>
-                                <pre>{JSON.stringify(dummyData)}</pre>
-                            </li>
-                        </ul>
+                        <SyntaxHighlighter language="javascript" style={dark}>
+                            {beautify(JSON.stringify(dummyData), { indent_size: 2 })}
+                        </SyntaxHighlighter>
                         columns
-                        <ul>
-                            <li>
-                                <pre>{JSON.stringify(columns)}</pre>
-                            </li>
-                        </ul>
+                        <SyntaxHighlighter language="javascript" style={dark}>
+                            {beautify(JSON.stringify(colmns), { indent_size: 2 })}
+                        </SyntaxHighlighter>
                     </div>
                 </Popup>
 
@@ -429,24 +418,7 @@ const Tables = ({ upDateData, data, expandableTableData, colmns }) => {
             <div id="editable">
                 <h1>Editable Table</h1>
 
-                <h2>Parameters</h2>
-                <h4>Required Field</h4>
 
-                <h2>Features</h2>
-                <ul>
-                    <li>
-                        Sortable:- By clicking of the particular column of the table, It
-                        will sort the table wrt. clicked column{" "}
-                    </li>
-                    <li>
-                        Pagination:- There are two buttons next and prev to navigate to
-                        different pages
-                    </li>
-                    <li>
-                        No of Records per page:- It is a dropown, On selecting value no of
-                        records will be changed as selected
-                    </li>
-                </ul>
                 {/* Edit */}
                 {dummyData && columns && (
                     <Editable
@@ -461,15 +433,24 @@ const Tables = ({ upDateData, data, expandableTableData, colmns }) => {
                     />
                 )}
 
-                <button
-                    className={TableStyle.Btn1}
-                // onClick={() => setSortableRealPropPopup(true)}
-                >
-                    Show Props Strucutre
-                </button>
+                <div className={TableStyle.propsButton}>
+                    <button
+                        className={TableStyle.Btn1}
+                        onClick={() => setEditableParaeterStructurePopup(true)}
+                    >
+                        Show Props Strucutre
+                    </button>
+                    <button
+                        className={TableStyle.Btn2}
+                        onClick={() => setEditableRealPropPopup(true)}
+                    >
+                        Show Props
+                    </button>
+                </div>
+
                 <Popup
-                    // visible={sortableRealPropPopup}
-                    onClose={() => setSortableRealPropPopup(false)}
+                    visible={editableParaeterStructurePopup}
+                    onClose={() => setEditableParaeterStructurePopup(false)}
                 >
                     <div>
                         <ul>
@@ -586,41 +567,40 @@ const Tables = ({ upDateData, data, expandableTableData, colmns }) => {
                     </div>
                 </Popup>
 
-                <button
-                    className={TableStyle.Btn2}
-                    onClick={() => setSortEditFilterRealPropPopup(true)}
-                >
-                    Show Props
-                </button>
+
                 <Popup
-                    visible={sortEditFilterRealPropPopup}
-                    onClose={() => setSortEditFilterRealPropPopup(false)}
+                    visible={editableRealPropPopup}
+                    onClose={() => setEditableRealPropPopup(false)}
                 >
                     <div>
-                        Props
-                        <ul>
-                            <li>{`  <Editable data={dummyData}
-                    columns={columns}
-                    tableHeader="Editable Table"
-                    uniqueId={"_id"}
-                    recordsPerPageOption={[5, 10, 20]}
-                    defaultRecordPerPage={5}
-                    editApi={process.env.REACT_APP_TEST_API}
-                    deleteOneApi={process.env.REACT_APP_TEST_API}
-            />`}</li>
-                        </ul>
+
+
+                        {" "}
+                        <h2>Props for Filterable Table</h2>
+                        Props:-
+                        <SyntaxHighlighter language="javascript" style={dark}>
+                            {
+                                `<Editable data={data}
+                                columns={columns}
+                                tableHeader="Editable Table"
+                                uniqueId={"_id"}
+                                recordsPerPageOption={[5, 10, 20]}
+                                defaultRecordPerPage={5}
+                                editApi={process.env.REACT_APP_TEST_API}
+                                deleteOneApi={process.env.REACT_APP_TEST_API}
+                        />`
+                            }
+                        </SyntaxHighlighter>
+
                         data
-                        <ul>
-                            <li>
-                                <pre>{JSON.stringify(dummyData)}</pre>
-                            </li>
-                        </ul>
+                        <SyntaxHighlighter language="javascript" style={dark}>
+                            {beautify(JSON.stringify(dummyData), { indent_size: 2 })}
+                        </SyntaxHighlighter>
                         columns
-                        <ul>
-                            <li>
-                                <pre>{JSON.stringify(columns)}</pre>
-                            </li>
-                        </ul>
+                        <SyntaxHighlighter language="javascript" style={dark}>
+                            {beautify(JSON.stringify(colmns), { indent_size: 2 })}
+                        </SyntaxHighlighter>
+
                     </div>
                 </Popup>
 
@@ -646,8 +626,7 @@ const Tables = ({ upDateData, data, expandableTableData, colmns }) => {
             <div id="sortEditFilter">
                 <h1>Sort Filter and Edit together Table</h1>
 
-                <h2>Parameters</h2>
-                <h4>Required Field</h4>
+
                 {dummyData && columns && (
                     <SortFilterEdit
                         data={data}
@@ -662,40 +641,51 @@ const Tables = ({ upDateData, data, expandableTableData, colmns }) => {
                     />
                 )}
 
-                <button
-                    className={TableStyle.Btn1}
-                    onClick={() => setSortableParaeterStructurePopup(true)}
-                >
-                    Show Props
-                </button>
+
+                <div className={TableStyle.propsButton}>
+                    <button
+                        className={TableStyle.Btn2}
+                        onClick={() => setSortEditFilterRealPropPopup(true)}
+                    >
+                        Show Props
+                    </button></div>
                 <Popup
-                    // visible={sortableParaeterStructurePopup}
-                    onClose={() => setSortableParaeterStructurePopup(false)}
+                    visible={sortEditFilterRealPropPopup}
+                    onClose={() => setSortEditFilterRealPropPopup(false)}
                 >
                     <div>
-                        Props
-                        <ul>
-                            <li>{`  <SortFilterEdit data={dummyData}
-                columns={columns}
-                filterableCols={columns}
-                tableHeader="Sort Filter and Edit Table"
-                uniqueId={"id"}
-                recordsPerPageOption={[5, 10, 20]}
-                defaultRecordPerPage={5}
-            />`}</li>
-                        </ul>
+
+
+                        {" "}
+                        <h2>Props for Filterable Table</h2>
+                        Props:-
+                        <SyntaxHighlighter language="javascript" style={dark}>
+                            {
+                                `<SortFilterEdit
+                                data={data}
+                                columns={columns}
+                                tableHeader="Sort Edit and Filter"
+                                recordsPerPageOption={[5, 10, 20]}
+                                defaultRecordPerPage={5}
+                                uniqueId="_id"
+                                getDataApi={process.env.REACT_APP_TEST_API}
+                                editApi={process.env.REACT_APP_TEST_API}
+                                deleteOneApi={process.env.REACT_APP_TEST_API}
+                            />`
+                            }
+                        </SyntaxHighlighter>
+
                         data
-                        <ul>
-                            <li>
-                                <pre>{JSON.stringify(dummyData)}</pre>
-                            </li>
-                        </ul>
+                        <SyntaxHighlighter language="javascript" style={dark}>
+                            {beautify(JSON.stringify(dummyData), { indent_size: 2 })}
+                        </SyntaxHighlighter>
                         columns
-                        <ul>
-                            <li>
-                                <pre>{JSON.stringify(columns)}</pre>
-                            </li>
-                        </ul>
+                        <SyntaxHighlighter language="javascript" style={dark}>
+                            {beautify(JSON.stringify(colmns), { indent_size: 2 })}
+                        </SyntaxHighlighter>
+
+
+
                     </div>
                 </Popup>
 
@@ -714,6 +704,8 @@ const Tables = ({ upDateData, data, expandableTableData, colmns }) => {
 
             {/* ---------------------------------------------------------------SortFilterEdit------------------------------------------- */}
 
+
+
             {/* --------------------------------------------------------------- Expandable table----------------------------------------- */}
 
             <div id="recursiveExpandable">
@@ -729,40 +721,47 @@ const Tables = ({ upDateData, data, expandableTableData, colmns }) => {
                     />
                 )}
 
-                <button
-                    className={TableStyle.Btn1}
-                    onClick={() => setSortableParaeterStructurePopup(true)}
-                >
-                    Show Props
-                </button>
+
+                <div className={TableStyle.propsButton}>
+                    <button
+                        className={TableStyle.Btn2}
+                        onClick={() => setExpandableTableRealProp(true)}
+                    >
+                        Show Props
+                    </button></div>
+
+
                 <Popup
-                    // visible={sortableParaeterStructurePopup}
-                    onClose={() => setSortableParaeterStructurePopup(false)}
+                    visible={expandableTableRealProp}
+                    onClose={() => setExpandableTableRealProp(false)}
                 >
                     <div>
-                        Props
-                        <ul>
-                            <li>{`<Expandable
-                data={expandableTableData}
-                columns={columns}
-                tableHeader="Recursive Expandable Table"
-                recordsPerPageOption={[5, 10, 20]}
-                defaultRecordPerPage={5}
-                uniqueId="_id"
-            />`}</li>
-                        </ul>
+
+                        {" "}
+                        <h2>Props for Expandable Table</h2>
+                        Props:-
+                        <SyntaxHighlighter language="javascript" style={dark}>
+                            {
+                                ` <Expandable
+                                data={expandableTableData}
+                                columns={columns}
+                                tableHeader="Recursive Expandable Table"
+                                recordsPerPageOption={[5, 10, 20]}
+                                defaultRecordPerPage={5}
+                                uniqueId="_id"
+                            />`
+                            }
+                        </SyntaxHighlighter>
+
                         data
-                        <ul>
-                            <li>
-                                <pre>{JSON.stringify(expandableTableData)}</pre>
-                            </li>
-                        </ul>
+                        <SyntaxHighlighter language="javascript" style={dark}>
+                            {beautify(JSON.stringify(expandableTableData), { indent_size: 2 })}
+                        </SyntaxHighlighter>
                         columns
-                        <ul>
-                            <li>
-                                <pre>{JSON.stringify(columns)}</pre>
-                            </li>
-                        </ul>
+                        <SyntaxHighlighter language="javascript" style={dark}>
+                            {beautify(JSON.stringify(colmns), { indent_size: 2 })}
+                        </SyntaxHighlighter>
+
                     </div>
                 </Popup>
 
@@ -799,44 +798,51 @@ const Tables = ({ upDateData, data, expandableTableData, colmns }) => {
                     ></ExpandableWithComponent>
                 )}
 
-                <button
-                    className={TableStyle.Btn1}
-                    onClick={() => setExpandableWithCompRealPropPopup(true)}
-                >
-                    Show Props
-                </button>
+
+                <div className={TableStyle.propsButton}>
+                    <button
+                        className={TableStyle.Btn2}
+                        onClick={() => setExpandableWithCompRealPropPopup(true)}
+                    >
+                        Show Props
+                    </button>
+                </div>
+
+
+
                 <Popup
                     visible={expandableWithCompRealPropPopup}
                     onClose={() => setExpandableWithCompRealPropPopup(false)}
                 >
                     <div>
-                        Code
-                        <ul>
-                            <li>{`<ExpandableWithComponent data={expandableTableData}
-                columns={colmns}
-                filterableCols={colmns}
-                sortableCols={colmns}
-                tableHeader="Expandable Table with components"
-                recordsPerPageOption={[5, 10, 20]}
-                defaultRecordPerPage={5}
-                uniqueId="id"
-                InnerComponent={InnerCard}
-            >
-            </ExpandableWithComponent>
-`}</li>
-                        </ul>
+                        {" "}
+                        <h2>Props for Expandable With Component Table</h2>
+                        Props:-
+                        <SyntaxHighlighter language="javascript" style={dark}>
+                            {
+                                ` <ExpandableWithComponent data={expandableTableData}
+                                columns={colmns}
+                                filterableCols={colmns}
+                                sortableCols={colmns}
+                                tableHeader="Expandable Table with components"
+                                recordsPerPageOption={[5, 10, 20]}
+                                defaultRecordPerPage={5}
+                                uniqueId="id"
+                                InnerComponent={InnerCard}
+                            >
+                            </ExpandableWithComponent>`
+                            }
+                        </SyntaxHighlighter>
+
                         data
-                        <ul>
-                            <li>
-                                <pre>{JSON.stringify(expandableTableData)}</pre>
-                            </li>
-                        </ul>
+                        <SyntaxHighlighter language="javascript" style={dark}>
+                            {beautify(JSON.stringify(expandableTableData), { indent_size: 2 })}
+                        </SyntaxHighlighter>
                         columns
-                        <ul>
-                            <li>
-                                <pre>{JSON.stringify(columns)}</pre>
-                            </li>
-                        </ul>
+                        <SyntaxHighlighter language="javascript" style={dark}>
+                            {beautify(JSON.stringify(colmns), { indent_size: 2 })}
+                        </SyntaxHighlighter>
+
                     </div>
                 </Popup>
 
@@ -863,13 +869,10 @@ const Tables = ({ upDateData, data, expandableTableData, colmns }) => {
                     <CRUDIE
                         data={data}
                         columns={columns}
-                        filterableCols={columns}
-                        sortableCols={columns}
                         tableHeader="CRUD Import Export Table"
                         recordsPerPageOption={[5, 10, 20]}
                         defaultRecordPerPage={5}
                         uniqueId="_id"
-                        upDateData={upDateData}
                         excelImport={true}
                         excelExport={true}
                         jsonImport={true}
@@ -885,53 +888,59 @@ const Tables = ({ upDateData, data, expandableTableData, colmns }) => {
                     />
                 )}
 
-                <button
-                    className={TableStyle.Btn1}
-                    onClick={() => setCrudieRealPropPopup(true)}
-                >
-                    Show Props
-                </button>
+
+                <div className={TableStyle.propsButton}>
+                    <button
+                        className={TableStyle.Btn2}
+                        onClick={() => setCrudieRealPropPopup(true)}
+                    >
+                        Show Props
+                    </button>
+                </div>
+
+
                 <Popup
                     visible={crudieRealPropPopup}
                     onClose={() => setCrudieRealPropPopup(false)}
                 >
                     <div>
-                        Code
-                        <ul>
-                            <li>{` <CRUDIE
-                data={data}
-                columns={columns}
-                filterableCols={columns}
-                sortableCols={columns}
-                tableHeader="CRUD Import Export Table"
-                recordsPerPageOption={[5, 10, 20]}
-                defaultRecordPerPage={5}
-                uniqueId="_id"
-                upDateData={upDateData}
-                excelImport={true}
-                excelExport={true}
-                jsonImport={true}
-                jsonExport={true}
-                getDataApi={process.env.REACT_APP_TEST_API}
-                createApi={process.env.REACT_APP_TEST_API}
-                uploadBulkApi={process.env.REACT_APP_TEST_API + "/bulkData"}
-                editApi={process.env.REACT_APP_TEST_API}
-                deleteOneApi={process.env.REACT_APP_TEST_API}
-                deleteMultipleApi={process.env.REACT_APP_TEST_API + "/delete-multiple"}
-            />`}</li>
-                        </ul>
+
+                        <h2>Props for CRUD Import Export Table</h2>
+                        Props:-
+                        <SyntaxHighlighter language="javascript" style={dark}>
+                            {
+                                ` <CRUDIE
+                                data={data}
+                                columns={columns}
+                                tableHeader="CRUD Import Export Table"
+                                recordsPerPageOption={[5, 10, 20]}
+                                defaultRecordPerPage={5}
+                                uniqueId="_id"
+                                excelImport={true}
+                                excelExport={true}
+                                jsonImport={true}
+                                jsonExport={true}
+                                getDataApi={process.env.REACT_APP_TEST_API}
+                                createApi={process.env.REACT_APP_TEST_API}
+                                uploadBulkApi={process.env.REACT_APP_TEST_API + "/bulkData"}
+                                editApi={process.env.REACT_APP_TEST_API}
+                                deleteOneApi={process.env.REACT_APP_TEST_API}
+                                deleteMultipleApi={
+                                    process.env.REACT_APP_TEST_API + "/delete-multiple"
+                                }
+                            /> `
+                            }
+                        </SyntaxHighlighter>
+
                         data
-                        <ul>
-                            <li>
-                                <pre>{JSON.stringify(data)}</pre>
-                            </li>
-                        </ul>
+                        <SyntaxHighlighter language="javascript" style={dark}>
+                            {beautify(JSON.stringify(expandableTableData), { indent_size: 2 })}
+                        </SyntaxHighlighter>
                         columns
-                        <ul>
-                            <li>
-                                <pre>{JSON.stringify(columns)}</pre>
-                            </li>
-                        </ul>
+                        <SyntaxHighlighter language="javascript" style={dark}>
+                            {beautify(JSON.stringify(colmns), { indent_size: 2 })}
+                        </SyntaxHighlighter>
+
                     </div>
                 </Popup>
 
