@@ -380,3 +380,10 @@ button {
 .TableHeaderText2 {
   font-size: 10px;
 }
+
+.TablePagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 0.9rem;
+}

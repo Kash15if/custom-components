@@ -66,3 +66,9 @@ nav {
   background-color: #d6c7cd38;
   color: white;
 }
+
+.stickyNavBar {
+  position: sticky;
+  top: 0;
+  z-index: 5000;
+}

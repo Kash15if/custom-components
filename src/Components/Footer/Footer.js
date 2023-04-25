@@ -9,17 +9,17 @@ const Footer = () => {
       <footer>
         <div class="footer">
           <div class="row IconAlign">
-            <a href="#">
+            <a href="https://www.linkedin.com/in/kashif-ahmad-373286164/">
               <img
                 src="https://cdn-icons-png.flaticon.com/512/145/145807.png"
                 alt="Linkedin"
                 width="24px"
               />
             </a>
-            <a href="#">
+            <a href="https://github.com/Kash15if">
               <img
-                src="https://cdn-icons-png.flaticon.com/512/145/145812.png"
-                alt="Twitter"
+                src="https://github.githubassets.com/images/modules/logos_page/Octocat.png"
+                alt="Github"
                 width="24px"
               />
             </a>

@@ -28,7 +28,7 @@ function Navbar({ data }) {
     console.log(menu);
 
     return (
-        <nav>
+        <nav className="stickyNavBar">
             <ul className="ul-nav">
                 {menu &&
                     menu.map((item, index) => {

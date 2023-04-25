@@ -112,7 +112,7 @@ const Sortable = ({
                       )
                     }
                   >
-                    {col.column}{" "}
+                    {col.columnLabel}{" "}
                     {col.column === sortedColumn && (
                       <span>
                         {sortedAsc === -1 && <i>&#8595;</i>}
@@ -121,7 +121,7 @@ const Sortable = ({
                     )}
                   </button>
                 ) : (
-                  col.column
+                  col.columnLabel
                 )}
               </th>
             ))}

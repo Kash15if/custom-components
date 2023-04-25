@@ -122,18 +122,8 @@ const FilterableTable = ({ data, columns, filterableCols, tableHeader,
             <tr>
               {columns.map((col, index) => (
                 <th className={FilterTableStyle.TableHeaderFont}>
-                  {/* {col.sortable ? <button onClick={() => sortColumn(col.column, (sortedColumn === col.column && sortedAsc === 1) ? false : true)}>
-                {col.column}{" "}
-                {
-                  col.column === sortedColumn && <span>
-                    {sortedAsc === -1 && <i>&#8595;</i>}
-                    {sortedAsc === 1 && <i >&#8593;</i>}
-                  </span>
-                }
-              </button>
-                : col.column
-              } */}
-                  {col.column}
+
+                  {col.columnLabel}
                 </th>
               ))}
             </tr>

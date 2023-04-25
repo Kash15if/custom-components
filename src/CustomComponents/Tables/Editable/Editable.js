@@ -315,7 +315,7 @@ const Editable = ({
                       )
                     }
                   >
-                    {col.column}{" "}
+                    {col.columnLabel}{" "}
                     {col.column === sortedColumn && (
                       <span>
                         {sortedAsc === -1 && <i>&#8595;</i>}
@@ -324,7 +324,7 @@ const Editable = ({
                     )}
                   </button>
                 ) : (
-                  col.column
+                  col.columnLabel
                 )}
               </th>
             ))}

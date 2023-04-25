@@ -28,6 +28,8 @@ import Forms from "./Pages/Form";
 import Tables from "./Pages/Tables";
 import Home from "./Pages/Homepage";
 
+import Footer from "./Components/Home/Footer/Footer";
+
 import Cards from "./Pages/Cards";
 import { Route, Routes } from "react-router-dom";
 
@@ -107,6 +109,7 @@ function App() {
         <Route path="/forms" element={<Forms />} />
       </Routes>
 
+      <Footer />
     </div>
 
   );

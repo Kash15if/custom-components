@@ -220,7 +220,7 @@ const Tables = ({ upDateData, data, expandableTableData, colmns }) => {
             {/* ------------------------------------------------------------------Sortable------------------------------------------- */}
             <div id="sortable">
                 {/* Sortable */}
-                <h1>Sortable Table</h1>
+                <h1 className={TableStyle.tableTitle}>Sortable Table</h1>
 
 
                 {dummyData && columns && (
@@ -273,7 +273,7 @@ const Tables = ({ upDateData, data, expandableTableData, colmns }) => {
                         </SyntaxHighlighter>                    </div>
                 </Popup>
 
-                <h3>
+                <h4>
                     Link to code:-{" "}
                     <a
                         className={TableStyle.LinkBtn}
@@ -283,16 +283,16 @@ const Tables = ({ upDateData, data, expandableTableData, colmns }) => {
                     >
                         Sortable Table
                     </a>
-                </h3>
+                </h4>
             </div>
 
             {/* ------------------------------------------------------------------Sortable------------------------------------------- */}
 
             {/* ------------------------------------------------------------------Filterable------------------------------------------- */}
-
+            <hr class={TableStyle.horizontalDivider}></hr>
             <div id="filterable">
                 {/* Filterable */}
-                <h1>Filterable Table</h1>
+                <h1 className={TableStyle.tableTitle}>Filterable Table</h1>
 
 
 
@@ -398,7 +398,7 @@ const Tables = ({ upDateData, data, expandableTableData, colmns }) => {
                     </div>
                 </Popup>
 
-                <h3>
+                <h4>
                     Link to code:-{" "}
                     <a
                         className={TableStyle.LinkBtn}
@@ -408,15 +408,16 @@ const Tables = ({ upDateData, data, expandableTableData, colmns }) => {
                     >
                         Filterable Table
                     </a>
-                </h3>
+                </h4>
             </div>
 
             {/* ------------------------------------------------------------------Filterable------------------------------------------- */}
 
             {/* ------------------------------------------------------------------Editable------------------------------------------- */}
 
+            <hr class={TableStyle.horizontalDivider}></hr>
             <div id="editable">
-                <h1>Editable Table</h1>
+                <h1 className={TableStyle.tableTitle}>Editable Table</h1>
 
 
                 {/* Edit */}
@@ -605,7 +606,7 @@ const Tables = ({ upDateData, data, expandableTableData, colmns }) => {
                 </Popup>
 
 
-                <h3>
+                <h4>
                     Link to code:-{" "}
                     <a
                         className={TableStyle.LinkBtn}
@@ -615,7 +616,7 @@ const Tables = ({ upDateData, data, expandableTableData, colmns }) => {
                     >
                         Editable Table
                     </a>
-                </h3>
+                </h4>
             </div>
 
             {/* ------------------------------------------------------------------Editable------------------------------------------- */}
@@ -623,8 +624,9 @@ const Tables = ({ upDateData, data, expandableTableData, colmns }) => {
             {/* ------------------------------------------------------------------SortFilterEdit------------------------------------------- */}
             {/* Sort Filter and Edit */}
 
+            <hr class={TableStyle.horizontalDivider}></hr>
             <div id="sortEditFilter">
-                <h1>Sort Filter and Edit together Table</h1>
+                <h1 className={TableStyle.tableTitle}>Sort Filter and Edit together Table</h1>
 
 
                 {dummyData && columns && (
@@ -689,7 +691,7 @@ const Tables = ({ upDateData, data, expandableTableData, colmns }) => {
                     </div>
                 </Popup>
 
-                <h3>
+                <h4>
                     Link to code:-{" "}
                     <a
                         className={TableStyle.LinkBtn}
@@ -699,7 +701,7 @@ const Tables = ({ upDateData, data, expandableTableData, colmns }) => {
                     >
                         Sort Edit Filter Table
                     </a>
-                </h3>
+                </h4>
             </div>
 
             {/* ---------------------------------------------------------------SortFilterEdit------------------------------------------- */}
@@ -707,8 +709,11 @@ const Tables = ({ upDateData, data, expandableTableData, colmns }) => {
 
 
             {/* --------------------------------------------------------------- Expandable table----------------------------------------- */}
-
+            <hr class={TableStyle.horizontalDivider}></hr>
             <div id="recursiveExpandable">
+
+                <h1 className={TableStyle.tableTitle}>Expandable Table</h1>
+
                 {/* Expandable table */}
                 {dummyData && columns && (
                     <Expandable
@@ -766,7 +771,7 @@ const Tables = ({ upDateData, data, expandableTableData, colmns }) => {
                 </Popup>
 
 
-                <h3>
+                <h4>
                     Link to code:-{" "}
                     <a
                         className={TableStyle.LinkBtn}
@@ -776,14 +781,18 @@ const Tables = ({ upDateData, data, expandableTableData, colmns }) => {
                     >
                         Expanable Table
                     </a>
-                </h3>
+                </h4>
             </div>
 
             {/* ------------------------------------------------------------- Expandable table ------------------------------------------- */}
 
             {/* ------------------------------------------------------------------ExpandableWithComponent------------------------------------------- */}
-
+            <hr class={TableStyle.horizontalDivider}></hr>
             <div id="expandable">
+
+                <h1 className={TableStyle.tableTitle}>Expandable Table With component</h1>
+
+
                 {expandableTableData && colmns && (
                     <ExpandableWithComponent
                         data={expandableTableData}
@@ -846,7 +855,7 @@ const Tables = ({ upDateData, data, expandableTableData, colmns }) => {
                     </div>
                 </Popup>
 
-                <h3>
+                <h4>
                     Link to code:-{" "}
                     <a
                         className={TableStyle.LinkBtn}
@@ -856,14 +865,17 @@ const Tables = ({ upDateData, data, expandableTableData, colmns }) => {
                     >
                         Expandable With Component Table
                     </a>
-                </h3>
+                </h4>
             </div>
 
             {/* ------------------------------------------------------------------ExpandableWithComponent------------------------------------------- */}
 
             {/* ------------------------------------------------------------------CRDUIE------------------------------------------- */}
+            <hr class={TableStyle.horizontalDivider}></hr>
 
             <div id="crudie">
+
+                <h1 className={TableStyle.tableTitle}>CRUD Import Export Table</h1>
                 {/* Crud and Import Export */}
                 {columns && (
                     <CRUDIE
@@ -945,7 +957,7 @@ const Tables = ({ upDateData, data, expandableTableData, colmns }) => {
                 </Popup>
 
 
-                <h3>
+                <h4>
                     Link to code:-{" "}
                     <a
                         className={TableStyle.LinkBtn}
@@ -955,7 +967,7 @@ const Tables = ({ upDateData, data, expandableTableData, colmns }) => {
                     >
                         CRUD Import Export (Excel and JSON) Table
                     </a>
-                </h3>
+                </h4>
                 <h4>
                     Dependencies :-{" "}
                     <a

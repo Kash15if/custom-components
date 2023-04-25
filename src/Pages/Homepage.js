@@ -201,10 +201,6 @@ const Home = () => {
             {/* </ul>
       </div> */}
 
-            {/* <div id="footerHomepage">footer</div> */}
-            <div>
-                <Footer />
-            </div>
         </div>
     );
 };

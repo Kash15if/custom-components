@@ -62,20 +62,14 @@
 }
 .LinkBtn {
   align-items: center;
-  padding: 6px 14px;
   font-family: -apple-system, BlinkMacSystemFont, "Roboto", sans-serif;
-  border-radius: 6px;
-  border: none;
-  color: #fff;
-  background-origin: border-box;
-
+  text-decoration: none;
   user-select: none;
   -webkit-user-select: none;
   touch-action: manipulation;
   text-decoration: none;
   /* Created with https://www.css-gradient.com */
   /* Created with https://www.css-gradient.com */
-  background: rgb(32 60 197);
   font-size: 1rem;
 }
 
@@ -83,4 +77,13 @@
   display: flex;
   gap: 10px;
   margin: 12px 8px;
+}
+
+.tableTitle {
+  text-align: center;
+}
+
+.horizontalDivider {
+  border-top: 3px solid #bbb;
+  margin-top: 100px;
 }
