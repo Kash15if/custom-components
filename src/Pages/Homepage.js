@@ -1,7 +1,6 @@
 import { Link } from "react-router-dom";
 import HomeHeader from "../Components/Home/Header/HomeHeader";
 import Carousels from "../Components/Home/ComponentShowcase/Carousels";
-import Footer from "../Components/Home/Footer/Footer";
 import OurJourney from "../Components/Home/OurJourney/OurJourney";
 import UpcomingComp from "../Components/Home/UpcomingComp/UpcomingComp";
 const Home = () => {

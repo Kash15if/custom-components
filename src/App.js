@@ -28,7 +28,7 @@ import Forms from "./Pages/Form";
 import Tables from "./Pages/Tables";
 import Home from "./Pages/Homepage";
 
-import Footer from "./Components/Home/Footer/Footer";
+import Footer from "./Components/Footer/Footer";
 
 import Cards from "./Pages/Cards";
 import { Route, Routes } from "react-router-dom";
