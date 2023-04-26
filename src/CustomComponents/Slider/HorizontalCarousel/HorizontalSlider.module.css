@@ -23,14 +23,14 @@
   margin: 1% 2%;
   border-radius: 1.2rem;
   width: 96%;
-  height: 330px;
+  height: 480px;
 }
 .ImageData {
   background-color: bisque;
   margin: auto;
   display: block;
   width: 100%;
-  height: 330px;
+  height: 480px;
   border-radius: 1.2rem;
 }
 .PreNextBtn {

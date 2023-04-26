@@ -1,17 +1,15 @@
 const imagesList = [
     {
-        image: "Sortable.gif",
+        image: "Untitled design.gif",
     }, {
-        image: "SFE.gif",
+        image: "Untitled design.gif",
     }, {
-        image: "Filter.gif",
+        image: "Untitled design.gif",
     }, {
-        image: "ExpandableWithComp.gif",
+        image: "Untitled design.gif",
     }, {
-        image: "ExpandableWithComp.gif",
-    }, {
-        image: "CRUDIE.gif",
-    }
+        image: "Untitled design.gif",
+    },
 ]
 
 
