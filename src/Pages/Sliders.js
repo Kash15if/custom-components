@@ -5,6 +5,8 @@ import VerticalCarousel from "../CustomComponents/Slider/VerticalCarousel/Vertic
 
 import imagesDataSet from "../data/imageData";
 
+const imagesDir = require.context("../storage/images/", true);
+
 const Sliders = () => {
     return (<div>
 
@@ -14,7 +16,7 @@ const Sliders = () => {
         <ConvexSlider noOfComponentsInPage={3} data={imagesDataSet} />
 
 
-        <HorizontalSlider />
+        <HorizontalSlider imagesDataSet={imagesDataSet} imagesDir={imagesDir} />
 
         <VerticalCarousel />
 

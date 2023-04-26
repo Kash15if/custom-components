@@ -1,9 +1,7 @@
 import { useState } from "react";
 import sliderStyles from "./HorizontalSlider.module.css";
-import imagesDataSet from "../../../data/imageData";
-const imagesDir = require.context("../../../storage/images/", true);
 
-const Horizontal = () => {
+const Horizontal = ({ imagesDataSet, imagesDir }) => {
     const [page, setPage] = useState(0);
 
     const changePage = (val) => {

@@ -1,4 +1,14 @@
 import "./Carousels.css";
+import HorizontalSlider from "../../../CustomComponents/Slider/HorizontalCarousel/HorizontalSlider";
+
+
+import imagesDataSet from "../../../data/HomepageCarouselGifs/TableGrifs";
+
+const imagesDir = require.context("../../../storage/gifs/tables", true);
+
+
+
+
 const Carousels = () => {
   return (
     <div>
@@ -32,12 +42,10 @@ const Carousels = () => {
                   <br />
                 </p>
               </div>
-              <div className="iconAlign">
-                <img
-                  src="https://cdn-icons-png.flaticon.com/512/8633/8633185.png"
-                  alt="RightSideImage"
-                  width="45px"
-                />
+
+
+              <div>
+                <HorizontalSlider imagesDataSet={imagesDataSet} imagesDir={imagesDir} />
               </div>
             </div>
           </div>

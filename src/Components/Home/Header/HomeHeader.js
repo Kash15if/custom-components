@@ -18,7 +18,7 @@ const HomeHeader = () => {
             project to the next level and easily customisable. Just copy, paste
             our component and use.
           </p>
-          <button className="ClickMeBtn">Click Me</button>
+          <button className="ClickMeBtn">Explore</button>
         </div>
         <div className="hero-content">
           <img
@@ -45,8 +45,8 @@ const HomeHeader = () => {
                   <div>
                     <div className="CardHeader">Tables</div>
                     <div className="CardText">
-                      lIrure nulla cupidatat qui commodo cupidatat ex sunt
-                      fugiat aute sint qui nulla cupidatat qui.
+                      Master data management with our customizable tables - complete with sorting,
+                      filtering, editing, and seamless import/export featuresbuilt in Vanilla JS and CSS.
                     </div>
                     {/* <button className="CardBtn">View</button> */}
                   </div>
@@ -63,9 +63,8 @@ const HomeHeader = () => {
                   </div>
                   <div>
                     <div className="CardHeader">Carousels</div>
-                    <div className="CardText">
-                      lIrure nulla cupidatat qui commodo cupidatat ex sunt
-                      fugiat aute sint qui nulla cupidatat qui.
+                    <div className="CardText">Upgrade your website's aesthetic with our versatile carousels,
+                      boasting plain convex and concave views, seamless 2nd and 3D designs, and effortless customization.
                     </div>
                     {/* <button className="CardBtn">View</button> */}
                   </div>
@@ -85,8 +84,8 @@ const HomeHeader = () => {
                   <div>
                     <div className="CardHeader">Popups</div>
                     <div className="CardText">
-                      lIrure nulla cupidatat qui commodo cupidatat ex sunt
-                      fugiat aute sint qui nulla cupidatat qui.
+                      Unlock the power of user engagement with our versatile popups - whether it's a
+                      confirmation prompt or an interactive graph, we've got you covered with multiple customizable options
                     </div>
                     {/* <button className="CardBtn">View</button> */}
                   </div>
@@ -104,8 +103,8 @@ const HomeHeader = () => {
                   <div>
                     <div className="CardHeader">PopOver</div>
                     <div className="CardText">
-                      lIrure nulla cupidatat qui commodo cupidatat ex sunt
-                      fugiat aute sint qui nulla cupidatat qui.
+                      Elevate your user experience with our dynamic popovers -
+                      from informative alerts to interactive event triggers.
                     </div>
                   </div>
                 </div>
