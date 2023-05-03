@@ -19,8 +19,13 @@ const VerticalCarousel = () => {
         setPage(tempPage);
     };
 
+    const handleFocus = (event) => {
+        event.target.classList.add(sliderStyles.fullScreen);
+    };
+
+
     return (
-        <div className={sliderStyles.container}>
+        <div className={sliderStyles.container} onFocus={handleFocus}>
             {imagesDataSet && imagesDataSet.length && (
                 <img
                     className={sliderStyles.images}

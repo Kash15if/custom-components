@@ -123,3 +123,9 @@ td {
 }
 
 /* --------------- |||||||||| --------------- */
+/*-------------MobileView--------*/
+@media only screen and (max-width: 600px) {
+  .MainHeader {
+    font-size: 0.9rem !important;
+  }
+}

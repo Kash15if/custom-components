@@ -507,3 +507,29 @@ td {
   border-radius: 10px !important;
   border: 10px solid red !important;
 }
+
+/* media query small screen */
+@media only screen and (max-width: 600px) {
+  .modalcontent {
+    width: 80% !important;
+  }
+  .MainHeader {
+    font-size: 0.9rem !important;
+  }
+  .Toolbar {
+    display: flex;
+    justify-content: center;
+    background: #f8f9fa;
+    border: 1px solid #dee2e6;
+    padding: 0.9rem;
+    border-radius: 6px;
+    flex-wrap: wrap;
+    row-gap: 0.5rem !important;
+  }
+  .CreateNew {
+    width: 7rem;
+  }
+  .Delete {
+    width: 7rem;
+  }
+}

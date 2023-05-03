@@ -55,3 +55,10 @@
   height: 1.45rem;
   font-weight: bold;
 }
+/*-------------MobileView--------*/
+@media only screen and (max-width: 600px) {
+  .modalcontent2 {
+    width: 80% !important;
+    height: 80% !important;
+  }
+}

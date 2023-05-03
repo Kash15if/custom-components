@@ -216,7 +216,7 @@ const Tables = ({ upDateData, data, expandableTableData, colmns }) => {
     }, []);
 
     return (
-        <div>
+        <div className={TableStyle.MainBody}>
             {/* ------------------------------------------------------------------Sortable------------------------------------------- */}
             <div id="sortable">
                 {/* Sortable */}
@@ -709,13 +709,12 @@ const Tables = ({ upDateData, data, expandableTableData, colmns }) => {
 
 
             {/* --------------------------------------------------------------- Expandable table----------------------------------------- */}
-            <hr class={TableStyle.horizontalDivider}></hr>
+            {/* <hr class={TableStyle.horizontalDivider}></hr>
             <div id="recursiveExpandable">
+                <h1 className={TableStyle.tableTitle}>Expandable Table</h1> */}
 
-                <h1 className={TableStyle.tableTitle}>Expandable Table</h1>
-
-                {/* Expandable table */}
-                {dummyData && columns && (
+            {/* Expandable table */}
+            {/* {dummyData && columns && (
                     <Expandable
                         data={expandableTableData}
                         columns={columns}
@@ -725,8 +724,6 @@ const Tables = ({ upDateData, data, expandableTableData, colmns }) => {
                         uniqueId="_id"
                     />
                 )}
-
-
                 <div className={TableStyle.propsButton}>
                     <button
                         className={TableStyle.Btn2}
@@ -734,14 +731,11 @@ const Tables = ({ upDateData, data, expandableTableData, colmns }) => {
                     >
                         Show Props
                     </button></div>
-
-
                 <Popup
                     visible={expandableTableRealProp}
                     onClose={() => setExpandableTableRealProp(false)}
                 >
                     <div>
-
                         {" "}
                         <h2>Props for Expandable Table</h2>
                         Props:-
@@ -757,7 +751,6 @@ const Tables = ({ upDateData, data, expandableTableData, colmns }) => {
                             />`
                             }
                         </SyntaxHighlighter>
-
                         data
                         <SyntaxHighlighter language="javascript" style={dark}>
                             {beautify(JSON.stringify(expandableTableData), { indent_size: 2 })}
@@ -766,11 +759,8 @@ const Tables = ({ upDateData, data, expandableTableData, colmns }) => {
                         <SyntaxHighlighter language="javascript" style={dark}>
                             {beautify(JSON.stringify(colmns), { indent_size: 2 })}
                         </SyntaxHighlighter>
-
                     </div>
                 </Popup>
-
-
                 <h4>
                     Link to code:-{" "}
                     <a
@@ -782,7 +772,7 @@ const Tables = ({ upDateData, data, expandableTableData, colmns }) => {
                         Expanable Table
                     </a>
                 </h4>
-            </div>
+            </div> */}
 
             {/* ------------------------------------------------------------- Expandable table ------------------------------------------- */}
 

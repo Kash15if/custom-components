@@ -271,3 +271,13 @@ select {
   border-radius: 10px !important;
   border: 10px solid red !important;
 }
+
+/*-------------MobileView--------*/
+@media only screen and (max-width: 600px) {
+  .modalcontent {
+    width: 80% !important;
+  }
+  .MainHeader {
+    font-size: 0.9rem !important;
+  }
+}

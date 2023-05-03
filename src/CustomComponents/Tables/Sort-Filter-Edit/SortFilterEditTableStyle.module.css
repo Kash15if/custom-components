@@ -387,3 +387,13 @@ button {
   align-items: center;
   padding-top: 0.9rem;
 }
+
+/*-------------MobileView--------*/
+@media only screen and (max-width: 600px) {
+  .modalcontent {
+    width: 80% !important;
+  }
+  .MainHeader {
+    font-size: 0.9rem !important;
+  }
+}
