@@ -1,4 +1,5 @@
 import MultiSelection from "../CustomComponents/Forms/Selection/MultiCheckboxSelection";
+import CustomSelect from "../CustomComponents/Forms/Selection/CustomSelect";
 import { useEffect, useState } from "react";
 
 import { useLocation } from "react-router-dom";
@@ -24,8 +25,8 @@ const Forms = () => {
     return (<div>
         <MultiSelection />
 
-        <div style={{ height: "100vh", backgroundColor: "black" }}></div>
-        <div id="2nd" style={{ height: "100vh", backgroundColor: "green" }}></div>
+        {/* <CustomSelect /> */}
+
     </div>);
 }
 

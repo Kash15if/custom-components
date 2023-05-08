@@ -83,7 +83,6 @@ const Tables = ({ upDateData, data, expandableTableData, colmns }) => {
             //     // if date {min: "" , max: "" }
             //     // if int {min: "" , max: "" }
             //     // if textarea  {placeholder: "xyz" , name: "name" , lines: 2}
-
             // }));
 
             let tempCols = [

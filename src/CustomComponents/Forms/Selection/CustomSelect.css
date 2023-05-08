@@ -1,0 +1,46 @@
+/* CSS code */
+/* Style the custom select */
+.custom-select {
+  position: relative;
+  display: inline-block;
+}
+
+/* Style the select options */
+.select-items {
+  position: absolute;
+  z-index: 9999;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+/* Style the checkboxes */
+.select-checkbox input[type="checkbox"] {
+  margin-right: 5px;
+}
+
+/* Style the selected option */
+.select-selected {
+  background-color: #f2f2f2;
+  padding: 10px;
+  border: 1px solid #ccc;
+}
+
+/* Style the selected option when it is clicked on */
+.select-selected.select-arrow-active {
+  background-color: #ccc;
+}
+
+/* Style the options when they are hovered over */
+.select-items div:hover {
+  background-color: #f2f2f2;
+}
+
+/* Style the options that are checked */
+.select-items input:checked + div {
+  background-color: #ccc;
+}
