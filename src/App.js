@@ -34,6 +34,7 @@ import Cards from "./Pages/Cards";
 import { Route, Routes } from "react-router-dom";
 
 import Navbar from "./Components/Navbar/Navbar";
+import Collapse from "./Pages/Collapse";
 
 function App() {
 
@@ -107,6 +108,7 @@ function App() {
         <Route path="/popovers" element={<Popover />} />
         <Route path="/alerts" element={<Alerts />} />
         <Route path="/forms" element={<Forms />} />
+        <Route path="/collapse" element={<Collapse />} />
       </Routes>
 
       <Footer />

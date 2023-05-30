@@ -1,6 +1,18 @@
-const Collapsible = () => {
+const Collapsible = ({ children, open, setOpen }) => {
+
+    const collapse = () => {
+        setOpen(false);
+    }
     return (
-        <div>Collapsible</div>
+        open &&
+        <div>
+            <button onClick={() => collapse()}>Close</button>
+            {
+                children
+            }
+
+
+        </div>
     );
 }
 
