@@ -1,8 +1,7 @@
 # Getting Started with Create React App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-# Custom React Components Collection
+#(https://github.com/facebook/create-react-app) Custom React Components Collection 
 
 Welcome to our Custom React Components Collection! This repository contains a curated selection of frequently used React components that were not readily available or easily customizable until now. We've put in the effort to create these components with the aim of providing developers like you with a comprehensive set of tools to enhance your web development projects. Let's dive into the exciting features offered by each component:
 
