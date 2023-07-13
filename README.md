@@ -2,70 +2,38 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+# Custom React Components Collection
 
-In the project directory, you can run:
+Welcome to our Custom React Components Collection! This repository contains a curated selection of frequently used React components that were not readily available or easily customizable until now. We've put in the effort to create these components with the aim of providing developers like you with a comprehensive set of tools to enhance your web development projects. Let's dive into the exciting features offered by each component:
 
-### `npm start`
+## Dynamic and Responsive Tables
+- Enjoy the flexibility of dynamic and responsive tables that seamlessly adapt to different screen sizes.
+- Features include sorting, filtering, CRUD operations, and convenient Excel file upload and download for effortless data management.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Dynamic and Responsive Carousel/Slider with a 3D View
+- Experience the captivating 3D view of our dynamic and responsive carousel/slider, achieved using the innovative concept of CSS clip path.
+- Elevate your website's visual appeal with this interactive component that engages your users.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Popups Using Vanilla JavaScript in React
+- Spice up your web applications with stylish and engaging popups.
+- Our vanilla JavaScript implementation within the React framework ensures smooth integration and an impressive user experience.
 
-### `npm test`
+## Collapse Panel
+- Present your content in a concise and organized manner with the collapse panel component.
+- Users can easily expand or collapse sections of information, optimizing space and enhancing readability.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Multiple Selection Dropdown with Checkbox
+- Enhance user interaction with the convenience of a dropdown component supporting multiple selections.
+- Users can effortlessly choose multiple options using checkboxes, simplifying their experience.
 
-### `npm run build`
+## Dynamic Cards
+- Add flair and dynamism to your website with our dynamic card component.
+- Customize the layout and design to create visually stunning cards that showcase your content.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Alerts
+- Capture immediate attention with sleek and versatile alert components.
+- Customize their appearance and behavior to effectively deliver important messages to your users.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Each component in this collection is fully customizable to fit the design needs of your projects. Feel free to explore, integrate, and tailor these components to create extraordinary web applications. We hope you find this collection valuable and that it inspires you to take your React development to new heights. Happy coding!
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
-"# custom-components" 
+## Planning to add more custom components in future like Diagram, Dynaic Organisation Chart, etc.
