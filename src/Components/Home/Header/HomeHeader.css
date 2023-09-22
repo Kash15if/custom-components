@@ -1,43 +1,43 @@
-body{
+body {
   margin: 0;
   padding: 0;
   background-color: white;
 }
-.container{
+.container {
   width: 100%;
   margin-right: auto;
   margin-left: auto;
 }
-.ui-row{
+.ui-row {
   display: flex;
   align-items: center;
   justify-content: space-evenly;
 }
-.hero-content{
+.hero-content {
   width: 40%;
 }
-.caption{
-   font-size: 3.1rem;
-    font-weight: 700;
-    margin:0px;
-    color: #2b4b80;
-    font-family: "Poppins",sans-serif;
-    line-height: 1.2;
-    text-transform: capitalize;
-    margin-bottom: 1rem;
+.caption {
+  font-size: 3.1rem;
+  font-weight: 700;
+  margin: 0px;
+  color: #2b4b80;
+  font-family: "Poppins", sans-serif;
+  line-height: 1.2;
+  text-transform: capitalize;
+  margin-bottom: 1rem;
 }
-.Text3{
+.Text3 {
   text-align: justify;
   color: #707b8e;
   font-size: 0.92rem;
   font-weight: 400;
 }
-.Text2{
+.Text2 {
   font-size: 1rem;
   font-weight: 700;
   margin: 0px;
   color: #2b4b80;
-  font-family: "Poppins",sans-serif;
+  font-family: "Poppins", sans-serif;
   line-height: 1.2;
   text-transform: capitalize;
 }
@@ -80,8 +80,7 @@ body{
   display: flex;
   justify-content: center;
 }
-.ClickMeBtn{
-
+.ClickMeBtn {
 }
 
 /* CSS */
@@ -97,51 +96,58 @@ body{
   border: 0px;
   font-weight: 700;
   box-shadow: 0px 0px 14px -7px #f09819;
-  background-image: linear-gradient(45deg, #4043BF 0%, #FF2677  51%, #FF512F  100%);
+  background-image: linear-gradient(
+    45deg,
+    #4043bf 0%,
+    #ff2677 51%,
+    #ff512f 100%
+  );
   cursor: pointer;
   user-select: none;
   -webkit-user-select: none;
   touch-action: manipulation;
   margin-top: 1.3rem;
 }
-.card{
-  border: 1px solid #f2f2f2;
-    padding: 1.2rem 1.6rem;
-    border-radius: 10px;
-    -webkit-transition: all .4s ease-out 0s;
-    -moz-transition: all .4s ease-out 0s;
-    -ms-transition: all .4s ease-out 0s;
-    -o-transition: all .4s ease-out 0s;
-    transition: all .4s ease-out 0s;
-    width: 25%;
+.card {
+  border: 1px solid #799edf96 !important;
+  padding: 1.2rem 1.6rem;
+  border-radius: 10px;
+  -webkit-transition: all 0.4s ease-out 0s;
+  -moz-transition: all 0.4s ease-out 0s;
+  -ms-transition: all 0.4s ease-out 0s;
+  -o-transition: all 0.4s ease-out 0s;
+  transition: all 0.4s ease-out 0s;
+  width: 30%;
+  height: 5.5rem;
+  background-color: #ffffff4d;
 }
 .card:hover {
-  box-shadow: 0px 10px 30px 0px rgba(133,66,189,0.1);
+  box-shadow: 0px 10px 30px 0px rgba(133, 66, 189, 0.1);
 }
-.CardHeader{
+.CardHeader {
   font-size: 1rem;
   font-weight: bold;
   margin-bottom: 0.3rem;
   color: #2b4b80;
 }
-.CardText{
-  font-family: "Poppins",sans-serif;
-    color: #707b8e;
-    margin-bottom: 0.4rem;
-    font-weight: normal;
-    line-height: 1.3rem;
+.CardText {
+  font-family: "Poppins", sans-serif;
+  color: #707b8e;
+  margin-bottom: 0.4rem;
+  font-weight: normal;
+  line-height: 1.3rem;
 }
 .CardBtn {
   background-color: #2f80ed;
   border-radius: 5px;
   color: white;
   cursor: pointer;
-  font-family: Inter,-apple-system,system-ui,"Segoe UI",Helvetica,Arial,sans-serif;
+  font-family: Inter, -apple-system, system-ui, "Segoe UI", Helvetica, Arial,
+    sans-serif;
   font-size: 14px;
   padding: 0.1rem 0.7rem;
-  
 }
-.ui-row-card{
+.ui-row-card {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -150,18 +156,23 @@ body{
   row-gap: revert;
   margin-bottom: 1rem;
 }
-.card-body{
+.card-body {
   display: flex;
 }
-.iconAlign{
+.iconAlign {
   display: grid;
   align-items: center;
   padding: 0.7rem;
   margin-right: 0.4rem;
 }
-.CardText{
+.CardText {
   text-align: justify;
 }
-.CardHeader{
-  
+.CardHeader {
+}
+.ui-rowNew {
+  display: flex;
+  align-content: center;
+  justify-content: center;
+  align-items: center;
 }

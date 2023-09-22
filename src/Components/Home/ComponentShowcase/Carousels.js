@@ -1,13 +1,9 @@
 import "./Carousels.css";
 import HorizontalSlider from "../../../CustomComponents/Slider/HorizontalCarousel/HorizontalSlider";
 
-
 import imagesDataSet from "../../../data/HomepageCarouselGifs/TableGrifs";
 
 const imagesDir = require.context("../../../storage/gifs/tables", true);
-
-
-
 
 const Carousels = () => {
   return (
@@ -39,13 +35,51 @@ const Carousels = () => {
                   can implement their logic easily and get the desired results
                   in less time.
                   <br />
-                  <br />
                 </p>
               </div>
 
+              <div></div>
+            </div>
+          </div>
+          <div className="CardHeader">Demo</div>
+          <div className="fgdfhgdh">
+            <div className="CardText VideoCard">
+              <div className="cardNew CardSpace ">
+                <div className="card-body CardAlign CardAlignNew">
+                  <p>Sortable Table</p>
+                  <button className="CardBtnNew">&#9654; View</button>
+                </div>
+              </div>
+              <div className="cardNew CardSpace ">
+                <div className="card-body CardAlign CardAlignNew">
+                  <p>Filterable Table</p>
+                  <button className="CardBtnNew">&#9654; View</button>
+                </div>
+              </div>
+              <div className="cardNew CardSpace ">
+                <div className="card-body CardAlign CardAlignNew">
+                  <p>Editable Table</p>
+                  <button className="CardBtnNew">&#9654; View</button>
+                </div>
+              </div>
 
-              <div>
-                <HorizontalSlider imagesDataSet={imagesDataSet} imagesDir={imagesDir} />
+              <div className="cardNew CardSpace ">
+                <div className="card-body CardAlign CardAlignNew">
+                  <p>Sort Filter and Edit together Table</p>
+                  <button className="CardBtnNew">&#9654; View</button>
+                </div>
+              </div>
+              <div className="cardNew CardSpace ">
+                <div className="card-body CardAlign CardAlignNew">
+                  <p>Expandable Table With component</p>
+                  <button className="CardBtnNew">&#9654; View</button>
+                </div>
+              </div>
+              <div className="cardNew CardSpace ">
+                <div className="card-body CardAlign CardAlignNew">
+                  <p>CRUD Import Export Table</p>
+                  <button className="CardBtnNew">&#9654; View</button>
+                </div>
               </div>
             </div>
           </div>

@@ -3,7 +3,7 @@ import "./HomeHeader.css";
 const HomeHeader = () => {
   return (
     <div className="container">
-      <div className="ui-row">
+      <div className="ui-rowNew">
         <div className="hero-content">
           <h1 className="caption">
             Elevate Your <br /> React Experience
@@ -20,7 +20,7 @@ const HomeHeader = () => {
           </p>
           <button className="ClickMeBtn">Explore</button>
         </div>
-        <div className="hero-content">
+        <div className="hero-contentImgage">
           <img
             src="https://preview.colorlib.com/theme/seos/assets/img/hero/hero_right.png.webp"
             alt="RightSideImage"
@@ -45,8 +45,9 @@ const HomeHeader = () => {
                   <div>
                     <div className="CardHeader">Tables</div>
                     <div className="CardText">
-                      Master data management with our customizable tables - complete with sorting,
-                      filtering, editing, and seamless import/export featuresbuilt in Vanilla JS and CSS.
+                      Master data management with our customizable tables -
+                      complete with sorting, filtering, editing, and seamless
+                      import/export featuresbuilt in Vanilla JS and CSS.
                     </div>
                     {/* <button className="CardBtn">View</button> */}
                   </div>
@@ -63,8 +64,10 @@ const HomeHeader = () => {
                   </div>
                   <div>
                     <div className="CardHeader">Carousels</div>
-                    <div className="CardText">Upgrade your website's aesthetic with our versatile carousels,
-                      boasting plain convex and concave views, seamless 2nd and 3D designs, and effortless customization.
+                    <div className="CardText">
+                      Upgrade your website's aesthetic with our versatile
+                      carousels, boasting plain convex and concave views,
+                      seamless 2nd and 3D designs, and effortless customization.
                     </div>
                     {/* <button className="CardBtn">View</button> */}
                   </div>
@@ -84,8 +87,10 @@ const HomeHeader = () => {
                   <div>
                     <div className="CardHeader">Popups</div>
                     <div className="CardText">
-                      Unlock the power of user engagement with our versatile popups - whether it's a
-                      confirmation prompt or an interactive graph, we've got you covered with multiple customizable options
+                      Unlock the power of user engagement with our versatile
+                      popups - whether it's a confirmation prompt or an
+                      interactive graph, we've got you covered with multiple
+                      customizable options
                     </div>
                     {/* <button className="CardBtn">View</button> */}
                   </div>
