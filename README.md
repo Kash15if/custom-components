@@ -32,4 +32,37 @@ Welcome to our Custom React Components Collection! This repository contains a cu
 
 Each component in this collection is fully customizable to fit the design needs of your projects. Feel free to explore, integrate, and tailor these components to create extraordinary web applications. We hope you find this collection valuable and that it inspires you to take your React development to new heights. Happy coding!
 
-## Planning to add more custom components in future like Diagram, Dynaic Organisation Chart, etc.
+## Planning to add more custom components in the future like Diagram, Dynamic Organisation Chart, etc.
+
+## Video Demo
+
+Watch the video demo of our Custom React Components Collection below:
+
+<video width="640" height="360" controls>
+  <source src="your_video_url.mp4" type="video/mp4">
+  Your browser does not support the video tag.
+</video>
+
+## Live Demo
+
+Explore the live demo of the Custom React Components Collection [here](#). Play around with the components and experience their capabilities firsthand.
+
+## Contribution
+
+We welcome contributions from the community! Whether it's bug fixes, new features, or suggestions, your input is valuable. Feel free to open an issue or submit a pull request. Collaboration is key to making this collection even better.
+
+### How to Contribute
+
+1. Fork the repository.
+2. Create a new branch for your feature or bug fix.
+3. Make your changes and ensure tests pass.
+4. Submit a pull request.
+
+## Contact
+
+Have questions, suggestions, or just want to say hello? Reach out to us!
+
+- Email: your.email@example.com
+- Twitter: [@your_twitter_handle](https://twitter.com/your_twitter_handle)
+
+Thank you for checking out our Custom React Components Collection! We're excited to see how these components elevate your React projects. Feel free to collaborate, and happy coding!
