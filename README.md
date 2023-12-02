@@ -62,7 +62,7 @@ We welcome contributions from the community! Whether it's bug fixes, new feature
 
 Have questions, suggestions, or just want to say hello? Reach out to us!
 
-- Email: your.email@example.com
-- Twitter: [@your_twitter_handle](https://twitter.com/your_twitter_handle)
+- Email: kashif.ahmad.se@gmail.com
+- Linkedin: https://www.linkedin.com/in/kash15if
 
 Thank you for checking out our Custom React Components Collection! We're excited to see how these components elevate your React projects. Feel free to collaborate, and happy coding!
