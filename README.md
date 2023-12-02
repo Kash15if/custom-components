@@ -38,10 +38,7 @@ Each component in this collection is fully customizable to fit the design needs 
 
 Watch the video demo of our Custom React Components Collection below:
 
-<video width="640" height="360" controls>
-  <source src="https://github.com/Kash15if/my-projects/blob/main/src/assets/videos/CustomComponents.mp4" type="video/mp4">
-  Your browser does not support the video tag.
-</video>
+[Watch Demo] (https://my-projects-rose.vercel.app/#ccomp)
 
 ## Live Demo
 
